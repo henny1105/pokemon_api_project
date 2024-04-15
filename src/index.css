@@ -94,22 +94,22 @@ button, input {
 
 /* colors */
 .primary {
-  color: '#DC0A2D';
+  color: #DC0A2D;
 }
 .dark {
-  color: '#212121';
+  color: #212121;
 }
 .medium {
-  color: '#666'; 
+  color: #666; 
 }
 .light {
-  color: '#e0e0e0';
+  color: #e0e0e0;
 }
 .background {
-  color: '#efefef';
+  color: #efefef;
 }
 .white {
-  color: '#fff';
+  color: #fff;
 }
 
 /* shadow */
