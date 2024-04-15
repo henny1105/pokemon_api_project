@@ -9,7 +9,7 @@ function App() {
 				<p>
 					Edit <code>src/App.js</code> and save to reload.
 				</p>
-				<p>테스트입니다!</p>
+				<p>테스트입니다! 한번 더 테스트하겠습니다!</p>
 				<a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
 					Learn React
 				</a>
