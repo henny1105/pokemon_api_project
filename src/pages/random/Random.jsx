@@ -15,16 +15,25 @@ import usePokemonData from '../hook/usePokemonData';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
-	const { pokemonData, loading, error } = usePokemonData(); // usePokemonData 훅 사용
+	const { pokemonData, loading, error } = usePokemonData();
+	const [selectedPokemon, setSelectedPokemon] = useState(null); // 선택된 포켓몬의 상태를 관리
+
+	useEffect(() => {
+		if (pokemonData) {
+			const randomIndex = Math.floor(Math.random() * pokemonData.length);
+			setSelectedPokemon(pokemonData[randomIndex]);
+		}
+	}, [pokemonData]); // pokemonData에 의존성을 가짐
 
 	if (loading) {
-		return <div>로딩중</div>;
+		return <div>로딩중...</div>;
 	}
 
 	if (error) {
-		return <div>에러 {error.message}</div>;
+		return <div>에러 발생: {error.message}</div>;
 	}
-	console.log(pokemonData);
+
+	console.log(selectedPokemon);
 
 	return (
 		<>
@@ -33,10 +42,16 @@ const Random = () => {
 				<div className='inner'>
 					<div className='top_cont'>
 						<div className='pokemon_cont'>
-							<div className='img_box'></div>
-							<div className='txt_box'>
-								<p className='name'></p>
-							</div>
+							{selectedPokemon && (
+								<>
+									<div className='img_box'>
+										<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
+									</div>
+									<div className='txt_box'>
+										<p className='name'>{selectedPokemon.korean_name}</p>
+									</div>
+								</>
+							)}
 						</div>
 					</div>
 					<div className='bottom_box'>

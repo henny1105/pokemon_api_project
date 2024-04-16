@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const usePokemonData = () => {
-	const [pokemonData, setPokemonData] = useState([]);
+	const [pokemonData, setPokemonData] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
@@ -11,14 +11,12 @@ const usePokemonData = () => {
 		setError(null);
 		const fetchData = async () => {
 			try {
-				const allPokemonData = [];
-				for (let i = 1; i <= 251; i++) {
-					const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`);
-					const speciesResponse = await axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`);
-					const koreanName = speciesResponse.data.names.find((name) => name.language.name === 'ko');
-					allPokemonData.push({ ...response.data, korean_name: koreanName.name });
-				}
-				setPokemonData(allPokemonData);
+				const responses = await Promise.all(Array.from({ length: 151 }, (_, index) => axios.get(`https://pokeapi.co/api/v2/pokemon/${index + 1}`)));
+				const data = responses.map((response) => ({
+					korean_name: response.data.name, // 이름 가져오기
+					image: response.data.sprites.other.home.front_default, // 이미지 가져오기
+				}));
+				setPokemonData(data);
 			} catch (e) {
 				setError(e);
 			}
