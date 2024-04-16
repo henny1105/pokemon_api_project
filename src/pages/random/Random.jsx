@@ -27,7 +27,7 @@ const Random = () => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
 			setImageIndex(formatImageIndex(getRandomIndex()));
-		}, 90); // 0.1초마다 실행
+		}, 100); // 0.1초마다 실행
 
 		return () => clearInterval(intervalId);
 	}, []);
@@ -38,9 +38,7 @@ const Random = () => {
 			<div className='random_page'>
 				<div className='inner'>
 					<div className='top_cont'>
-						<div className='pokemon_cont'>
-							<img src={`img/random/img${imageIndex}.jpg`} alt='포켓몬 실루엣' />
-						</div>
+						<div className='pokemon_cont'>{/* <img src={`img/random/img${imageIndex}.jpg`} alt='포켓몬 실루엣' /> */}</div>
 					</div>
 					<div className='bottom_box'>
 						<div className='img_box'>
