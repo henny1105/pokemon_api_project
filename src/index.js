@@ -2,18 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-// > react-router-dom
 import { BrowserRouter } from 'react-router-dom';
-// > styles
+import './index.css';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 import './index.css';
 import PokemonBattlePage from './pages/PokemonBattle/PokemonBattlePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <BrowserRouter>
-    {/* <App /> */}
-    <PokemonBattlePage />
-  </BrowserRouter>
+
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
