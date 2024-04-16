@@ -1,11 +1,17 @@
 import React from 'react'
+import "./PokemonBattleCard.style.css"
 
 const PokemonBattleCard = () => {
     return (
-        <div>
-            <div>포켓몬 이름</div>
-            <div>hp바</div>
-            <div>포켓몬 이미지</div>
+        <div className='battle-card'>
+            <div className='battle-status-bar'>
+                <div className="battle-name" style={{ marginRight: 10 }}>피카츄</div>
+                <div className="battle-hp-bar">HP</div>
+            </div>
+
+            <div className='battle-card-image-container'>
+                <img className="battle-card-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/132.gif"></img>
+            </div>
         </div>
     )
 }
