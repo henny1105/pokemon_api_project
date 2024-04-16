@@ -24,7 +24,8 @@ const PokeApi = () => {
       const renderPokemonList = () => {
         return pokemonData.map((pokemon) => (
           <div key={pokemon.id}>
-            <img src={pokemon.sprites.front_default} alt={pokemon.korean_name} />
+            {/* <img src={pokemon.sprites.front_default} alt={pokemon.korean_name} /> */}
+            <img src={pokemon.sprites.other.showdown.front_default} alt={pokemon.korean_name} />
             <div>{pokemon.korean_name}</div>
             <div>No. {pokemon.id}</div>
           </div>
