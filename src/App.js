@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+const App = () => {
   return (
+<<<<<<< HEAD
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -18,8 +18,12 @@ function App() {
           sinhey branch test
         </a>
       </header>
+=======
+    <div>
+      김현주입니다.
+>>>>>>> d0d6cbcb2af8845363d27b5870e7b4c404be9596
     </div>
-  );
+  )
 }
 
 export default App;
