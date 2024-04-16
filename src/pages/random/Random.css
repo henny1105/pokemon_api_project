@@ -7,16 +7,68 @@
 	letter-spacing: -0.7px;
 	font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
 		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
-    width: 100%;
+	width: 100%;
+	height: 100vh;
+	background: url(../../../public/img/random/img02.jpg) no-repeat center/cover;
 }
 .inner {
-    max-width: 1440px;
-    margin: 0 auto;
+	max-width: 1440px;
+	margin: 0 auto;
 }
 .cursor {
-    position: fixed;
-    top: -500px;
-    left: -500px;
-    z-index: 9999;
-    transform: translate(15px, 15px); 
+	position: fixed;
+	top: -500px;
+	left: -500px;
+	z-index: 9999;
+	transform: translate(15px, 15px);
+}
+.random_page .inner {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+}
+.speech_bubble p {
+	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+	font-size: 30px;
+}
+.top_cont {
+	height: 50vh;
+	background: gray;
+}
+.bottom_box {
+	display: flex;
+}
+.bottom_box .img_box {
+	width: 300px;
+}
+.bottom_box .cont_box {
+	width: 100%;
+}
+.bottom_box .img_box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.bottom_box .speech_bubble {
+	border: 1px solid #000;
+	height: 100%;
+	padding: 20px;
+	position: relative;
+	background: #fff;
+}
+.bottom_box .speech_bubble::before {
+	content: '';
+	width: 99%;
+	height: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid #000;
+}
+.bottom_box .speech_bubble div {
+	height: 100%;
+	display: flex;
+	align-items: center;
 }

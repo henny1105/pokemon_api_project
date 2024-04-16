@@ -1,5 +1,7 @@
+import React, { useState, useEffect } from 'react';
 import './Random.css';
 import FloatingCursor from '../common/FloatingCursor';
+import '@kfonts/neodgm-code';
 
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
 // -랜덤 포켓몬은 진화되지 않은 포켓몬만 나온다?
@@ -12,16 +14,50 @@ import FloatingCursor from '../common/FloatingCursor';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
-    return (
-     <>
-      <FloatingCursor imgSrc="/img/random/pokeball.svg" altText="Pokeball" />
-      <div className='random_page'>
-        <div className="inner">
-          랜덤 페이지
-        </div>
-      </div>
-     </>
-    );
-  };
-  
+	const getRandomIndex = () => {
+		return Math.floor(Math.random() * 13) + 3;
+	};
+
+	const formatImageIndex = (index) => {
+		return index < 10 ? `0${index}` : `${index}`;
+	};
+
+	const [imageIndex, setImageIndex] = useState(formatImageIndex(getRandomIndex()));
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			setImageIndex(formatImageIndex(getRandomIndex()));
+		}, 90); // 0.1초마다 실행
+
+		return () => clearInterval(intervalId);
+	}, []);
+
+	return (
+		<>
+			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
+			<div className='random_page'>
+				<div className='inner'>
+					<div className='top_cont'>
+						<div className='pokemon_cont'>
+							<img src={`img/random/img${imageIndex}.jpg`} alt='포켓몬 실루엣' />
+						</div>
+					</div>
+					<div className='bottom_box'>
+						<div className='img_box'>
+							<img src='img/random/img01.jpg' alt='오박사님' />
+						</div>
+						<div className='cont_box'>
+							<div className='speech_bubble'>
+								<div className='n1'>
+									<p>난 오박사란다!</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
+};
+
 export default Random;
