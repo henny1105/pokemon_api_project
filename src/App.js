@@ -6,12 +6,15 @@ import Home from './page/home/Home';
 import NotFoundPage from './page/not/NotFoundPage';
 import Main from './page/home/components/Main';
 import './page/home/components/style.css'
+import PokeApi from './page/PokeApi';
+
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<AppLayout/>}>
-        <Route index element={<Main/>}/>
+        {/* <Route index element={<Main/>}/> */}
+        <Route index element={<PokeApi/>}/>
         {/* <Route path="pokemon">
           <Route index element={<pokemon/>}/>
           <Route path=":id" element={<pokeDetail/>}/>
@@ -19,7 +22,7 @@ function App() {
         </Route> */}
       </Route>
 
-      <Route path="*" element={<NotFoundPage/>}/>
+      {/* <Route path="*" element={<NotFoundPage/>}/> */}
     </Routes>
   );
 }
