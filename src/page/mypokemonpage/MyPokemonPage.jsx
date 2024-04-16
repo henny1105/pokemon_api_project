@@ -3,8 +3,8 @@ import './MyPokemonPage.style.css'
 
 const MyPokemonPage = () => {
   return (
-    <div className='container'>
-
+    <div className='container primary'>
+      add
     </div>
   )
 }
