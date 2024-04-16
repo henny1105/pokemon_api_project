@@ -1,8 +1,13 @@
 import React from 'react'
+import './RaisePage.style.css'
 
 const RaisePage = () => {
   return (
-    <div>RaisePage</div>
+    <div className='container-fluid bg-primary'>
+      <div className='bg-white'>
+
+      </div>
+    </div>
   )
 }
 

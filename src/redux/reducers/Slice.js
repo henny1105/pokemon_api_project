@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 
 let initialState = {
     MyPokeMons:{},
-    Ticket:0,
+    Ticket:1,
     RareCandy:0,
 }
 

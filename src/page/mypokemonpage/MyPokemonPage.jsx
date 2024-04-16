@@ -1,7 +1,9 @@
 import React from 'react'
 import './MyPokemonPage.style.css'
+import { useSelector } from 'react-redux'
 
 const MyPokemonPage = () => {
+  const myInfo = useSelector(state=>state.myInfo)
   return (
     <div className='container-fluid bg-primary'>
       <div className='bg-white my-pokemon-area'>
@@ -17,7 +19,7 @@ const MyPokemonPage = () => {
             <img src="https://i.namu.wiki/i/dBxPv_wrni8hyvOBa9Ew-NtM6McepEFnB0phMKYX-RR4cY0epTURECZyYyCMTtAuoHKTGBc-pM2CgaXJcky1nQ.webp" alt="player" />
             <div className='my-info body_1'>
               <div>Name : <span>ddd</span></div>
-              <div>Ticket : <span>0</span></div>
+              <div>Ticket : <span>{myInfo.Ticket}</span></div>
               <div>RareCandy : <span>0</span></div>
             </div>
 
