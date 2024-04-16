@@ -1,20 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Random from './pages/random/Random';
+
 
 function App() {
 	return (
-		<div className='App'>
-			<header className='App-header'>
-				<img src={logo} className='App-logo' alt='logo' />
-				<p>
-					Edit <code>src/App.js</code> and save to reload.
-				</p>
-				<p>테스트입니다! 한번 더 테스트하겠습니다!</p>
-				<a className='App-link' href='https://reactjs.org' target='_blank' rel='noopener noreferrer'>
-					Learn React
-				</a>
-			</header>
-		</div>
+		<Routes>
+			<Route path='/' >
+				<Route path='random' element={<Random />} />
+			</Route>
+		</Routes>
 	);
 }
 
