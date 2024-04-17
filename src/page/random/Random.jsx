@@ -17,6 +17,27 @@ import Modal from './Modal';
 // -랜덤 뽑기시 뮤,뮤츠 같은 종류의 확률은 낮게 설정한다
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
+const typeColors = {
+	normal: '#AAA67F',
+	Fighting: '#C12239',
+	Flying: '#A891EC',
+	Ground: '#DEC16B',
+	Poison: '#A43E9E',
+	Rock: '#B69E31',
+	Bug: '#A7B723',
+	Ghost: '#70559B',
+	Steel: '#B7B9D0',
+	Fire: '#F57D31',
+	Water: '#6493EB',
+	Grass: '#74CB48',
+	Electric: '#F9CF30',
+	Psychic: '#FB5584',
+	Ice: '#9AD6DF',
+	Dragon: '#7037FF',
+	Dark: '#75574C',
+	Fairy: '#E69EAC',
+};
+
 const Random = () => {
 	const { pokemonData, loading, error } = usePokemonData();
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -82,6 +103,10 @@ const Random = () => {
 		return <div>에러 발생: {error.message}</div>;
 	}
 
+	const width = {
+		width: '70%',
+	};
+
 	return (
 		<>
 			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
@@ -101,18 +126,50 @@ const Random = () => {
 											<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
 										</div>
 										<div className='txt_box'>
-											<p className='type'>{selectedPokemon.type}</p>
+											<p className='type' style={{ backgroundColor: typeColors[selectedPokemon.type] }}>
+												<span>{selectedPokemon.type}</span>
+											</p>
 											<p className='id'>ID : {selectedPokemon.id}</p>
 											<p className='name'>{selectedPokemon.korean_name}</p>
 											<p className='height'>키 : {selectedPokemon.height}m</p>
 											<p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
 											<ul className='spec'>
-												<li>체력 : {selectedPokemon.hp}</li>
-												<li>공격 : {selectedPokemon.attack}</li>
-												<li>방어 : {selectedPokemon.defense}</li>
-												<li>스페셜 공격 : {selectedPokemon.special_attack}</li>
-												<li>스페셜 방어 : {selectedPokemon.special_defense}</li>
-												<li>스피드 : {selectedPokemon.speed}</li>
+												<li>
+													<span>HP {selectedPokemon.hp}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
+												<li>
+													<span>ATK {selectedPokemon.attack}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
+												<li>
+													<span>DEF {selectedPokemon.defense}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
+												<li>
+													<span>SATK {selectedPokemon.special_attack}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
+												<li>
+													<span>SDEF {selectedPokemon.special_defense}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
+												<li>
+													<span>SPD {selectedPokemon.speed}</span>
+													<div class='progress'>
+														<div class='progress-bar progress-bar-striped progress-bar-animated' role='progressbar' aria-valuenow='75' aria-valuemin='0' aria-valuemax='100' style={width}></div>
+													</div>
+												</li>
 											</ul>
 										</div>
 									</>
