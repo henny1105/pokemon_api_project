@@ -22,6 +22,10 @@ const fetchPokemonEvolution = () => {
   return api.get(`/evolution-chain/1`);
 }
 
+const fetchPokemonType = () => {
+  return api.get(`/type`)
+}
+
 const usePokemonInfoAllQuery = () => {
   return useQuery({
     queryKey: ['pokemon_all'],
@@ -55,4 +59,12 @@ const usePokemonEvolutionQuery = () => {
   });
 }
 
-export { usePokemonInfoAllQuery, usePokemonInfoQuery, usePokemonSpeciesQuery, usePokemonEvolutionQuery };
+const usePokemonTypeQuery = () => {
+  return useQuery({
+    queryKey: ['pokemon_type'],
+    queryFn: fetchPokemonType,
+    select: (result) => result.data,
+  });
+}
+
+export { usePokemonInfoAllQuery, usePokemonInfoQuery, usePokemonSpeciesQuery, usePokemonEvolutionQuery, usePokemonTypeQuery };

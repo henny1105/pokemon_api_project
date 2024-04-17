@@ -1,0 +1,32 @@
+.pokemon_search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.search_form {
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 32px;
+  background-color: #fff;
+  padding: 8px 16px 8px 12px;
+  border: 1px solid #DC0A2D;
+  border-radius: 16px;
+  gap: 8px;
+  margin: 20px;
+}
+.search_form > svg {
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  width: 16px;
+  height: 16px;
+}
+.search_form:hover {
+  border: 2px solid #DC0A2D;
+}
+.search_form .search_input {
+  width: 100%;
+}
