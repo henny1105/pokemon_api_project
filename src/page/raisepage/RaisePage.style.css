@@ -1,15 +1,15 @@
-.container-fluid {
+.container-fluid-custom {
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.bg-primary {
+.bg-primary-custom {
     background: #DC0A2D;
 }
 
-.bg-white {
+.bg-white-custom {
     background: #fff;
 }
 
@@ -19,12 +19,12 @@
     border-radius: .5em;
 }
 
-.row {
+.row-custom {
     padding: 1em;
 
 }
 
-.button-section {
+.button-section-custom {
     display: flex;
     flex-direction: column;
 }
@@ -36,7 +36,7 @@
 }
 
 
-.col-6 {
+.col-6-custom {
     padding: .2em;
 }
 
@@ -44,7 +44,7 @@
     width: 80%;
 }
 
-.pokemon-img {
+.pokemon-img-custom {
     width: 390px;
 }
 
