@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 // > style
 import './PokemonDex.style.css';
 // > components
-import PokemonCard from '../../pages/pokemondex/components/pokemoncard/PokemonCard';
-import PokemonSearch from '../../pages/pokemondex/components/pokemonSearch/PokemonSearch';
-import PokemonFilter from '../../pages/pokemondex/components/PokemonFilter/PokemonFilter';
+import PokemonCard from './components/pokemoncard/PokemonCard';
+import PokemonSearch from './components/pokemonSearch/PokemonSearch';
+import PokemonFilter from './components/PokemonFilter/PokemonFilter';
 // > router
 import { useNavigate } from 'react-router-dom';
 // > hooks
