@@ -16,15 +16,22 @@ const PokemonBattlePage = () => {
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 내가 선택한 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);     // 랜덤 상대 배틀 포켓몬
+    const [isAttack, setIsAttack] = useState(false);        // 현재 공격중인지?
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
     //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
+    console.log("Is attack? 초기", isAttack);
 
     useEffect(() => {
         getRandomEnemyPokemonData();
         setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
     }, [pokemonData]);
+
+    useEffect(() => {
+        console.log("Is attack?", isAttack);
+        
+    }, [isAttack]);
 
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
     const getRandomEnemyPokemonData = () => {
@@ -49,8 +56,16 @@ const PokemonBattlePage = () => {
     }
 
     // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
-    const showResult = () => {
-        // 포켓몬 몸 흔들기
+    const attack = () => {
+        if(isAttack){
+            setIsAttack(false);
+        }
+        else{
+            setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
+        }
+        
+        
+
         // 피 깎이는 모션
         // 내 포켓몬과 상대 포켓몬 공격력 비교
         // 더 공격력 큰 포켓몬이 승리! -> 내가 승리하면 티켓 획득
@@ -102,14 +117,15 @@ const PokemonBattlePage = () => {
             backgroundImage: "url(" + `https://podic.kr/images/misc/Natural_Green_Berry_Tree.png` + ")"
         }}>
             <div className="battle-ticket">
-                <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png"/>
+                <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png" />
                 {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
                 {ticketNum}</div>
             <div className='battle-cards'>
-                <div className='battle-enemy-card'>
+                {/* 포켓몬이 공격 중인 경운에는 애니메이션 수행 */}
+                <div className={isAttack ? 'battle-enemy-card-atk' : 'battle-enemy-card'}>
                     <PokemonBattleCard BattlePokemon={enemyBattlePokemon} />
                 </div>
-                <div className='battle-my-card'>
+                <div className={isAttack ? 'battle-my-card-atk' : 'battle-my-card'}>
                     <PokemonBattleCard BattlePokemon={myBattlePokemon} />
                 </div>
             </div>
@@ -118,8 +134,8 @@ const PokemonBattlePage = () => {
                 <div className='battle-message'>
                     <div style={{ marginBottom: 10 }}>앗! 야생의 "{enemyBattlePokemon?.korean_name}"이/가 나타났다.</div>
                     <div className='battle-btns'>
-                        <button className='battle-attack-btn' onClick={() => showResult()}>공격한다.</button>
-                        <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
+                        <button className='battle-attack-btn' onClick={() => attack()}>공격한다.</button>
+                        <button className='battle-run-btn' onClicke={openModal}>도망간다.</button>
                     </div>
                 </div>
             </div>

@@ -32,7 +32,7 @@
 .battle-cards {
     display: flex;
     flex-direction: column;
-    padding-top: 200px;
+    padding-top: 270px;
 }
 
 .battle-enemy-card {
@@ -41,10 +41,36 @@
     padding-right: 300px;
 }
 
+.battle-enemy-card-atk {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 300px;
+    animation-name: enemy-move;
+    animation-duration: 1s;
+    animation-iteration-count: 10s;
+}
+
 .battle-my-card {
     display: flex;
     justify-content: flex-start;
     padding-left: 300px;
+}
+
+.battle-my-card img {
+    transform: scaleX(-1);
+}
+
+.battle-my-card-atk {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 300px;
+    animation-name: my-move;
+    animation-duration: 1s;
+    animation-iteration-count: 10s;
+}
+
+.battle-my-card-atk img {
+    transform: scaleX(-1);
 }
 
 .battle-message-container {
@@ -65,7 +91,7 @@
     font-size: 1.2rem;
     border: 1px solid black;
     margin: 5px;
-    padding : 5px;
+    padding: 5px;
     text-align: center;
 }
 
@@ -126,6 +152,24 @@
 .ReactModalPortal * {
     font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
     text-align: center;
+}
+
+@keyframes my-move {
+    0% {
+        transform: translateX(100px)
+    }
+    100% {
+        transform: translateX(-100px)
+    }
+}
+
+@keyframes enemy-move {
+    0% {
+        transform: translateX(-100px)
+    }
+    100% {
+        transform: translateX(100px)
+    }
 }
 
 @media only screen and (max-width: 768px) {
