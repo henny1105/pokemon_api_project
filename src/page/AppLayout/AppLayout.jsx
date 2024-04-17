@@ -1,10 +1,6 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import { Outlet } from 'react-router-dom';
+import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
+import { Outlet, Link } from 'react-router-dom';
 import './AppLayout.style.css'
 
 const AppLayout = () => {
@@ -21,10 +17,10 @@ const AppLayout = () => {
             navbarScroll
           >
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="#action2">Pokedex</Nav.Link>
-            <Nav.Link href="#action2">Lucky Drow</Nav.Link>
-            <Nav.Link href="#action2">Battle</Nav.Link>
-            <Nav.Link href="#action2">Training</Nav.Link>
+            <Nav.Link href="/pokemondex">PokemonDex</Nav.Link>
+            <Nav.Link href="/random">Lucky Drow</Nav.Link>
+            <Nav.Link href="/battle">Battle</Nav.Link>
+            <Nav.Link href="/mypokemon">MyPokemon</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control
