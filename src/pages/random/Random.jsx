@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './Random.css';
-import FloatingCursor from '../common/FloatingCursor';
 import '@kfonts/neodgm-code';
+import { Spinner } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import FloatingCursor from '../common/FloatingCursor';
 import usePokemonData from '../hook/usePokemonData';
+import './Random.css';
 
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
 // -랜덤 포켓몬은 진화되지 않은 포켓몬만 나온다?
@@ -15,61 +17,86 @@ import usePokemonData from '../hook/usePokemonData';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
-	const { pokemonData, loading, error } = usePokemonData();
-	const [selectedPokemon, setSelectedPokemon] = useState(null); // 선택된 포켓몬의 상태를 관리
+    const { pokemonData, loading, error } = usePokemonData();
+    const [selectedPokemon, setSelectedPokemon] = useState(null);
+    const [currentTextIndex, setCurrentTextIndex] = useState(0); 
+    const texts = ['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '세 번째 테스트 입니다.', '네 번째 테스트 입니다.']; // 표시할 텍스트 배열
 
-	useEffect(() => {
-		if (pokemonData) {
-			const randomIndex = Math.floor(Math.random() * pokemonData.length);
-			setSelectedPokemon(pokemonData[randomIndex]);
-		}
-	}, [pokemonData]); // pokemonData에 의존성을 가짐
+    useEffect(() => {
+        if (pokemonData) {
+            const randomIndex = Math.floor(Math.random() * pokemonData.length);
+            setSelectedPokemon(pokemonData[randomIndex]);
+        }
+    }, [pokemonData]);
 
-	if (loading) {
-		return <div>로딩중...</div>;
-	}
+    const handleNextClick = () => {
+        setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length); // 다음 텍스트로 인덱스 업데이트
+    };
 
-	if (error) {
-		return <div>에러 발생: {error.message}</div>;
-	}
+    if (loading) {
+        return (
+            <div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+                <Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
+                <p className='loading_txt ft'>오박사님 만나러 가는 중.....</p>
+            </div>
+        );
+    }
 
-	console.log(selectedPokemon);
-
-	return (
-		<>
-			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
-			<div className='random_page'>
-				<div className='inner'>
-					<div className='top_cont'>
-						<div className='pokemon_cont'>
-							{selectedPokemon && (
-								<>
-									<div className='img_box'>
-										<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
-									</div>
-									<div className='txt_box'>
-										<p className='name'>{selectedPokemon.korean_name}</p>
-									</div>
-								</>
-							)}
-						</div>
-					</div>
-					<div className='bottom_box'>
-						<div className='img_box'>
+    if (error) {
+        return <div>에러 발생: {error.message}</div>;
+    }
+    return (
+        <>
+        <FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
+        <div className='random_page'>
+            <div className='inner'>
+                <div className='top_cont'>
+                    <div className='pokemon_cont'>
+                        {selectedPokemon && (
+                            <>
+                                <div className='img_box'>
+                                    <img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
+                                </div>
+                                <div className='txt_box'>
+                                    <p className='type'>타입 : {selectedPokemon.type}</p>
+                                    <p className='id'>ID : {selectedPokemon.id}</p>
+                                    <p className='name'>이름 : {selectedPokemon.korean_name}</p>
+                                    <p className='height'>키 : {selectedPokemon.height}m</p>
+                                    <p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
+                                    <ul className='spec'>
+                                        <li>체력 : {selectedPokemon.hp}</li>
+                                        <li>공격 : {selectedPokemon.attack}</li>
+                                        <li>방어 : {selectedPokemon.defense}</li>
+                                        <li>스페셜 공격 : {selectedPokemon.special_attack}</li>
+                                        <li>스페셜 방어 : {selectedPokemon.special_defense}</li>
+                                        <li>스피드 : {selectedPokemon.speed}</li>
+                                    </ul>
+                                </div>
+                            </>
+                        )}
+                    </div>
+                </div>
+                <div className='bottom_box'>
+                    <div className='cont_box'>
+                        <div className='speech_bubble' onClick={handleNextClick}>
+                        <div className='img_box'>
 							<img src='img/random/img01.jpg' alt='오박사님' />
 						</div>
-						<div className='cont_box'>
-							<div className='speech_bubble'>
-								<div className='n1'>
-									<p>난 오박사란다! 오늘의 포켓몬은?</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</>
-	);
+                            <div className='txt_box'>
+                                {texts.map((text, index) => (
+                                    <div key={index} className={index === currentTextIndex ? 'txt_desc' : 'txt_desc dn'}>
+                                        <p className='typing ft'>{text}</p>
+                                    </div>
+                                ))}
+                            </div>
+                            <button type='button' className='next_btn ft'>넘어가기 &#62;</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </>
+    );
 };
 
 export default Random;
