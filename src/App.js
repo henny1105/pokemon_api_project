@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Random from './page/random/Random';
+import './App.css';
 
 function App() {
 	return (
