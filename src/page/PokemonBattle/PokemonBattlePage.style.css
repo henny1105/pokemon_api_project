@@ -1,3 +1,16 @@
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+
+.loader * {
+    font-size: 1.5rem;
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+
 #battle * {
     font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
@@ -10,7 +23,7 @@
 }
 
 .battle-ticket {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-left: 30px;
     color: white;
     text-shadow: 1px 1px 2px black;
@@ -19,7 +32,7 @@
 .battle-cards {
     display: flex;
     flex-direction: column;
-    padding-top: 250px;
+    padding-top: 200px;
 }
 
 .battle-enemy-card {

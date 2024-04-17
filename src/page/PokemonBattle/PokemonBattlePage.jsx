@@ -3,30 +3,31 @@ import "./PokemonBattlePage.style.css"
 import PokemonBattleCard from './components/PokemonBattleCard/PokemonBattleCard';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTicket } from '@fortawesome/free-solid-svg-icons'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+// import { faTicket } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import usePokemonData from './hook/usePokemonData';
 import '@kfonts/neodgm-code';
 import { useNavigate } from 'react-router-dom/dist';
+import BarLoader from "react-spinners/BarLoader";
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 배틀 포켓몬
-    const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);
+    const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 내가 선택한 배틀 포켓몬
+    const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);     // 랜덤 상대 배틀 포켓몬
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
     //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
 
     useEffect(() => {
-        getERandomEnemyPokemonData();
+        getRandomEnemyPokemonData();
         setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
     }, [pokemonData]);
 
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
-    const getERandomEnemyPokemonData = () => {
+    const getRandomEnemyPokemonData = () => {
         if (pokemonData) {
             const randomIndex = Math.floor(Math.random() * pokemonData.length);
             console.log("지금 배틀 포켓몬", pokemonData[randomIndex]);
@@ -37,7 +38,10 @@ const PokemonBattlePage = () => {
 
 
     if (loading) {
-        return (<p>로딩중</p>);
+        return (<div className="loader" style={{ margin: 10 }}>
+            <div>걸어가는 중...</div>
+            <BarLoader color="#DC0A2D" loading={loading} width={300} height={10} />
+        </div>);
     }
 
     if (error) {
@@ -46,7 +50,10 @@ const PokemonBattlePage = () => {
 
     // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const showResult = () => {
-        //setMyBattlePokemon(enemyBattlePokemon);
+        // 포켓몬 몸 흔들기
+        // 피 깎이는 모션
+        // 내 포켓몬과 상대 포켓몬 공격력 비교
+        // 더 공격력 큰 포켓몬이 승리! -> 내가 승리하면 티켓 획득
     }
 
     function openModal() {
@@ -57,6 +64,7 @@ const PokemonBattlePage = () => {
         setIsOpen(false);
     }
 
+    // 도망칠 경우, run 페이지로 navigate
     function battleRun() {
         setIsOpen(false);
 
@@ -94,7 +102,8 @@ const PokemonBattlePage = () => {
             backgroundImage: "url(" + `https://podic.kr/images/misc/Natural_Green_Berry_Tree.png` + ")"
         }}>
             <div className="battle-ticket">
-                <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} />
+                <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png"/>
+                {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
                 {ticketNum}</div>
             <div className='battle-cards'>
                 <div className='battle-enemy-card'>
@@ -107,7 +116,7 @@ const PokemonBattlePage = () => {
 
             <div className='battle-message-container'>
                 <div className='battle-message'>
-                    <div style={{ marginBottom: 10 }}>야생의 "{enemyBattlePokemon?.korean_name}"을/를 마주쳤다.</div>
+                    <div style={{ marginBottom: 10 }}>앗! 야생의 "{enemyBattlePokemon?.korean_name}"이/가 나타났다.</div>
                     <div className='battle-btns'>
                         <button className='battle-attack-btn' onClick={() => showResult()}>공격한다.</button>
                         <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
