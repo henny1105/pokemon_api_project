@@ -13,7 +13,7 @@ import BarLoader from "react-spinners/BarLoader";
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
-    const [modalIsOpen, setIsOpen] = React.useState(false);
+    const [modalIsOpen, setIsOpen] = useState(false);
     const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 내가 선택한 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);     // 랜덤 상대 배틀 포켓몬
     const [isAttack, setIsAttack] = useState(false);        // 현재 공격중인지?
@@ -21,7 +21,6 @@ const PokemonBattlePage = () => {
     //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
-    console.log("Is attack? 초기", isAttack);
 
     useEffect(() => {
         getRandomEnemyPokemonData();
@@ -30,8 +29,11 @@ const PokemonBattlePage = () => {
 
     useEffect(() => {
         console.log("Is attack?", isAttack);
-        
+
     }, [isAttack]);
+
+    useEffect(() => {
+    }, [modalIsOpen]);
 
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
     const getRandomEnemyPokemonData = () => {
@@ -57,14 +59,14 @@ const PokemonBattlePage = () => {
 
     // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const attack = () => {
-        if(isAttack){
+        if (isAttack) {
             setIsAttack(false);
         }
-        else{
+        else {
             setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
         }
-        
-        
+
+
 
         // 피 깎이는 모션
         // 내 포켓몬과 상대 포켓몬 공격력 비교
@@ -135,7 +137,7 @@ const PokemonBattlePage = () => {
                     <div style={{ marginBottom: 10 }}>앗! 야생의 "{enemyBattlePokemon?.korean_name}"이/가 나타났다.</div>
                     <div className='battle-btns'>
                         <button className='battle-attack-btn' onClick={() => attack()}>공격한다.</button>
-                        <button className='battle-run-btn' onClicke={openModal}>도망간다.</button>
+                        <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
                     </div>
                 </div>
             </div>
