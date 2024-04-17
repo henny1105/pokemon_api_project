@@ -1,0 +1,218 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Noto+Sans+KR:wght@100..900&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+
+.random_page {
+	width: 100%;
+	height: 100vh;
+	background: url(../../../public/img/random/img02.jpg) no-repeat center/cover;
+}
+.random_page p,
+.random_page span,
+.random_page div,
+.random_page li {
+	font-family: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
+		'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+	line-height: 1.7;
+	letter-spacing: -0.7px;
+}
+.random_page .ft {
+	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+.inner {
+	max-width: 1440px;
+	margin: 0 auto;
+}
+.cursor {
+	position: fixed;
+	top: -500px;
+	left: -500px;
+	z-index: 9999;
+	transform: translate(15px, 15px);
+}
+.random_page .inner {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	justify-content: center;
+}
+.random_page p {
+	margin: 0;
+}
+.speech_bubble p {
+	font-size: 30px;
+}
+.top_cont {
+	height: 50vh;
+	background: transparent;
+}
+.bottom_box {
+	display: flex;
+}
+.bottom_box .img_box {
+	width: 300px;
+}
+.bottom_box .cont_box {
+	width: 100%;
+}
+.bottom_box .img_box img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.bottom_box .speech_bubble {
+	border: 1px solid #000;
+	height: 100%;
+	padding: 25px;
+	position: relative;
+	background: #fff;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+}
+.bottom_box .speech_bubble .img_box {
+	flex-shrink: 0;
+}
+.bottom_box .speech_bubble .txt_box {
+	flex-shrink: 0;
+	flex-grow: 0;
+	margin-right: auto;
+	padding-left: 20px;
+}
+.bottom_box .speech_bubble button {
+	flex-shrink: 0;
+}
+.bottom_box .speech_bubble::before {
+	content: '';
+	width: 99%;
+	height: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	border: 1px solid #000;
+}
+.bottom_box .speech_bubble .txt_desc {
+	height: 100%;
+	display: flex;
+	align-items: center;
+	position: relative;
+	gap: 10px;
+}
+.bottom_box .speech_bubble .txt_desc::before {
+	content: '';
+	background: url(../../../public/img/random/mail.png) no-repeat center/cover;
+	min-width: 50px;
+	height: 50px;
+}
+.pokemon_cont {
+	height: 100%;
+	display: flex;
+	position: relative;
+}
+.pokemon_cont .random_pokemon_cont {
+	/* opacity: 0;
+	visibility: hidden; */
+	position: absolute;
+	width: 100%;
+	left: 0;
+	display: flex;
+	align-items: center;
+}
+.pokemon_cont.visible .random_pokemon_cont {
+	opacity: 1;
+	visibility: visible;
+}
+.pokemon_cont .random_pokemon_cont img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	width: 300px;
+	height: 300px;
+}
+.random_pokemon_img_cont {
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+.random_pokemon_img_cont img {
+	width: 400px;
+	height: 400px;
+	object-fit: cover;
+	margin: 0 auto;
+	text-align: center;
+}
+.pokemon_cont .img_box {
+	width: 50%;
+	height: 100%;
+	/* background: #fff; */
+	position: relative;
+	object-fit: cover;
+}
+.pokemon_cont .txt_box {
+	width: 50%;
+	height: 100%;
+	background: #fff;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.pokemon_cont .txt_box p,
+.pokemon_cont .txt_box li {
+	font-size: 20px;
+}
+@keyframes typing {
+	from {
+		width: 0%;
+	}
+	to {
+		width: 100%;
+	}
+}
+@keyframes blink-caret {
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: black;
+	}
+}
+.typing {
+	overflow: hidden;
+	border-right: 0.15em solid black;
+	white-space: nowrap;
+	letter-spacing: 0.15em;
+	animation: typing 0.5s steps(40, end), blink-caret 0.75s step-end infinite;
+	margin: 0;
+}
+.next_btn {
+	background: #000;
+	color: #fff;
+	padding: 1rem;
+	cursor: pointer;
+}
+.dn {
+	display: none !important;
+}
+.loading_txt {
+	text-align: center;
+	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+.spinner-area {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+}
