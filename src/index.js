@@ -7,15 +7,13 @@ import './index.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import './index.css';
-import PokemonBattlePage from './page/PokemonBattle/PokemonBattlePage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
 
   <Provider store={store}>
     <BrowserRouter>
-      {/* <App /> */}
-      <PokemonBattlePage />
+      <App />
     </BrowserRouter>
   </Provider>
 );
