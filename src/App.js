@@ -1,24 +1,25 @@
 import React from 'react';
-// > router
-import { Routes, Route } from 'react-router-dom';
-// > components
-// import Home from './pages/Home';
-import PokemonDex from './pages/pokemondex/PokemonDex';
-import PokemonInfo from './pages/pokemondex/components/pokemoninfo/PokemonInfo';
-import PokeApi from './page/PokeApi';
+import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import AppLayout from './page/AppLayout/AppLayout';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Home from './page/home/Home';
+import Random from './page/random/Random';
+import './App.css';
+
 
 const App = () => {
   return (
-    <div>
-      <Routes>
-        <Route path="/" element={ <PokeApi /> }/>
-        <Route path="pokemondex">
-          <Route index element={<PokemonDex />} />
-          <Route path="pokemoninfo/:id" element={<PokemonInfo />} />
-        </Route>
-      </Routes>
-    </div>
+    <Routes>
+      <Route path="/" element={<AppLayout/>}>
+        <Route path='/' element={<Home/>}/>
+				<Route path='random' element={<Random />} />
+      </Route>
+
+      {/* <Route path="*" element={<NotFoundPage/>}/> */}
+    </Routes>
   )
+
 }
 
 export default App;
