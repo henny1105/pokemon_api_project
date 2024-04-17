@@ -7,32 +7,45 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTicket } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import usePokemonData from './hook/usePokemonData';
-
+import '@kfonts/neodgm-code';
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
+
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [myBattlePokemon, setMyBattlePokemon] = useState({ name: "my", src: 30, atk: 0, hp: 0 });     // 배틀 포켓몬
+    const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);
-    const [SelectedBattlePokemon, setSelectedBattlePokemon] = useState("");
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
-    console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
+    //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
 
     useEffect(() => {
+        getERandomEnemyPokemonData();
+        setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
+    }, [pokemonData]);
+
+    // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
+    const getERandomEnemyPokemonData = () => {
         if (pokemonData) {
             const randomIndex = Math.floor(Math.random() * pokemonData.length);
-            setSelectedBattlePokemon(pokemonData[randomIndex]);
-            console.log("지금 배틀 포켓몬", SelectedBattlePokemon);
-
-            setEnemyBattlePokemon(SelectedBattlePokemon)
-            console.log("enemyBattlePokemon", enemyBattlePokemon)
+            console.log("지금 배틀 포켓몬", pokemonData[randomIndex]);
+            console.log("지금 배틀 포켓몬 공격력", pokemonData[randomIndex]?.attack);
+            setEnemyBattlePokemon(pokemonData[randomIndex]);       // 랜덤한 적 설정
         }
-    }, [pokemonData])
+    }
+
+
+    if (loading) {
+        return (<p>로딩중</p>);
+    }
+
+    if (error) {
+        return (<div>ERROR : {error.message}</div>);
+    }
 
     // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const showResult = () => {
-
+        //setMyBattlePokemon(enemyBattlePokemon);
     }
 
     function openModal() {
@@ -70,11 +83,12 @@ const PokemonBattlePage = () => {
             backgroundColor: "white",
             justifyContent: "center",
             overflow: "auto",
+
         },
     }
 
     return (
-        <div className='battle-backgorund' style={{
+        <div id="battle" className='battle-backgorund' style={{
             backgroundImage: "url(" + `https://podic.kr/images/misc/Natural_Green_Berry_Tree.png` + ")"
         }}>
             <div className="battle-ticket">
