@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 
 const MyPokemonPage = () => {
   const myInfo = useSelector(state=>state.myInfo)
+  
   return (
     <div className='container-fluid bg-primary'>
       <div className='bg-white my-pokemon-area'>
