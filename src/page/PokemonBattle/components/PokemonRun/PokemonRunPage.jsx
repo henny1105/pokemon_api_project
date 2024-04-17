@@ -17,7 +17,7 @@ const PokemonRunPage = () => {
             <div className="run-space"></div>
             <div className='run-message-container'>
                 <div className='run-message'>
-                    <div style={{ marginBottom: 10 }}>성공적으로 도망쳤다...</div>
+                    <div style={{ marginBottom: 10 }}>성공적으로 도망쳤다!</div>
                     <div className='run-btns'>
                         <button className='run-home-btn' onClick={() => goToHome()}>돌아간다.</button>
                     </div>

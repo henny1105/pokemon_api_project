@@ -8,13 +8,15 @@ import './index.css';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import ScrollToTop from './common/ScrollToTop';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const queryClient = new QueryClient();
 root.render(
   <Provider store={store}>
-    <QueryClientProvider client={ queryClient }>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <ScrollToTop />
         <App />
       </BrowserRouter>
     </QueryClientProvider>
