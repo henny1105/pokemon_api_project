@@ -7,7 +7,7 @@ const PokemonBattleCard = ({ BattlePokemon }) => {
         <div className='battle-card'>
             <div className='battle-status-bar'>
                 <div className="battle-name" style={{ marginRight: 10 }}>{BattlePokemon?.korean_name}</div>
-                <div className="battle-hp-bar">HP</div>
+                <div className="battle-hp-bar" >HP {BattlePokemon?.hp}</div>
             </div>
 
             <div className='battle-card-image-container'>

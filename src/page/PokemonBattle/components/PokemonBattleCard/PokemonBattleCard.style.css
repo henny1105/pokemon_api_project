@@ -6,6 +6,7 @@
 
 .battle-status-bar {
     display: flex;
+    margin-bottom: 5px;
 }
 
 .battle-name {

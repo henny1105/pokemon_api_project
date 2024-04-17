@@ -110,6 +110,11 @@
     font-weight: bold;
 }
 
+.ReactModalPortal * {
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+    text-align: center;
+}
+
 @media only screen and (max-width: 768px) {
     .battle-backgorund {
         height: 100vh;

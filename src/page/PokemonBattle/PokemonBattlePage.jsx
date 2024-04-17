@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import "./PokemonBattlePage.style.css"
-import PokemonBattleCard from './components/PokemonBattleCard'
+import PokemonBattleCard from './components/PokemonBattleCard/PokemonBattleCard';
 import Modal from 'react-modal';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -8,16 +8,17 @@ import { faTicket } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
 import usePokemonData from './hook/usePokemonData';
 import '@kfonts/neodgm-code';
+import { useNavigate } from 'react-router-dom/dist';
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
-
     const [modalIsOpen, setIsOpen] = React.useState(false);
     const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
     //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
+    const navigate = useNavigate();
 
     useEffect(() => {
         getERandomEnemyPokemonData();
@@ -60,8 +61,10 @@ const PokemonBattlePage = () => {
         setIsOpen(false);
 
         // 확인 버튼 누르면 도망 감
+        navigate("/battle/run");
     }
 
+    // modal style
     const customStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -83,7 +86,6 @@ const PokemonBattlePage = () => {
             backgroundColor: "white",
             justifyContent: "center",
             overflow: "auto",
-
         },
     }
 
@@ -105,7 +107,7 @@ const PokemonBattlePage = () => {
 
             <div className='battle-message-container'>
                 <div className='battle-message'>
-                    <div style={{ marginBottom: 10 }}>야생의 "랜덤 포켓몬"을/를 마주쳤다.</div>
+                    <div style={{ marginBottom: 10 }}>야생의 "{enemyBattlePokemon?.korean_name}"을/를 마주쳤다.</div>
                     <div className='battle-btns'>
                         <button className='battle-attack-btn' onClick={() => showResult()}>공격한다.</button>
                         <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
@@ -118,11 +120,12 @@ const PokemonBattlePage = () => {
                 onRequestClose={closeModal}
                 style={customStyles}
                 contentLabel="알림"
+                className="battle-modal"
             >
                 <div className='battle-modal-content'>
 
-                    <h2 style={{ color: "#DC0A2D" }}>주의</h2>
-                    <p style={{ marginTop: 10, marginBottom: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
+                    <h2 style={{ color: "#DC0A2D", marginTop: 30 }}>주의</h2>
+                    <p style={{ margin: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
                     <div className='battle-btns'>
                         <button onClick={battleRun} className='battle-modal-ok-btn' style={{ marginRight: 20 }}>확인</button>
                         <button onClick={closeModal} className='battle-modal-cancel-btn'>취소</button>

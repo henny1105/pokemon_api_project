@@ -9,24 +9,27 @@ import PokemonInfo from './page/pokemondex/components/pokemoninfo/PokemonInfo';
 import RaisePage from './page/raisepage/RaisePage';
 import MyPokemonPage from './page/mypokemonpage/MyPokemonPage';
 import PokemonBattle from './page/PokemonBattle/PokemonBattlePage';
+import PokemonRunPage from './page/PokemonBattle/components/PokemonRun/PokemonRunPage';
 import './App.css';
-import PokemonBattlePage from './page/PokemonBattle/PokemonBattlePage';
 import { Routes, Route } from 'react-router-dom/dist';
 
 const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<AppLayout/>}>
-        <Route index element={<Home/>}/>
+      <Route path="/" element={<AppLayout />}>
+        <Route index element={<Home />} />
         <Route path='/random' element={<Random />} />
         <Route path="/pokemondex">
           <Route index element={<PokemonDex />} />
           <Route path="pokemoninfo/:id" element={<PokemonInfo />} />
         </Route>
-        <Route path="/mypokemon" element={ <MyPokemonPage /> }>
-          <Route path=":id" element={ <RaisePage />}/>
+        <Route path="/mypokemon" element={<MyPokemonPage />}>
+          <Route path=":id" element={<RaisePage />} />
         </Route>
-        <Route path="/battle" element={ <PokemonBattle />} />
+        <Route path="/battle">
+          <Route index element={<PokemonBattle />} />
+          <Route path="run" element={<PokemonRunPage />} />
+        </Route>
       </Route>
       {/* <Route path="*" element={<NotFoundPage/>}/> */}
     </Routes>
