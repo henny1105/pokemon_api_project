@@ -12,8 +12,8 @@ import usePokemonData from './hook/usePokemonData';
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
     const [modalIsOpen, setIsOpen] = React.useState(false);
-    const [myBattlePokemon, setMyBattlePokemon] = useState({ name: "my", hp: 30 });     // 배틀 포켓몬
-    const [enemyBattlePokemon, setEnemyBattlePokemon] = useState({ name: "enemy", hp: 70 });
+    const [myBattlePokemon, setMyBattlePokemon] = useState({ name: "my", src: 30, atk: 0, hp: 0 });     // 배틀 포켓몬
+    const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);
     const [SelectedBattlePokemon, setSelectedBattlePokemon] = useState("");
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
     console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
@@ -24,9 +24,11 @@ const PokemonBattlePage = () => {
             const randomIndex = Math.floor(Math.random() * pokemonData.length);
             setSelectedBattlePokemon(pokemonData[randomIndex]);
             console.log("지금 배틀 포켓몬", SelectedBattlePokemon);
-            //setEnemyBattlePokemon({ name: SelectedBattlePokemon.korean_name, hp: 70 })
+
+            setEnemyBattlePokemon(SelectedBattlePokemon)
+            console.log("enemyBattlePokemon", enemyBattlePokemon)
         }
-     }, [pokemonData])
+    }, [pokemonData])
 
     // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const showResult = () => {

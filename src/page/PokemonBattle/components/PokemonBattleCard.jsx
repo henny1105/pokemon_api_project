@@ -11,7 +11,7 @@ const PokemonBattleCard = ({ BattlePokemon }) => {
             </div>
 
             <div className='battle-card-image-container'>
-                <img className="battle-card-image" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/versions/generation-v/black-white/animated/132.gif"></img>
+                <img className="battle-card-image" ></img>
             </div>
         </div>
     )
