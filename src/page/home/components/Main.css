@@ -187,6 +187,16 @@
   
   .mobile-home{
     display: none;
+    text-align: center;
+  }
+  .mobile-home-button{
+    width: 130px;
+    height: 130px;
+    margin: 10px;
+    
+  }
+  .mobile-home-button:hover{
+    color: white;
   }
 
   @media screen and (max-width: 768px) {

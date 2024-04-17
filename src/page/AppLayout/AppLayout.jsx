@@ -29,7 +29,7 @@ const AppLayout = () => {
               className="me-2 search-text"
               aria-label="Search"
             />
-            <Button variant="outline-warning">Search</Button>
+            <Button variant="outline-warning" className="navbar-button">Search</Button>
           </Form>
         </Navbar.Collapse>
       </Container>
