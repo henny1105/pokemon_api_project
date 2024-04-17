@@ -78,27 +78,24 @@ const PokemonInfo = () => {
           <strong className="sub_title">About</strong>
           <ul className="attribute_list">
             <li className="attribute_item">
-              <strong className="body_3 dark">{ data?.weight } kg</strong>
+              <strong className="body_3 black">{ data?.weight } kg</strong>
               <span className="body_caption medium">weight</span>
             </li>
             <li className="attribute_item">
-              <strong className="body_3 dark">{ data?.height } m</strong>
+              <strong className="body_3 black">{ data?.height } m</strong>
               <span className="body_caption medium">Height</span>
             </li>
             <li className="attribute_item">
-              <strong className="body_3 dark">{ data?.abilities[0].ability.name }</strong>
+              <strong className="body_3 black">{ data?.abilities[0].ability.name }</strong>
               <span className="body_caption medium">Ability</span>
             </li>
           </ul>
-          {/* <div className="desc">
-            <p className="body_3 dark">{ species?.flavor_text_entries[23].flavor_text }</p>
-          </div> */}
           { 
             species?.flavor_text_entries.map((item, index) => (
               item.language.name === "ko" && item.version.name === "lets-go-pikachu"
               ?
               <div key={ index }>
-                <p className="desc body_3 dark">{ item.flavor_text }</p>
+                <p className="desc body_3 black">{ item.flavor_text }</p>
               </div>
               :
               null
