@@ -1,15 +1,15 @@
-.container-fluid {
+.container-fluid-custom {
     height: 100vh;
     width: 100%;
     display: flex;
     justify-content: center;
 }
 
-.bg-primary {
+.bg-primary-custom {
     background: #DC0A2D;
 }
 
-.bg-white {
+.bg-white-custom {
     background: #fff;
 }
 
@@ -19,17 +19,17 @@
     border-radius: .5em;
 }
 
-.row {
+.row-custom {
     display: flex;
     padding: 1em;
     flex-wrap: wrap;
 }
 
-.col {
+.col-custom {
     padding: .2em;
 }
 
-.col-2 {
+.col-2-custom {
     flex: 2;
     padding: .2rem;
 }
@@ -149,7 +149,7 @@
     cursor: pointer;
 }
 
-.pokemon-img {
+.my-pokemon-img {
     /* Silhouette */
 
     position: absolute;
