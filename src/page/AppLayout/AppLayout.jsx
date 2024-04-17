@@ -9,10 +9,10 @@ import './AppLayout.style.css'
 
 const AppLayout = () => {
   return (
-    <div>
+    <Container>
         <Navbar expand="lg" className="bg-body-bg">
       <Container fluid>
-        <Navbar.Brand href="/"><img width={200} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" /></Navbar.Brand>
+        <Navbar.Brand href="/"><img width={120} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -30,7 +30,7 @@ const AppLayout = () => {
             <Form.Control
               type="search"
               placeholder="Search"
-              className="me-2"
+              className="me-2 search-text"
               aria-label="Search"
             />
             <Button variant="outline-warning">Search</Button>
@@ -39,7 +39,7 @@ const AppLayout = () => {
       </Container>
     </Navbar>
     <Outlet/>
-    </div>
+    </Container>
   )
 }
 

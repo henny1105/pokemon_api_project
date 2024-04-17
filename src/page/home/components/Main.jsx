@@ -48,13 +48,18 @@ const translateType = (englishType) => {
 };
 
 function PokemonCard({ pokemon, koreanName }) {
-  const translatedType = pokemon.types.map((type) =>
-    translateType(type.type.name)
-  );
+  // const translatedType = pokemon.types.map((type) =>
+  //   translateType(type.type.name)
+  // );
+   // 포켓몬의 첫 번째 타입을 추출합니다.
+   const primaryType = pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
+
+   // 첫 번째 타입을 한글로 번역합니다.
+   const translatedType = translateType(primaryType);
 
   return (
-    <div className="pokemon-card gmd-1">
-      <p className="pokemon-id"># {pokemon.id}</p>
+    <div className={`pokemon-card gmd-1 ${primaryType}`}>
+      <p className="pokemon-id"><img width="15" height="15" src="https://img.icons8.com/office/40/pokeball.png" alt="pokeball"/> {pokemon.id}</p>
       <h2 className="pokemon-name">{koreanName}</h2>
       <img
         src={
@@ -64,7 +69,7 @@ function PokemonCard({ pokemon, koreanName }) {
         alt={pokemon.name}
         className="pokemon-img"
       />
-      <p className="pokemon-type">{translatedType.join(" ")}</p>
+
     </div>
   );
 }
@@ -140,7 +145,7 @@ function Main() {
 
   return (
     <Container>
-      <div id="pokemon-container">
+      <div className="pokemon-container" >
         {pokemons.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
@@ -150,6 +155,8 @@ function Main() {
         ))}
         <div className="pagination">{renderPagination()}</div>
       </div>
+
+
     </Container>
   );
 }

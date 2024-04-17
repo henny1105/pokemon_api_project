@@ -1,5 +1,11 @@
 /* Main.css */
+.pokemon-container{
+    margin-top: 10px;
+    text-align: center;
+}
 .pokemon-card {
+  border-width: 2px;
+  border-style: solid;
     border-radius: 10px;
     padding: 20px;
     margin: 15px;
@@ -8,21 +14,91 @@
     text-align: center;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 강화 */
   }
+  .pokemon-card.normal {
+    border-color: #a8a878; /* 노멀 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.fire {
+    border-color: #f89d5d; /* 불 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.water {
+    border-color: #92aff5; /* 물 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.electric {
+    border-color: #f8d030; /* 전기 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.grass {
+    border-color: #93da70; /* 풀 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.ice {
+    border-color: #98d8d8; /* 얼음 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.fighting {
+    border-color: #e14941; /* 격투 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.poison {
+    border-color: #d359d3; /* 독 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.ground {
+    border-color: #e0c068; /* 땅 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.flying {
+    border-color: #a890f0; /* 비행 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.psychic {
+    border-color: #ff97b6; /* 에스퍼 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.bug {
+    border-color: #bfcb51; /* 벌레 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.rock {
+    border-color: #b8a038; /* 바위 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.ghost {
+    border-color: #705898; /* 고스트 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.dragon {
+    border-color: #7038f8; /* 드래곤 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.dark {
+    border-color: #705848; /* 악 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.steel {
+    border-color: #b8b8d0; /* 강철 타입의 테두리 색 */
+  }
+  
+  .pokemon-card.fairy {
+    border-color: #ee99ac; /* 페어리 타입의 테두리 색 */
+  }
   
   .pokemon-name {
     margin-bottom: 10px;
     font-size: 22px; /* 포켓몬 이름 텍스트 크기 키움 */
     font-weight: bold;
-    color: #4b4b4b; /* 포켓몬 이름 텍스트 색상 */
-   
+    color: #717171; /* 포켓몬 이름 텍스트 색상 */
   }  
   
   .pokemon-id {
     margin-bottom: 5px;
     font-size: 14px;
-    color: #
+    color: #717171;
   }
-  
+
   .pokemon-img {
     width: 70px;
     height: 70px;
@@ -41,7 +117,7 @@
   }
   
   .pagination {
-    margin-top: 20px;
+    margin: 20px 0;
     display: flex;
     justify-content: center;
   }
