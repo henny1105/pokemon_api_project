@@ -3,7 +3,6 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import AppLayout from './page/AppLayout/AppLayout';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PokeApi from './page/PokeApi';
 import Home from './page/home/Home';
 
 
