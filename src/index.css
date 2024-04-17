@@ -96,7 +96,7 @@ button, input {
 .primary {
   color: #DC0A2D;
 }
-.dark {
+.black {
   color: #212121;
 }
 .medium {
@@ -172,7 +172,7 @@ button, input {
 .dragon {
   background-color: #7037FF;
 }
-.evil { 
+.dark {
   background-color: #75574C;
 }
 .fairy {
@@ -182,14 +182,26 @@ button, input {
 .type {
   display: inline-block;
   width: max-content;
-  padding: 2px 8px;
+  padding: 4px 16px;
   border-radius: 10px;
   margin-right: 16px;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: bold;
   line-height: 16px;
   color: #fff;
+
+  @media screen and (max-width: 767px) {
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-right: 8px;
+  }
 }
 .type:last-child {
   margin-right: 0;
+
+  @media screen and (max-width: 767px) {
+    margin: 0;
+  }
 }
