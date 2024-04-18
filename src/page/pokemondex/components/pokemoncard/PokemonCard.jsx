@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import './PokemonCard.style.css';
-const PokemonCard = ({ pokemonData, movePokemonInfo, filtered }) => {
+const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search }) => {
   const [catchPokemon] = useState(false); 
   return (
     <>
     {
-      filtered
+      search === ""
       ?
-      filtered?.map((item, index) => (
+      pokemonData?.map((item, index) => (
         <div className="card drop_shadow_2" key={index} onClick={ () => movePokemonInfo(index+1) }>
           <div className="card_number">
             <span>#{ item.id }</span>
@@ -25,7 +25,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered }) => {
         </div>
       ))
       :
-      pokemonData?.map((item, index) => (
+      filtered?.map((item, index) => (
         <div className="card drop_shadow_2" key={index} onClick={ () => movePokemonInfo(index+1) }>
           <div className="card_number">
             <span>#{ item.id }</span>

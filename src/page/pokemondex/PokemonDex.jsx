@@ -17,7 +17,7 @@ const PokemonDex = () => {
 
   const [pokemonData, setPokemonData] = useState([]);
   const [search, setSearch] = useState("");
-  const [filtered, setFiltered] = useState();
+  const [filtered, setFiltered] = useState("");
 
   const pokemonSearch = (e) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ const PokemonDex = () => {
   useEffect(() => {
     const searchFiltered = () => {
       const final = pokemonData?.filter((val) => {
-        if( search === "") {
+        if( search === "" ) {
           return val
         } else if(val.korean_name.includes(search)) {
           return val
@@ -99,7 +99,7 @@ const PokemonDex = () => {
       }
       <div className={ styles.pokemondex } >
         {
-          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } filtered={ filtered } />
+          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } filtered={ filtered } search={ search } />
         }
       </div>
     </>
