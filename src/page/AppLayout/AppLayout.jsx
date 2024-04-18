@@ -1,16 +1,14 @@
 import React from 'react'
 import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
-import { Outlet } from 'react-router-dom';
+import { Outlet, Link } from 'react-router-dom';
 import './AppLayout.style.css'
 
 const AppLayout = () => {
   return (
     <Container>
         <Navbar expand="lg" className="bg-body-bg">
-      <Container fluid>
-        <Navbar.Brand href="/">
-          <img width={120} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" alt="" />
-        </Navbar.Brand>
+      <Container fixed>
+        <Navbar.Brand href="/"><img width={120} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" /></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./Main.css"; // 스타일 파일을 불러옵니다.
-import { Container } from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 
 // 타입을 한글로 번역하는 함수
 const translateType = (englishType) => {
