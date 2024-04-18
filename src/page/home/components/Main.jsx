@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Main.css"; // 스타일 파일을 불러옵니다.
-import { Col, Container, Row } from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 
 // 타입을 한글로 번역하는 함수
 const translateType = (englishType) => {
@@ -48,18 +48,24 @@ const translateType = (englishType) => {
 };
 
 function PokemonCard({ pokemon, koreanName }) {
-  // const translatedType = pokemon.types.map((type) =>
-  //   translateType(type.type.name)
-  // );
-   // 포켓몬의 첫 번째 타입을 추출합니다.
-   const primaryType = pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
+  // 포켓몬의 첫 번째 타입을 추출합니다.
+  const primaryType =
+    pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
 
-   // 첫 번째 타입을 한글로 번역합니다.
-   const translatedType = translateType(primaryType);
+  // 첫 번째 타입을 한글로 번역합니다.
+  const translatedType = translateType(primaryType);
 
   return (
     <div className={`home-pokemon-card gmd-1 ${primaryType}`}>
-      <p className="home-pokemon-id"><img width="15" height="15" src="https://img.icons8.com/office/40/pokeball.png" alt="pokeball"/> {pokemon.id}</p>
+      <p className="home-pokemon-id">
+        <img
+          width="15"
+          height="15"
+          src="https://img.icons8.com/office/40/pokeball.png"
+          alt="pokeball"
+        />{" "}
+        {pokemon.id}
+      </p>
       <h2 className="home-pokemon-name">{koreanName}</h2>
       <img
         src={
@@ -69,7 +75,6 @@ function PokemonCard({ pokemon, koreanName }) {
         alt={pokemon.name}
         className="home-pokemon-img"
       />
-
     </div>
   );
 }
@@ -78,9 +83,12 @@ function Main() {
   const [pokemons, setPokemons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const fetchPokemonData = async () => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `https://pokeapi.co/api/v2/pokemon?limit=20&offset=${
@@ -102,7 +110,7 @@ function Main() {
         });
 
         const pokemonData = await Promise.all(pokemonDataPromises);
-        setPokemons(pokemonData);
+        setPokemons((prevPokemons) => [...prevPokemons, ...pokemonData]);
 
         // 포켓몬 번호 251번까지만 불러오기
         setTotalPages(Math.ceil(251 / 20));
@@ -111,41 +119,34 @@ function Main() {
           "포켓몬 데이터를 불러오는 중 오류가 발생했습니다:",
           error
         );
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchPokemonData();
   }, [currentPage]);
 
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
+  useEffect(() => {
+    const handleScroll = () => {
+      if (
+        containerRef.current &&
+        window.innerHeight + window.scrollY >=
+          containerRef.current.offsetTop + containerRef.current.offsetHeight
+      ) {
+        if (!loading && currentPage < totalPages) {
+          setCurrentPage((prevPage) => prevPage + 1);
+        }
+      }
+    };
 
-  const renderPagination = () => {
-    const pages = [];
-    for (let i = 1; i <= totalPages; i += 5) {
-      const endPage = Math.min(i + 4, totalPages);
-      pages.push(
-        <div key={i}>
-          {Array.from({ length: endPage - i + 1 }, (_, index) => index + i).map(
-            (pageNumber) => (
-              <button
-                key={pageNumber}
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </button>
-            )
-          )}
-        </div>
-      );
-    }
-    return pages;
-  };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [loading, currentPage, totalPages]);
 
   return (
     <Container>
-      <div className="home-pokemon-container" >
+      <div className="home-pokemon-container" ref={containerRef}>
         {pokemons.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
@@ -153,10 +154,23 @@ function Main() {
             koreanName={pokemon.koreanName}
           />
         ))}
-        <div className="home-pagination">{renderPagination()}</div>
+        {loading && <p>Loading...</p>}
       </div>
 
-
+      <div className="mobile-home">
+        <div>
+          <Button variant="outline-warning" className="mobile-home-button gmd-1">1세대도감</Button>
+          <Button variant="outline-warning" className="mobile-home-button gmd-1">2세대도감</Button>
+        </div>
+        <div>
+          <Button variant="outline-warning" className="mobile-home-button gmd-1">배틀</Button>
+          <Button variant="outline-warning" className="mobile-home-button gmd-1">랜덤뽑기</Button>
+        </div>
+        <div>
+          <Button variant="outline-warning" className="mobile-home-button gmd-1">포켓몬키우기</Button>
+          <Button variant="outline-warning" className="mobile-home-button">나의포켓몬</Button>
+        </div>
+      </div>
     </Container>
   );
 }

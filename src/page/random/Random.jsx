@@ -3,7 +3,7 @@ import '@kfonts/neodgm-code';
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FloatingCursor from './FloatingCursor';
-import usePokemonData from './usePokemonData';
+import usePokemonData from './hook/usePokemonData';
 import './Random.style.css';
 import Modal from './Modal';
 
@@ -24,74 +24,89 @@ const Random = () => {
 	const [randomImgIndex, setRandomImgIndex] = useState(3);
 	const [showPokemon, setShowPokemon] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const [texts, setTexts] = useState(['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....']);
+	const initialTexts = ['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....', ''];
+	const [texts, setTexts] = useState(initialTexts);
 
 	useEffect(() => {
 		if (pokemonData) {
 			const randomIndex = Math.floor(Math.random() * pokemonData.length);
 			setSelectedPokemon(pokemonData[randomIndex]);
+
+			console.log(pokemonData[randomIndex]);
 		}
 	}, [pokemonData]);
 
 	useEffect(() => {
 		let interval;
-		if (showPokemon) {
+		if (showPokemon && currentTextIndex === 3) {
 			interval = setInterval(() => {
-				const newRandomImgIndex = Math.floor(Math.random() * 13) + 3;
+				const newRandomImgIndex = Math.floor(Math.random() * 20);
 				setRandomImgIndex(newRandomImgIndex);
 			}, 100);
 		}
-		return () => clearInterval(interval);
-	}, [showPokemon]);
+		return () => {
+			clearInterval(interval);
+		};
+	}, [showPokemon, currentTextIndex]);
 
 	useEffect(() => {
-		if (selectedPokemon) {
-			const newTexts = [...texts];
-			newTexts[4] = `바로 '${selectedPokemon.korean_name}' 포켓몬이다!`;
-			setTexts(newTexts);
-		}
-	}, [selectedPokemon, texts]);
-
-	const handleNextClick = () => {
-		const newIndex = (currentTextIndex + 1) % texts.length;
-		setCurrentTextIndex(newIndex);
-
-		if (newIndex === 3) {
-			setShowModal(true);
-		} else {
-			setShowModal(false);
-		}
-
-		if (newIndex === 4) {
+		if (currentTextIndex === 3) {
 			setShowPokemon(true);
 		} else {
 			setShowPokemon(false);
 		}
+	}, [currentTextIndex]);
+
+	useEffect(() => {
+		if (selectedPokemon && currentTextIndex === 4) {
+			setTexts((prevTexts) => {
+				const newTexts = [...prevTexts];
+				newTexts[4] = `바로 '${selectedPokemon.korean_name}' 포켓몬이다!`;
+				return newTexts;
+			});
+			setShowPokemon(true);
+		} else {
+			setShowPokemon(false);
+		}
+	}, [selectedPokemon, currentTextIndex]);
+
+	const handleNextClick = () => {
+		const newIndex = (currentTextIndex + 1) % texts.length;
+		setCurrentTextIndex(newIndex);
+		setShowPokemon(newIndex === 4);
+		setShowModal(newIndex === 4);
 	};
 
 	if (loading) {
 		return (
 			<div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-				<Spinner animation='border' variant='danger' style={{ width: '5rem', height: '5rem' }} />
+				<Spinner animation='border' variant='danger' className='spinner_circle' style={{ width: '5rem', height: '5rem' }} />
 				<p className='loading_txt ft'>오박사님 만나러 가는 중.....</p>
 			</div>
 		);
 	}
-
 	if (error) {
 		return <div>에러 발생: {error.message}</div>;
 	}
 
+	const statKeys = {
+		HP: 'hp',
+		ATK: 'attack',
+		DEF: 'defense',
+		SATK: 'special_attack',
+		SDEF: 'special_defense',
+		SPD: 'speed',
+	};
 	return (
 		<>
 			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
-			<div className='random_page'>
+			<div className={`random_page ${selectedPokemon ? `${selectedPokemon.type}_page` : ''}`}>
 				<div className='inner'>
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
-							{showPokemon && (
+							{currentTextIndex === 3 && (
 								<div className='random_pokemon_img_cont'>
-									<img src={`/img/random/img${randomImgIndex.toString().padStart(2, '0')}.jpg`} alt='포켓몬 이미지' />
+									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
 								</div>
 							)}
 							<div className='random_pokemon_cont'>
@@ -101,19 +116,32 @@ const Random = () => {
 											<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
 										</div>
 										<div className='txt_box'>
-											<p className='type'>{selectedPokemon.type}</p>
-											<p className='id'>ID : {selectedPokemon.id}</p>
+											<p className={`type ${selectedPokemon ? `${selectedPokemon.type}` : ''}`}>
+												<span>{selectedPokemon.type}</span>
+											</p>
+											<p className='id'>No. {selectedPokemon.id}</p>
 											<p className='name'>{selectedPokemon.korean_name}</p>
 											<p className='height'>키 : {selectedPokemon.height}m</p>
 											<p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
 											<ul className='spec'>
-												<li>체력 : {selectedPokemon.hp}</li>
-												<li>공격 : {selectedPokemon.attack}</li>
-												<li>방어 : {selectedPokemon.defense}</li>
-												<li>스페셜 공격 : {selectedPokemon.special_attack}</li>
-												<li>스페셜 방어 : {selectedPokemon.special_defense}</li>
-												<li>스피드 : {selectedPokemon.speed}</li>
+												{['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'].map((statLabel) => (
+													<li key={statLabel}>
+														<span>{statLabel}</span>
+														<span>{selectedPokemon[statKeys[statLabel]]}</span>
+														<div className='progress'>
+															<div
+																className={`progress-bar progress-bar-striped progress-bar-animated ${selectedPokemon ? selectedPokemon.type : ''}`}
+																role='progressbar'
+																aria-valuenow={selectedPokemon[statKeys[statLabel]]}
+																aria-valuemin='0'
+																aria-valuemax='255'
+																style={{ width: `${((selectedPokemon[statKeys[statLabel]] / 255) * 100).toFixed(1)}%` }}
+															></div>
+														</div>
+													</li>
+												))}
 											</ul>
+											<p className='desc'>{selectedPokemon.korean_flavor_text}</p>
 										</div>
 									</>
 								)}
@@ -122,7 +150,7 @@ const Random = () => {
 					</div>
 					<div className='bottom_box'>
 						<div className='cont_box'>
-							<div className='speech_bubble' onClick={handleNextClick}>
+							<div className='speech_bubble'>
 								<div className='img_box'>
 									<img src='img/random/img01.jpg' alt='오박사님' />
 								</div>
@@ -133,15 +161,15 @@ const Random = () => {
 										</div>
 									))}
 								</div>
-								<button type='button' className='next_btn ft'>
+								<button type='button' className='next_btn ft' onClick={handleNextClick}>
 									넘어가기 &#62;
 								</button>
+								{showModal && <Modal />}
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			{showModal && <Modal />}
 		</>
 	);
 };

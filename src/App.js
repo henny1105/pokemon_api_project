@@ -10,6 +10,7 @@ import RaisePage from './page/raisepage/RaisePage';
 import MyPokemonPage from './page/mypokemonpage/MyPokemonPage';
 import PokemonBattle from './page/PokemonBattle/PokemonBattlePage';
 import PokemonRunPage from './page/PokemonBattle/components/PokemonRun/PokemonRunPage';
+import NotFoundPage from './page/notfoundpage/NotFoundPage';
 import './App.css';
 import { Routes, Route } from 'react-router-dom/dist';
 
@@ -31,7 +32,7 @@ const App = () => {
           <Route path="run" element={<PokemonRunPage />} />
         </Route>
       </Route>
-      {/* <Route path="*" element={<NotFoundPage/>}/> */}
+      <Route path="*" element={<NotFoundPage/>}/>
     </Routes>
   )
 

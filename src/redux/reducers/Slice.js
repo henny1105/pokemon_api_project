@@ -1,13 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 let initialState = {
-    MyPokeMons: [{
-        name: "bulbasaur",
-        url: "https://pokeapi.co/api/v2/pokemon/1/"
-    },{
-        name: "ivysaur",
-        url: "https://pokeapi.co/api/v2/pokemon/2/"
-      }],
+    MyPokeMons: [
+        {
+            data: {
+                name: "bulbasaur",
+                url: "https://pokeapi.co/api/v2/pokemon/1/"
+            },
+            Lv: 1,
+            Exp: 1,
+        },
+        {
+            data: {
+                name: "ivysaur",
+                url: "https://pokeapi.co/api/v2/pokemon/2/"
+            },
+            Lv: 1,
+            Exp: 1,
+        }
+    ],
     Ticket: 1,
     RareCandy: 0,
 }

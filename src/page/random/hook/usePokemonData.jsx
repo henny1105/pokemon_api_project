@@ -24,14 +24,16 @@ const usePokemonData = () => {
 					const pokemonInfo = responses[i].data;
 					const speciesInfo = responses[i + 1].data;
 					const koreanName = speciesInfo.names.find((name) => name.language.name === 'ko')?.name || '이름 없음';
+					const koreanFlavorText = speciesInfo.flavor_text_entries.find((entry) => entry.language.name === 'ko')?.flavor_text || '';
 
 					allPokemonData.push({
 						...pokemonInfo,
 						korean_name: koreanName,
-						image: pokemonInfo.sprites.other['official-artwork'].front_default, // 공식 아트워크 이미지 추가
+						korean_flavor_text: koreanFlavorText.replace(/\n|\f/g, ' '), // 줄바꿈 제거
+						image: pokemonInfo.sprites.other['official-artwork'].front_default,
 						height: (pokemonInfo.height * 0.1).toFixed(1),
 						id: pokemonInfo.id,
-						weight: pokemonInfo.weight,
+						weight: (pokemonInfo.weight * 0.1).toFixed(1),
 						type: pokemonInfo.types[0].type.name,
 						hp: pokemonInfo.stats[0].base_stat,
 						attack: pokemonInfo.stats[1].base_stat,
@@ -39,7 +41,7 @@ const usePokemonData = () => {
 						special_attack: pokemonInfo.stats[3].base_stat,
 						special_defense: pokemonInfo.stats[4].base_stat,
 						speed: pokemonInfo.stats[5].base_stat,
-						full_data: pokemonInfo, // 전체 데이터 저장
+						full_data: pokemonInfo,
 					});
 				}
 

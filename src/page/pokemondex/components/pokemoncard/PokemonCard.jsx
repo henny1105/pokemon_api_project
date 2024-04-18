@@ -1,46 +1,49 @@
-import React, { useState, useEffect } from 'react';
-// > style
+import React, { useState } from 'react';
 import './PokemonCard.style.css';
-
-const PokemonCard = ({ pokemon }) => {
-  const [catchPokemon] = useState(false); // redux 처리
-  const [speciesData, setSpeciesData] = useState({});
-  useEffect(() => {
-    fetch(`${pokemon.url}`, { method: 'GET' })
-      .then(res => res.json())
-      .then(data => {
-        setSpeciesData(data);
-      });
-      
-      // eslint-disable-next-line
-  }, []);
-
-  console.log(speciesData);
-
+const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search }) => {
+  const [catchPokemon] = useState(false); 
   return (
-    <div className="card drop_shadow_2">
-      <div className="card_number">
-        <span>#{ speciesData?.id }</span>
-      </div>
-      <div className="card_img is_exist">
-        {
-          catchPokemon === true
-          ?
-          <img src={ speciesData?.sprites?.other["official-artwork"].front_default } alt="" className="catch" />
-          :
-          <img src={ speciesData?.sprites?.other["official-artwork"].front_default } alt="" className="non_catch" />
-        }
-      </div>
-      <div className="card_name">
-          {
-            pokemon?.name === speciesData?.name
-            ?
-            <span>{ speciesData?.name }</span>
-            :
-            null
-          }
-      </div>
-    </div>
+    <>
+    {
+      search === ""
+      ?
+      pokemonData?.map((item, index) => (
+        <div className="card drop_shadow_2" key={index} onClick={ () => movePokemonInfo(index+1) }>
+          <div className="card_number">
+            <span>#{ item.id }</span>
+          </div>
+          <div className="card_img is_exist">
+            {
+              catchPokemon === true
+              ?
+              <img src={ item.image } alt="" className="catch" />
+              :
+              <img src={ item.image } alt="" className="non_catch" />
+            }
+          </div>
+          <div className="card_name">{ item.korean_name }</div>
+        </div>
+      ))
+      :
+      filtered?.map((item, index) => (
+        <div className="card drop_shadow_2" key={index} onClick={ () => movePokemonInfo(index+1) }>
+          <div className="card_number">
+            <span>#{ item.id }</span>
+          </div>
+          <div className="card_img is_exist">
+            {
+              catchPokemon === true
+              ?
+              <img src={ item.image } alt="" className="catch" />
+              :
+              <img src={ item.image } alt="" className="non_catch" />
+            }
+          </div>
+          <div className="card_name">{ item.korean_name }</div>
+        </div>
+      ))
+    }
+    </>
   )
 }
 
