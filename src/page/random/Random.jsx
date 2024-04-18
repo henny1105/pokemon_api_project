@@ -26,27 +26,29 @@ const Random = () => {
 	const [showModal, setShowModal] = useState(false);
 	const initialTexts = ['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....', ''];
 	const [texts, setTexts] = useState(initialTexts);
+	const [buttonText, setButtonText] = useState('넘어가기 >');
+	const [showButton, setShowButton] = useState(true);
 
+	// 포켓몬 데이터 랜덤으로 가져오기
 	useEffect(() => {
 		if (pokemonData) {
 			const randomIndex = Math.floor(Math.random() * pokemonData.length);
 			setSelectedPokemon(pokemonData[randomIndex]);
-
-			console.log(pokemonData[randomIndex]);
 		}
 	}, [pokemonData]);
 
 	useEffect(() => {
 		let interval;
 		if (currentTextIndex === 3) {
+			// 3번째 컨텐츠에서
 			setShowPokemon(true);
 			interval = setInterval(() => {
 				const newRandomImgIndex = Math.floor(Math.random() * 20);
 				setRandomImgIndex(newRandomImgIndex);
-			}, 100);
+			}, 100); // 0.1초마다 이미지 랜덤 변경
 		} else {
 			setShowPokemon(false);
-			clearInterval(interval);
+			clearInterval(interval); // 컨텐츠가 바뀌면 interval 초기화
 		}
 
 		return () => clearInterval(interval);
@@ -54,7 +56,24 @@ const Random = () => {
 
 	useEffect(() => {
 		if (currentTextIndex === 3) {
-			setShowPokemon(true);
+			// 3번째 컨텐츠에서
+			setShowButton(false);
+			const timer = setTimeout(() => {
+				setButtonText('포켓몬 확인하기 >');
+				setShowButton(true);
+			}, 3000); // 3초 후 버튼 보이기
+
+			return () => clearTimeout(timer);
+		} else {
+			setButtonText('넘어가기 >');
+			setShowButton(true); // 컨텐츠가 바뀌면 버튼 보이기
+		}
+	}, [currentTextIndex]);
+
+	useEffect(() => {
+		if (currentTextIndex === 3) {
+			// 3번째 컨텐츠에서
+			setShowPokemon(true); // 포켓몬 보이기
 		} else {
 			setShowPokemon(false);
 		}
@@ -64,7 +83,7 @@ const Random = () => {
 		if (selectedPokemon && currentTextIndex === 4) {
 			setTexts((prevTexts) => {
 				const newTexts = [...prevTexts];
-				newTexts[4] = `바로 '${selectedPokemon.korean_name}' 포켓몬이다!`;
+				newTexts[4] = `오늘의 포켓몬은 바로 '${selectedPokemon.korean_name}' 포켓몬이다!`; // 4번째 컨텐츠에서 포켓몬 이름 보여주기
 				return newTexts;
 			});
 			setShowPokemon(true);
@@ -74,10 +93,10 @@ const Random = () => {
 	}, [selectedPokemon, currentTextIndex]);
 
 	const handleNextClick = () => {
-		const newIndex = (currentTextIndex + 1) % texts.length;
-		setCurrentTextIndex(newIndex);
-		setShowPokemon(newIndex === 4);
-		setShowModal(newIndex === 4);
+		const newIndex = (currentTextIndex + 1) % texts.length; // 다음 컨텐츠로 이동
+		setCurrentTextIndex(newIndex); // 컨텐츠 변경
+		setShowPokemon(newIndex === 4); // 4번째 컨텐츠에서 포켓몬 상세정보 보이기
+		setShowModal(newIndex === 4); // 4번째 컨텐츠에서 빵빠레 모션 보이기
 	};
 
 	if (loading) {
@@ -164,9 +183,11 @@ const Random = () => {
 										</div>
 									))}
 								</div>
-								<button type='button' className='next_btn ft' onClick={handleNextClick}>
-									넘어가기 &#62;
-								</button>
+								{showButton && (
+									<button type='button' className='next_btn ft' onClick={handleNextClick}>
+										{buttonText}
+									</button>
+								)}
 								{showModal && <Modal />}
 							</div>
 						</div>
