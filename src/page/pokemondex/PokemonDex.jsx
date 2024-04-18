@@ -3,9 +3,12 @@ import axios from 'axios';
 // > style
 import styles from './PokemonDex.module.css';
 // > components
+
 import PokemonCard from './components/pokemoncard/PokemonCard';
 import PokemonSearch from './components/pokemonSearch/PokemonSearch';
 import PokemonFilter from './components/PokemonFilter/PokemonFilter';
+
+// > router
 import { useNavigate } from 'react-router-dom';
 
 const PokemonDex = () => {
