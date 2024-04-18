@@ -66,11 +66,10 @@ const PokemonBattlePage = () => {
             setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
         }
 
-
-
         // 피 깎이는 모션
         // 내 포켓몬과 상대 포켓몬 공격력 비교
         // 더 공격력 큰 포켓몬이 승리! -> 내가 승리하면 티켓 획득
+        // dispatch({ type: "INCREMENT", payload: { step: Number(ticketNum) } });
     }
 
     function openModal() {
