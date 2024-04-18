@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+.battle-backgorund {
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.battle-ticket {
+    font-size: 2rem;
+    margin-left: 30px;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.battle-cards {
+    display: flex;
+    flex-direction: column;
+    padding-top: 250px;
+}
+
+.battle-enemy-card {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 400px;
+}
+
+.battle-my-card {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 400px;
+}
+
+.battle-message-container {
+    display: flex;
+    justify-content: center;
+    height: 15vh;
+    margin-top: 10px;
+}
+
+.battle-message {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.battle-attack-btn {
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+    margin-right: 20px;
+}
+
+.battle-attack-btn:hover {
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.battle-run-btn {
+    background-color: transparent;
+    color: white;
+    font-size: 1rem;
+}
+
+.battle-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.battle-run-btn:hover {
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.battle-modal-ok-btn {
+    font-size: 1rem;
+}
+
+.battle-modal-ok-btn:hover {
+    color: #DC0A2D;
+    font-weight: bold;
+}
+
+.battle-modal-cancel-btn {
+    font-size: 1rem;
+}
+
+.battle-modal-cancel-btn:hover {
+    color: #DC0A2D;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 768px) {
+    .battle-backgorund {
+        height: 100vh;
+        background-repeat: no-repeat;
+        background-position: right;
+        background-size: cover;
+    }
+
+    .battle-ticket {
+        font-size: 2rem;
+        margin-left: 5px;
+        color: white;
+        text-shadow: 1px 1px 2px black;
+    }
+
+    .battle-cards {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+    }
+
+    .battle-enemy-card {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0px;
+    }
+
+    .battle-my-card {
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0px;
+    }
+
+    .battle-message-container {
+        position: relative;
+    }
+
+    .battle-message {
+        text-align: center;
+        position: absolute;
+        bottom: 10px;
+    }
+
+    .battle-attack-btn {
+        font-size: 1.2rem;
+    }
+
+    .battle-run-btn {
+        font-size: 1.2rem;
+    }
+
+}

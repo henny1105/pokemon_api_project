@@ -96,7 +96,7 @@ button, input {
 .primary {
   color: #DC0A2D;
 }
-.dark {
+.black {
   color: #212121;
 }
 .medium {
@@ -121,4 +121,87 @@ button, input {
 }
 .inner_shadow {
   box-shadow: 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
+}
+
+/* type color */
+.normal {
+  background-color: #AAA67F;
+}
+.fighting {
+  background-color: #C12239;
+}
+.flying {
+  background-color: #A891EC;
+}
+.poison {
+  background-color: #A43E9E;
+}
+.ground {
+  background-color: #DEC16B;
+}
+.rock {
+  background-color: #B69E31;
+}
+.bug {
+  background-color: #A7B723;
+}
+.ghost {
+  background-color: #70559B;
+}
+.steel {
+  background-color: #B7B9D0;
+}
+.fire {
+  background-color: #F57D31;
+}
+.water {
+  background-color: #6493EB;
+}
+.grass {
+  background-color: #74CB48;
+}
+.electric {
+  background-color: #F9CF30;
+}
+.psychic {
+  background-color: #FB5584;
+}
+.ice {
+  background-color: #9AD6DF;
+}
+.dragon {
+  background-color: #7037FF;
+}
+.dark {
+  background-color: #75574C;
+}
+.fairy {
+  background-color: #FB5584;
+}
+/* type */
+.type {
+  display: inline-block;
+  width: max-content;
+  padding: 4px 16px;
+  border-radius: 10px;
+  margin-right: 16px;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 16px;
+  color: #fff;
+
+  @media screen and (max-width: 767px) {
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 16px;
+    margin-right: 8px;
+  }
+}
+.type:last-child {
+  margin-right: 0;
+
+  @media screen and (max-width: 767px) {
+    margin: 0;
+  }
 }

@@ -1,0 +1,200 @@
+/* Main.css */
+.home-pokemon-container{
+    margin-top: 10px;
+    text-align: center;
+}
+.home-pokemon-card {
+  border-width: 2px;
+  border-style: solid;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 15px;
+    width: 200px;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 효과 강화 */
+  }
+  .home-pokemon-card.normal {
+    border-color: #a8a878; /* 노멀 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.fire {
+    border-color: #f89d5d; /* 불 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.water {
+    border-color: #92aff5; /* 물 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.electric {
+    border-color: #f8d030; /* 전기 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.grass {
+    border-color: #93da70; /* 풀 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.ice {
+    border-color: #98d8d8; /* 얼음 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.fighting {
+    border-color: #e14941; /* 격투 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.poison {
+    border-color: #d359d3; /* 독 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.ground {
+    border-color: #e0c068; /* 땅 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.flying {
+    border-color: #a890f0; /* 비행 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.psychic {
+    border-color: #ff97b6; /* 에스퍼 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.bug {
+    border-color: #bfcb51; /* 벌레 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.rock {
+    border-color: #b8a038; /* 바위 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.ghost {
+    border-color: #705898; /* 고스트 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.dragon {
+    border-color: #7038f8; /* 드래곤 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.dark {
+    border-color: #705848; /* 악 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.steel {
+    border-color: #b8b8d0; /* 강철 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-card.fairy {
+    border-color: #ee99ac; /* 페어리 타입의 테두리 색 */
+    background-color: transparent;
+  }
+  
+  .home-pokemon-name {
+    margin-bottom: 10px;
+    font-size: 22px; /* 포켓몬 이름 텍스트 크기 키움 */
+    font-weight: bold;
+    color: #717171; /* 포켓몬 이름 텍스트 색상 */
+  }  
+  
+  .home-pokemon-id {
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #717171;
+  }
+
+  .home-pokemon-img {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 10px;
+  }
+  
+  .pokemon-type {
+    font-size: 14px;
+    color: rgba(106, 106, 106, 0.695);
+    border: 1px solid rgba(255, 230, 0, 0.398);
+    background-color: rgba(255, 230, 0, 0.398);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 2px 0 2px 0;
+    box-shadow: 0 1px 3px rgba(254, 245, 112, 0.12), 0 1px 2px rgba(255, 233, 33, 0.608);
+  }
+  
+  .home-pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .home-pagination-group {
+    margin-right: 10px;
+  }
+  
+  .home-pagination button {
+    background-color: #f0f0f0;
+    border: none;
+    color: #333;
+    padding: 8px 12px;
+    margin-right: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-pagination button:hover {
+    background-color: #ccc;
+  }
+  
+  .home-pagination button.active {
+    font-weight: bold;
+    text-decoration: underline;
+  }
+
+  .gmd-1 {
+    -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -ms-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -o-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-transition: all 0.25s ease-in-out;
+    -moz-transition: all 0.25s ease-in-out;
+    -ms-transition: all 0.25s ease-in-out;
+    -o-transition: all 0.25s ease-in-out;
+    transition: all 0.25s ease-in-out;
+  }
+  
+  .gmd-1:hover {
+    -webkit-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -moz-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -ms-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    -o-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+  
+  .mobile-home{
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .mobile-home {
+      display: inline;
+    }
+    .home-pokemon-container {
+      display: none;
+    }
+
+  }
