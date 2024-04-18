@@ -17,6 +17,7 @@ const PokemonDex = () => {
 
   const [pokemonData, setPokemonData] = useState([]);
   const [search, setSearch] = useState("");
+  const [filtered, setFiltered] = useState("");
 
   const pokemonSearch = (e) => {
     e.preventDefault();
@@ -56,6 +57,26 @@ const PokemonDex = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const searchFiltered = () => {
+      const final = pokemonData?.filter((val) => {
+        if( search === "" ) {
+          return val
+        } else if(val.korean_name.includes(search)) {
+          return val
+        }
+      }).map((data) => {
+        return data;
+      })
+  
+      setFiltered(final);
+    };
+
+    searchFiltered();
+
+    // eslint-disable-next-line
+  }, [search]);
+
   return (
     <>
       <div className={ styles.button_group }>
@@ -78,7 +99,7 @@ const PokemonDex = () => {
       }
       <div className={ styles.pokemondex } >
         {
-          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } />
+          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } filtered={ filtered } search={ search } />
         }
       </div>
     </>
