@@ -2,10 +2,16 @@ import React from 'react'
 import './MyPokemonPage.style.css'
 import { useSelector } from 'react-redux'
 import { Col, Row, Container } from 'react-bootstrap'
+import MyPokeCard from './component/mypokemcard/MyPokeCard'
+import { useNavigate } from 'react-router-dom'
 
 const MyPokemonPage = () => {
   const myInfo = useSelector(state => state.myInfo)
 
+  const navigate = useNavigate()
+  const moveRaisePage = (id) =>{
+    navigate(`/mypokemon/${id}`)
+  }
   return (
     <Container>
       <div className='py-3'>
@@ -41,15 +47,7 @@ const MyPokemonPage = () => {
           </div>
 
           <Row>
-
-            <Col xs='auto' className='py-1'>
-              <div className='sun-pokemon-card-area body_3'>
-                <div className='sun-card-number'>no.000</div>
-                <img className='sun-my-pokemon-img' src="https://i.namu.wiki/i/l0x04r27DjSQmS-WgYk6I5x6IkKMyvZjRMyK5dI3EMoMikzCd2Kfl2SMRdvL3-y4zpxI_qLP-fs3QToSR7AU3g.webp" alt="pokemon" />
-                <div className='sun-pokemon-name'>Pikachu</div>
-              </div>
-            </Col>
-
+            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(index+1)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
           </Row>
 
         </Col>

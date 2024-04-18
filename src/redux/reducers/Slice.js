@@ -1,15 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit"
 
 let initialState = {
-    MyPokeMons:{},
-    Ticket:1,
-    RareCandy:0,
+    MyPokeMons: [{
+        name: "bulbasaur",
+        url: "https://pokeapi.co/api/v2/pokemon/1/"
+    },{
+        name: "ivysaur",
+        url: "https://pokeapi.co/api/v2/pokemon/2/"
+      }],
+    Ticket: 1,
+    RareCandy: 0,
 }
 
 const myInfoSlice = createSlice({
-    name:"myInfo",
+    name: "myInfo",
     initialState,
-    reducers:{
+    reducers: {
 
     }
 })
