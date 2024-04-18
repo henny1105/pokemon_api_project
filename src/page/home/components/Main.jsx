@@ -154,7 +154,12 @@ function Main() {
             koreanName={pokemon.koreanName}
           />
         ))}
-        {loading && <p>Loading...</p>}
+        {loading && <p><img
+          width="40"
+          height="40"
+          src="https://img.icons8.com/office/40/pokeball.png"
+          alt="pokeball"
+        /></p>}
       </div>
 
       <div className="mobile-home">
