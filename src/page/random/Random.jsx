@@ -38,16 +38,19 @@ const Random = () => {
 
 	useEffect(() => {
 		let interval;
-		if (showPokemon && currentTextIndex === 3) {
+		if (currentTextIndex === 3) {
+			setShowPokemon(true);
 			interval = setInterval(() => {
 				const newRandomImgIndex = Math.floor(Math.random() * 20);
 				setRandomImgIndex(newRandomImgIndex);
 			}, 100);
-		}
-		return () => {
+		} else {
+			setShowPokemon(false);
 			clearInterval(interval);
-		};
-	}, [showPokemon, currentTextIndex]);
+		}
+
+		return () => clearInterval(interval);
+	}, [currentTextIndex]);
 
 	useEffect(() => {
 		if (currentTextIndex === 3) {
