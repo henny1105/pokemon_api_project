@@ -16,16 +16,16 @@ const usePokemonData = () => {
 					requests.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
 					requests.push(axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`));
 				}
-	
+
 				const responses = await axios.all(requests);
 				const allPokemonData = [];
-	
+
 				for (let i = 0; i < responses.length; i += 2) {
 					const pokemonInfo = responses[i].data;
 					const speciesInfo = responses[i + 1].data;
 					const koreanName = speciesInfo.names.find((name) => name.language.name === 'ko')?.name || '이름 없음';
-					const koreanFlavorText = speciesInfo.flavor_text_entries.find((entry) => entry.language.name === 'ko' && entry.version.name === 'sword')?.flavor_text || '';
-	
+					const koreanFlavorText = speciesInfo.flavor_text_entries.find((entry) => entry.language.name === 'ko')?.flavor_text || '';
+
 					allPokemonData.push({
 						...pokemonInfo,
 						korean_name: koreanName,
@@ -44,17 +44,16 @@ const usePokemonData = () => {
 						full_data: pokemonInfo,
 					});
 				}
-	
+
 				setPokemonData(allPokemonData);
 			} catch (e) {
 				setError(e.toString());
 			}
 			setLoading(false);
 		};
-	
+
 		fetchData();
 	}, []);
-	
 
 	return { pokemonData, loading, error };
 };

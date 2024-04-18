@@ -31,6 +31,8 @@ const Random = () => {
 		if (pokemonData) {
 			const randomIndex = Math.floor(Math.random() * pokemonData.length);
 			setSelectedPokemon(pokemonData[randomIndex]);
+
+			console.log(pokemonData[randomIndex]);
 		}
 	}, [pokemonData]);
 
@@ -41,10 +43,10 @@ const Random = () => {
 				const newRandomImgIndex = Math.floor(Math.random() * 20);
 				setRandomImgIndex(newRandomImgIndex);
 			}, 100);
-		} else {
-			clearInterval(interval);
 		}
-		return () => clearInterval(interval);
+		return () => {
+			clearInterval(interval);
+		};
 	}, [showPokemon, currentTextIndex]);
 
 	useEffect(() => {
@@ -102,7 +104,7 @@ const Random = () => {
 				<div className='inner'>
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
-							{showPokemon && currentTextIndex === 3 && (
+							{currentTextIndex === 3 && (
 								<div className='random_pokemon_img_cont'>
 									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
 								</div>
@@ -148,7 +150,7 @@ const Random = () => {
 					</div>
 					<div className='bottom_box'>
 						<div className='cont_box'>
-							<div className='speech_bubble' onClick={handleNextClick}>
+							<div className='speech_bubble'>
 								<div className='img_box'>
 									<img src='img/random/img01.jpg' alt='오박사님' />
 								</div>
@@ -159,7 +161,7 @@ const Random = () => {
 										</div>
 									))}
 								</div>
-								<button type='button' className='next_btn ft'>
+								<button type='button' className='next_btn ft' onClick={handleNextClick}>
 									넘어가기 &#62;
 								</button>
 								{showModal && <Modal />}
