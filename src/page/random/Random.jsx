@@ -3,8 +3,8 @@ import '@kfonts/neodgm-code';
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FloatingCursor from './FloatingCursor';
-import usePokemonData from './usePokemonData';
-import './Random.style.css'
+import usePokemonData from './hook/usePokemonData';
+import './Random.style.css';
 import Modal from './Modal';
 
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
@@ -18,156 +18,158 @@ import Modal from './Modal';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
-    const { pokemonData, loading, error } = usePokemonData();
-    const [selectedPokemon, setSelectedPokemon] = useState(null);
-    const [currentTextIndex, setCurrentTextIndex] = useState(0);
-    const [randomImgIndex, setRandomImgIndex] = useState(3);
-    const [showPokemon, setShowPokemon] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-    const [texts, setTexts] = useState(['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....']);
+	const { pokemonData, loading, error } = usePokemonData();
+	const [selectedPokemon, setSelectedPokemon] = useState(null);
+	const [currentTextIndex, setCurrentTextIndex] = useState(0);
+	const [randomImgIndex, setRandomImgIndex] = useState(3);
+	const [showPokemon, setShowPokemon] = useState(false);
+	const [showModal, setShowModal] = useState(false);
+	const initialTexts = ['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....', ''];
+	const [texts, setTexts] = useState(initialTexts);
 
-    useEffect(() => {
-        if (pokemonData) {
-            const randomIndex = Math.floor(Math.random() * pokemonData.length);
-            setSelectedPokemon(pokemonData[randomIndex]);
-        }
-		
-    }, [pokemonData]);
+	useEffect(() => {
+		if (pokemonData) {
+			const randomIndex = Math.floor(Math.random() * pokemonData.length);
+			setSelectedPokemon(pokemonData[randomIndex]);
+		}
+	}, [pokemonData]);
 
-    useEffect(() => {
+	useEffect(() => {
 		let interval;
-		if (showPokemon) {
+		if (showPokemon && currentTextIndex === 3) {
 			interval = setInterval(() => {
-				const newRandomImgIndex = Math.floor(Math.random() * 10);
+				const newRandomImgIndex = Math.floor(Math.random() * 20);
 				setRandomImgIndex(newRandomImgIndex);
 			}, 100);
+		} else {
+			clearInterval(interval);
 		}
 		return () => clearInterval(interval);
-	}, [showPokemon]);
+	}, [showPokemon, currentTextIndex]);
 
-    useEffect(() => {
-        if (selectedPokemon && currentTextIndex === 4) {
-            const newTexts = [...texts];
-            newTexts[3] = `바로 '${selectedPokemon.korean_name}' 포켓몬이다!`;
-            setTexts(newTexts);
-        }
-    }, [selectedPokemon]);
-    
+	useEffect(() => {
+		if (currentTextIndex === 3) {
+			setShowPokemon(true);
+		} else {
+			setShowPokemon(false);
+		}
+	}, [currentTextIndex]);
 
-    const handleNextClick = () => {
-        const newIndex = (currentTextIndex + 1) % texts.length;
-        setCurrentTextIndex(newIndex);
-        setShowModal(newIndex === 4);
-    
-        // newIndex가 3일 때 랜덤 인덱스를 설정하고, 4일 때 포켓몬을 보여줍니다.
-        if (newIndex === 3) {
-            const newRandomImgIndex = Math.floor(Math.random() * 10);
-            setRandomImgIndex(newRandomImgIndex);
-            setShowPokemon(false);
-        } else if (newIndex === 4) {
-            setShowPokemon(true);
-        } else {
-            setShowPokemon(false);
-        }
-    };
-    
-    
-    if (loading) {
-        return (
-            <div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
-                <Spinner animation='border' variant='danger' className="spinner_circle" style={{ width: '5rem', height: '5rem'}} />
-                <p className='loading_txt ft'>오박사님 만나러 가는 중.....</p>
-            </div>
-        );
-    }
+	useEffect(() => {
+		if (selectedPokemon && currentTextIndex === 4) {
+			setTexts((prevTexts) => {
+				const newTexts = [...prevTexts];
+				newTexts[4] = `바로 '${selectedPokemon.korean_name}' 포켓몬이다!`;
+				return newTexts;
+			});
+			setShowPokemon(true);
+		} else {
+			setShowPokemon(false);
+		}
+	}, [selectedPokemon, currentTextIndex]);
 
-    if (error) {
-        return <div>에러 발생: {error.message}</div>;
-    }
+	const handleNextClick = () => {
+		const newIndex = (currentTextIndex + 1) % texts.length;
+		setCurrentTextIndex(newIndex);
+		setShowPokemon(newIndex === 4);
+		setShowModal(newIndex === 4);
+	};
+
+	if (loading) {
+		return (
+			<div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
+				<Spinner animation='border' variant='danger' className='spinner_circle' style={{ width: '5rem', height: '5rem' }} />
+				<p className='loading_txt ft'>오박사님 만나러 가는 중.....</p>
+			</div>
+		);
+	}
+	if (error) {
+		return <div>에러 발생: {error.message}</div>;
+	}
 
 	const statKeys = {
-		'HP': 'hp',
-		'ATK': 'attack',
-		'DEF': 'defense',
-		'SATK': 'special_attack',
-		'SDEF': 'special_defense',
-		'SPD': 'speed'
+		HP: 'hp',
+		ATK: 'attack',
+		DEF: 'defense',
+		SATK: 'special_attack',
+		SDEF: 'special_defense',
+		SPD: 'speed',
 	};
-    return (
-        <>
-            <FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
+	return (
+		<>
+			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
 			<div className={`random_page ${selectedPokemon ? `${selectedPokemon.type}_page` : ''}`}>
-                <div className='inner'>
-                    <div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
-                        <div className='pokemon_cont'>
-                            {showPokemon && (
-                                    <div className='random_pokemon_img_cont'>
-                                        <img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
-                                    </div>
-                                )}
-    							<div className='random_pokemon_cont'>
-                                {selectedPokemon && (
-                                    <>
-                                        <div className='img_box'>
-                                            <img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
-                                        </div>
-                                        <div className='txt_box'>
-                                            <p className={`type ${selectedPokemon ? `${selectedPokemon.type}` : ''}`}>
-                                                <span>{selectedPokemon.type}</span>
-                                            </p>
+				<div className='inner'>
+					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
+						<div className='pokemon_cont'>
+							{showPokemon && currentTextIndex === 3 && (
+								<div className='random_pokemon_img_cont'>
+									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
+								</div>
+							)}
+							<div className='random_pokemon_cont'>
+								{selectedPokemon && (
+									<>
+										<div className='img_box'>
+											<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
+										</div>
+										<div className='txt_box'>
+											<p className={`type ${selectedPokemon ? `${selectedPokemon.type}` : ''}`}>
+												<span>{selectedPokemon.type}</span>
+											</p>
 											<p className='id'>No. {selectedPokemon.id}</p>
-                                            <p className='name'>{selectedPokemon.korean_name}</p>
-                                            <p className='height'>키 : {selectedPokemon.height}m</p>
-                                            <p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
+											<p className='name'>{selectedPokemon.korean_name}</p>
+											<p className='height'>키 : {selectedPokemon.height}m</p>
+											<p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
 											<ul className='spec'>
 												{['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'].map((statLabel) => (
 													<li key={statLabel}>
-														<span>{statLabel}</span><span>{selectedPokemon[statKeys[statLabel]]}</span>
+														<span>{statLabel}</span>
+														<span>{selectedPokemon[statKeys[statLabel]]}</span>
 														<div className='progress'>
-															<div className={`progress-bar progress-bar-striped progress-bar-animated ${selectedPokemon ? selectedPokemon.type : ''}`} 
-																role='progressbar' 
-																aria-valuenow={selectedPokemon[statKeys[statLabel]]} 
-																aria-valuemin='0' 
-																aria-valuemax='255' 
-																style={{ width: `${(selectedPokemon[statKeys[statLabel]] / 255 * 100).toFixed(1)}%` }}>
-															</div>
+															<div
+																className={`progress-bar progress-bar-striped progress-bar-animated ${selectedPokemon ? selectedPokemon.type : ''}`}
+																role='progressbar'
+																aria-valuenow={selectedPokemon[statKeys[statLabel]]}
+																aria-valuemin='0'
+																aria-valuemax='255'
+																style={{ width: `${((selectedPokemon[statKeys[statLabel]] / 255) * 100).toFixed(1)}%` }}
+															></div>
 														</div>
 													</li>
 												))}
 											</ul>
-											<p className='desc'>
-											{selectedPokemon.korean_flavor_text}
-											</p>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </div>
-                    </div>
-                    <div className='bottom_box'>
-                        <div className='cont_box'>
-                            <div className='speech_bubble' onClick={handleNextClick}>
-                                <div className='img_box'>
-                                    <img src='img/random/img01.jpg' alt='오박사님' />
-                                </div>
-                                <div className='txt_box'>
-                                    {texts.map((text, index) => (
-                                        <div key={index} className={index === currentTextIndex ? 'txt_desc' : 'txt_desc dn'}>
-                                            <p className='typing ft'>{text}</p>
-                                        </div>
-                                    ))}
-                                </div>
-                                <button type='button' className='next_btn ft'>
-                                    넘어가기 &#62;
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {showModal && <Modal />}
-        </>
-    );
+											<p className='desc'>{selectedPokemon.korean_flavor_text}</p>
+										</div>
+									</>
+								)}
+							</div>
+						</div>
+					</div>
+					<div className='bottom_box'>
+						<div className='cont_box'>
+							<div className='speech_bubble' onClick={handleNextClick}>
+								<div className='img_box'>
+									<img src='img/random/img01.jpg' alt='오박사님' />
+								</div>
+								<div className='txt_box'>
+									{texts.map((text, index) => (
+										<div key={index} className={index === currentTextIndex ? 'txt_desc' : 'txt_desc dn'}>
+											<p className='typing ft'>{text}</p>
+										</div>
+									))}
+								</div>
+								<button type='button' className='next_btn ft'>
+									넘어가기 &#62;
+								</button>
+								{showModal && <Modal />}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</>
+	);
 };
 
 export default Random;

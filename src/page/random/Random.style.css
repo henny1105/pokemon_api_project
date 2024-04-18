@@ -16,12 +16,13 @@
 	line-height: 1.7;
 	letter-spacing: -0.7px;
 }
-.random_page .ft {
+.random_page .ft,
+.ft {
 	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
 .random_page .inner {
 	max-width: 1440px;
-	margin: 0 aut
+	margin: 0 aut;
 }
 .cursor {
 	position: fixed;
@@ -34,7 +35,7 @@
 	display: flex;
 	flex-direction: column;
 	height: 100%;
-	justify-content: center;
+	justify-content: space-between;
 }
 .random_page p {
 	margin: 0;
@@ -44,10 +45,14 @@
 }
 .random_page .top_cont {
 	height: 60vh;
+	height: calc(100% - 25%);
 	background: transparent;
+	margin-top: 7px;
+	padding: 30px;
 }
 .random_page .bottom_box {
 	display: flex;
+	height: 25%;
 }
 .random_page .bottom_box .img_box {
 	width: 300px;
@@ -99,7 +104,6 @@
 	align-items: center;
 	position: relative;
 	gap: 10px;
-	
 }
 .random_page .bottom_box .speech_bubble .txt_desc::before {
 	content: '';
@@ -111,6 +115,7 @@
 	height: 100%;
 	display: flex;
 	position: relative;
+	align-items: center;
 }
 .random_page .pokemon_cont .random_pokemon_cont {
 	opacity: 0;
@@ -121,7 +126,7 @@
 	display: flex;
 	align-items: center;
 }
-.random_page .pokemon_cont.visible .random_pokemon_cont {
+.random_page .top_cont.visible .random_pokemon_cont {
 	opacity: 1;
 	visibility: visible;
 }
@@ -164,7 +169,7 @@
 	width: 50%;
 	height: 100%;
 	background: #fff;
-	padding: 20px;
+	padding: 30px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -172,7 +177,7 @@
 }
 .random_page .pokemon_cont .txt_box p,
 .random_page .pokemon_cont .txt_box li {
-	font-size: 20px;
+	font-size: 18px;
 }
 .random_page .pokemon_cont .txt_box p.name {
 	font-size: 45px;
@@ -193,16 +198,16 @@
 	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
 .spinner-area {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-    gap: 24px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	text-align: center;
+	align-items: center;
+	gap: 24px;
 }
 .random_page .spec {
 	padding: 0;
-	margin-top: 40px;
+	margin-top: 30px;
 }
 .random_page .spec li {
 	display: flex;
@@ -222,23 +227,27 @@
 	height: 100%;
 }
 .random_page p.id {
-    font-size: 15px;
-    color: gray;
-    letter-spacing: 1px;
-    margin: 22px 0 -15px 0;
+	font-size: 15px;
+	color: gray;
+	letter-spacing: 1px;
+	margin: 15px 0 -21px 0;
+}
+.random_page p.height,
+.random_page p.weight {
+	font-size: 18px;
 }
 .dark_pokemon_img {
 	filter: grayscale(100%) brightness(0);
 }
 
-
-
-
-
 /* 애니메이션 */
 @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
+	from {
+		width: 0;
+	}
+	to {
+		width: 100%;
+	}
 }
 .random_page .typing {
 	overflow: hidden;
@@ -249,6 +258,11 @@
 	margin: 0;
 }
 @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: black; }
+	from,
+	to {
+		border-color: transparent;
+	}
+	50% {
+		border-color: black;
+	}
 }
