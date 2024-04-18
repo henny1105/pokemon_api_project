@@ -1,29 +1,54 @@
 .info {
   position: relative;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  width: 380px;
-  height: 100%;
-  background-color: #efefef;
+  width: 100vw;
+  height: 100vh;
   padding: 15px;
-
+  
   @media screen and (max-width: 767px) {
-    width: 100%;
-    height: 100vh;
+    flex-direction: column;
+    height: 100%;
   }
 }
 .info_background {
   position: absolute;
   top: 0;
   right: 0;
-  z-index: 0;
   opacity: 0.2;
+  z-index: 0;
+
+  @media (min-width: 767px) {
+    left: 0;
+  }
 }
 .info_background img {
+  display: block;
   width: 100%;
   height: 100%;
+
+  @media (min-width: 767px) {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+.info_head {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 50px 0;
+  z-index: 1;
+
+  @media screen and (min-width: 768px) {
+    width: 50%;
+    margin-right: 20px;
+  }
 }
 
 .info_header {
@@ -34,6 +59,10 @@
   height: 76px;
   color: #fff;
   padding: 20px 20px 24px 20px;
+
+  @media screen and (min-width: 768px) {
+    width: 100%;
+  }
 }
 .info_header button > svg {
   display: block;
@@ -44,11 +73,19 @@
   font-size: 24px;
   line-height: 32px;
   font-weight: bold;
+
+  @media screen and (min-width: 768px) {
+    font-size: 30px;
+  }
 }
 .info_header span {
   font-size: 12px;
   font-weight: bold;
   line-height: 16px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+  }
 }
 
 .info_image {
@@ -57,21 +94,26 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 144px;
+  height: 164px;
   z-index: 100;
+
+  @media screen and (min-width: 768px) {
+    height: 100%;
+  }
 }
 .info_image > img.non_catch {
   filter: brightness(0);
 }
 .info_image > img {
-  display: block;
-  width: 200px;
-  height: 200px;
+  width: 400px;
+  height: 400px;
   object-fit: cover;
 
   @media screen and (max-width: 767px) {
-    position: relative;
-    top: 20px;
+    position: absolute;
+    top: 10px;
+    /* position: relative; */
+    /* top: 20px; */
     width: 250px;
     height: 250px;
   }
@@ -98,14 +140,16 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 352px;
-  height: 100%;
+  width: 50%;
   background-color: #fff;
   border-radius: 8px;
-  padding: 60px 15px 15px 20px;
+  padding: 60px 30px 20px 30px;
 
   @media screen and (max-width: 767px) {
     justify-content: space-between;
+    width: 352px;
+    height: 100%;
+    padding: 60px 15px 15px 20px;
   }
 }
 .info_body .type_group {
@@ -141,7 +185,7 @@
   padding: 8px 0;
 }
 .attribute_item:last-child {
-  margin-right: 0;
+  border-right: 0;
 }
 
 .stats {
@@ -158,6 +202,10 @@
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+
+  @media screen and (min-width: 768px) {
+    justify-content: center;
+  }
 }
 .stats_item strong {
   display: inline-flex;
@@ -173,6 +221,10 @@
   white-space: nowrap;
   text-transform: uppercase;
   text-align: left;
+
+  @media screen and (min-width: 768px) {
+    max-width: 120px;
+  }
 }
 .stats_item dt {
   font-size: 10px;
@@ -190,6 +242,11 @@
   width: 180px;
   height: 4px;
   background-color: #efefef;
+
+  @media screen and (min-width: 768px) {
+    width: 300px;
+    height: 6px;
+  }
 }
 .stats_item .bar_graph_active { 
   height: 100%;

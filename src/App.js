@@ -10,6 +10,7 @@ import PokemonInfo from './page/pokemondex/components/pokemoninfo/PokemonInfo';
 import RaisePage from './page/raisepage/RaisePage';
 import MyPokemonPage from './page/mypokemonpage/MyPokemonPage';
 import PokemonBattle from './page/PokemonBattle/PokemonBattlePage';
+import NotFoundPage from './page/notfoundpage/NotFoundPage';
 import './App.css';
 
 const App = () => {
@@ -28,7 +29,7 @@ const App = () => {
         </Route>
         <Route path="/battle" element={ <PokemonBattle />} />
       </Route>
-      {/* <Route path="*" element={<NotFoundPage/>}/> */}
+      <Route path="*" element={<NotFoundPage/>}/>
     </Routes>
   )
 
