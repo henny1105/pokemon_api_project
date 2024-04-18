@@ -58,16 +58,16 @@ function PokemonCard({ pokemon, koreanName }) {
    const translatedType = translateType(primaryType);
 
   return (
-    <div className={`pokemon-card gmd-1 ${primaryType}`}>
-      <p className="pokemon-id"><img width="15" height="15" src="https://img.icons8.com/office/40/pokeball.png" alt="pokeball"/> {pokemon.id}</p>
-      <h2 className="pokemon-name">{koreanName}</h2>
+    <div className={`home-pokemon-card gmd-1 ${primaryType}`}>
+      <p className="home-pokemon-id"><img width="15" height="15" src="https://img.icons8.com/office/40/pokeball.png" alt="pokeball"/> {pokemon.id}</p>
+      <h2 className="home-pokemon-name">{koreanName}</h2>
       <img
         src={
           pokemon.sprites.versions["generation-v"]["black-white"].animated
             .front_default
         }
         alt={pokemon.name}
-        className="pokemon-img"
+        className="home-pokemon-img"
       />
 
     </div>
@@ -145,7 +145,7 @@ function Main() {
 
   return (
     <Container>
-      <div className="pokemon-container" >
+      <div className="home-pokemon-container" >
         {pokemons.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
@@ -153,7 +153,7 @@ function Main() {
             koreanName={pokemon.koreanName}
           />
         ))}
-        <div className="pagination">{renderPagination()}</div>
+        <div className="home-pagination">{renderPagination()}</div>
       </div>
 
 
