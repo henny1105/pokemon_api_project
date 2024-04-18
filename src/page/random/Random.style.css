@@ -4,7 +4,7 @@
 
 .random_page {
 	width: 100%;
-	height: 100vh;
+	height: calc(100vh - 70px);
 	background: url(../../../public/img/random/img02.jpg) no-repeat center/cover;
 }
 .random_page p,
@@ -21,9 +21,9 @@
 }
 .random_page .inner {
 	max-width: 1440px;
-	margin: 0 auto;
+	margin: 0 aut
 }
-.random_page .cursor {
+.cursor {
 	position: fixed;
 	top: -500px;
 	left: -500px;
@@ -43,7 +43,7 @@
 	font-size: 30px;
 }
 .random_page .top_cont {
-	height: 50vh;
+	height: 60vh;
 	background: transparent;
 }
 .random_page .bottom_box {
@@ -99,6 +99,7 @@
 	align-items: center;
 	position: relative;
 	gap: 10px;
+	
 }
 .random_page .bottom_box .speech_bubble .txt_desc::before {
 	content: '';
@@ -112,8 +113,8 @@
 	position: relative;
 }
 .random_page .pokemon_cont .random_pokemon_cont {
-	/* opacity: 0;
-	visibility: hidden; */
+	opacity: 0;
+	visibility: hidden;
 	position: absolute;
 	width: 100%;
 	left: 0;
@@ -173,23 +174,11 @@
 .random_page .pokemon_cont .txt_box li {
 	font-size: 20px;
 }
-.random_page .pokemon_cont .txt_box p.type span {
-	background: pink;
-	padding: 4px 10px;
-	border-radius: 5px;
-}
 .random_page .pokemon_cont .txt_box p.name {
-	font-size: 24px;
+	font-size: 45px;
 	font-weight: 700;
 }
-.random_page .typing {
-	overflow: hidden;
-	border-right: 0.15em solid black;
-	white-space: nowrap;
-	letter-spacing: 0.15em;
-	animation: typing 0.5s steps(40, end), blink-caret 0.75s step-end infinite;
-	margin: 0;
-}
+
 .random_page .next_btn {
 	background: #000;
 	color: #fff;
@@ -203,14 +192,17 @@
 	text-align: center;
 	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
-.random_page .spinner-area {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	text-align: center;
+.spinner-area {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    gap: 24px;
 }
 .random_page .spec {
 	padding: 0;
+	margin-top: 40px;
 }
 .random_page .spec li {
 	display: flex;
@@ -226,22 +218,37 @@
 .random_page .spec li .progress {
 	width: 75%;
 }
+.random_page .progress-bar {
+	height: 100%;
+}
+.random_page p.id {
+    font-size: 15px;
+    color: gray;
+    letter-spacing: 1px;
+    margin: 22px 0 -15px 0;
+}
+.dark_pokemon_img {
+	filter: grayscale(100%) brightness(0);
+}
+
+
+
+
 
 /* 애니메이션 */
 @keyframes typing {
-	from {
-		width: 0%;
-	}
-	to {
-		width: 100%;
-	}
+    from { width: 0; }
+    to { width: 100%; }
+}
+.random_page .typing {
+	overflow: hidden;
+	border-right: 0.15em solid black;
+	white-space: nowrap;
+	letter-spacing: 0.15em;
+	animation: typing 0.5s steps(40, end), blink-caret 0.75s step-end infinite;
+	margin: 0;
 }
 @keyframes blink-caret {
-	from,
-	to {
-		border-color: transparent;
-	}
-	50% {
-		border-color: black;
-	}
+    from, to { border-color: transparent; }
+    50% { border-color: black; }
 }
