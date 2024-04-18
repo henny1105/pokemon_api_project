@@ -13,25 +13,24 @@ import PokemonBattle from './page/PokemonBattle/PokemonBattlePage';
 import './App.css';
 
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<AppLayout/>}>
-        <Route index element={<Home/>}/>
-        <Route path='/random' element={<Random />} />
-        <Route path="/pokemondex">
-          <Route index element={<PokemonDex />} />
-          <Route path="pokemoninfo/:id" element={<PokemonInfo />} />
-        </Route>
-        <Route path="/mypokemon">
-          <Route index element={ <MyPokemonPage />}/>
-          <Route path=":id" element={ <RaisePage />}/>
-        </Route>
-        <Route path="/battle" element={ <PokemonBattle />} />
-      </Route>
-      {/* <Route path="*" element={<NotFoundPage/>}/> */}
-    </Routes>
-  )
-
-}
+	return (
+		<Routes>
+			<Route path='/' element={<AppLayout />}>
+				<Route index element={<Home />} />
+				<Route path='/random' element={<Random />} />
+				<Route path='/pokemondex'>
+					<Route index element={<PokemonDex />} />
+					<Route path='pokemoninfo/:id' element={<PokemonInfo />} />
+				</Route>
+				<Route path='/mypokemon'>
+					<Route index element={<MyPokemonPage />} />
+					<Route path=':id' element={<RaisePage />} />
+				</Route>
+				<Route path='/battle' element={<PokemonBattle />} />
+			</Route>
+			{/* <Route path="*" element={<NotFoundPage/>}/> */}
+		</Routes>
+	);
+};
 
 export default App;
