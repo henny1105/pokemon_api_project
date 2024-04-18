@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import { Col } from 'react-bootstrap'
 import './MyPokeCard.style.css'
 import axios from 'axios';
 
