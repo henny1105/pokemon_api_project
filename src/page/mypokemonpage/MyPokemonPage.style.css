@@ -1,70 +1,17 @@
-.container-fluid-custom {
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    justify-content: center;
+.sun-search-icon {
+    z-index: 2;
+    position: absolute;
+    left: 13px;
 }
 
-.bg-primary-custom {
-    background: #DC0A2D;
-}
-
-.bg-white-custom {
-    background: #fff;
-}
-
-.my-pokemon-area {
-    width: 75%;
-    margin: 1em;
-    border-radius: .5em;
-}
-
-.row-custom {
-    display: flex;
-    padding: 1em;
-    flex-wrap: wrap;
-}
-
-.col-custom {
-    padding: .2em;
-}
-
-.col-2-custom {
-    flex: 2;
-    padding: .2rem;
-}
-
-.my-info-area {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.my-info-area>img {
-    width: 80%;
-}
-
-.my-info {
-    width: 80%;
-
-}
-
-.search-filter-section {
+.sun-search-area {
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.head-section {
-    padding: 1em;
-    display: flex;
-    align-items: center;
-}
 
-.head-section>* {
-    margin-right: .5em;
-}
-
-.input-style {
+.sun-input-style {
     display: flex;
     align-items: center;
     padding: 8px 16px 8px 30px;
@@ -76,29 +23,13 @@
     border-radius: 16px;
 }
 
-.input-style:focus {
+.sun-input-style:focus {
 
     box-shadow: inset 0px 1px 3px 1px rgba(0, 0, 0, 0.25);
     border-radius: 16px;
 }
 
-.search-icon {
-    z-index: 2;
-    position: absolute;
-    left: 30px;
-}
-
-.search-area {
-    padding: 1em;
-    display: flex;
-    align-items: center;
-    position: relative;
-}
-
-.slot-style {
-    /* Hovering=True */
-
-    /* Auto layout */
+.sun-slot-style {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -121,7 +52,7 @@
 
 }
 
-.pokemon-card-area {
+.sun-pokemon-card-area {
     /* List Item */
 
     /* Auto layout */
@@ -147,9 +78,15 @@
     order: 0;
     flex-grow: 0;
     cursor: pointer;
+    transition: transform 300ms ease-in-out;
 }
 
-.my-pokemon-img {
+.sun-pokemon-card-area:hover{
+    transform: scale(1.1);
+    opacity: 0.7;
+}
+
+.sun-my-pokemon-img {
     /* Silhouette */
 
     position: absolute;
@@ -168,7 +105,7 @@
 }
 
 
-.pokemon-name {
+.sun-pokemon-name {
     /* Name */
 
     /* Auto layout */
@@ -195,7 +132,7 @@
 
 }
 
-.card-number {
+.sun-card-number {
     /* Number */
 
     /* Auto layout */
@@ -218,18 +155,4 @@
     flex-grow: 0;
     z-index: 0;
 
-}
-
-@media (max-width:767px) {
-    .container-fluid {
-        height: 100%;
-    }
-
-    .my-pokemon-area {
-        width: 90%;
-    }
-
-    .row {
-        justify-content: center;
-    }
 }
