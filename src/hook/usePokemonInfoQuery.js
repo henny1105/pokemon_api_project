@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 const fetchPokemonInfoAll = () => {
-  return api.get(`/pokemon`);
+  return api.get(`/pokemon/?limit=251`);
 }
 
 const fetchPokemonInfo = ({ id }) => {
