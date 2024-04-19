@@ -29,7 +29,7 @@ const PokemonBattlePage = () => {
 
     useEffect(() => {
         getRandomEnemyPokemonData();
-        setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
+        setMyBattlePokemon(pokemonData[2]);          // 임시로 내 포켓몬도 1번값으로 지정
     }, [pokemonData]);
 
     useEffect(() => {
