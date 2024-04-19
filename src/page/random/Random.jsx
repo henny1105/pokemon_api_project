@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '@kfonts/neodgm-code';
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FloatingCursor from './FloatingCursor';
-import usePokemonData from './hook/usePokemonData';
+import FloatingCursor from './components/FloatingCursor';
+import usePokemonData from './components/hook/usePokemonData';
+import useTickets from './components/hook/useTickets';
+import Modal from './components/Modal';
 import './Random.style.css';
-import Modal from './Modal';
+
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTicket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +24,7 @@ import { useNavigate } from 'react-router-dom';
 
 const Random = () => {
 	const { pokemonData, loading, error } = usePokemonData();
+	const { tickets, setTickets } = useTickets();
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const [currentTextIndex, setCurrentTextIndex] = useState(0);
 	const [randomImgIndex, setRandomImgIndex] = useState(3);
@@ -43,38 +46,6 @@ const Random = () => {
 	const [texts, setTexts] = useState(initialTexts);
 	const [buttonText, setButtonText] = useState('넘어가기 >');
 	const [showButton, setShowButton] = useState(true);
-
-	const [tickets, setTickets] = useState(() => {
-		return loadTickets();
-	});
-
-	function loadTickets() {
-		const lastDate = localStorage.getItem('lastDate');
-		const today = new Date().toISOString().slice(0, 10);
-
-		if (lastDate === today) {
-			const savedTickets = Number(localStorage.getItem('tickets'));
-			console.log(`Loaded saved tickets: ${savedTickets}`);
-			if (savedTickets === 0) {
-				localStorage.setItem('tickets', 10); // 저장된 티켓이 0이면 100으로 재설정
-				return 10;
-			}
-			return savedTickets;
-		} else {
-			localStorage.setItem('lastDate', today);
-			localStorage.setItem('tickets', 10);
-			return 10;
-		}
-	}
-
-	// 티켓 수 감소 시 로컬 스토리지에 저장
-	function useTickets() {
-		useEffect(() => {
-			localStorage.setItem('tickets', tickets);
-		}, [tickets]);
-	}
-
-	useTickets(); // 티켓 수 변동 시 마다 로컬 스토리지에 저장
 
 	// 포켓몬 데이터 랜덤으로 가져오기
 	useEffect(() => {
