@@ -3,6 +3,7 @@ import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { Outlet, Link } from "react-router-dom";
 import "./AppLayout.style.css";
 import YouTube from "react-youtube";
+import Footer from "./footer/Footer";
 
 const AppLayout = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -64,6 +65,7 @@ const AppLayout = () => {
         </Container>
       </Navbar>
       <Outlet />
+      <Footer/>
     </Container>
   );
 };
