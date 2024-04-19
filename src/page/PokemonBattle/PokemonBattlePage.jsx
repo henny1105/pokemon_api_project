@@ -25,6 +25,12 @@ const PokemonBattlePage = () => {
     const dispatch = useDispatch();
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
 
+    const myPokemonListData = [];       // 내가 가진 포켓몬리스트인데 객체 담겨져 있음
+    for (let i = 0; i < myPokemonList.length; i++) {
+        myPokemonListData.push(pokemonData.find((item) => item.name === myPokemonList[i].data.name))
+    }
+    // console.log("내 생각이 맞을까? ", myPokemonListData);
+
     console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
@@ -33,10 +39,10 @@ const PokemonBattlePage = () => {
         getRandomEnemyPokemonData();
         // 내 포켓몬 리스트의 첫(index:0번째 값을 처음 나오는 포켓몬으로!
         console.log("내 포켓몬 1번째", myPokemonList[0].data.name);
-        let myFirstBattlePokemon = pokemonData.find((item) => item.name === myPokemonList[0].data.name);
-        console.log("내 포켓몬 1번째랑 이름 같은 거 찾기", myFirstBattlePokemon);
-        setMyBattlePokemon(myFirstBattlePokemon);
-        setclickedPokemon(myFirstBattlePokemon);
+        // let myFirstBattlePokemon = pokemonData.find((item) => item.name === myPokemonList[0].data.name);
+        // console.log("내 포켓몬 1번째랑 이름 같은 거 찾기", myFirstBattlePokemon);
+        setMyBattlePokemon(myPokemonListData[0]);
+        setclickedPokemon(myPokemonListData[0]);
 
         //setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬 1번값으로 지정(공격력 약함)
         //setMyBattlePokemon(pokemonData[148]);          // 임시로 내 포켓몬 148번값으로 지정(공격력 셈)
@@ -299,11 +305,14 @@ const PokemonBattlePage = () => {
             >
                 <div className='battle-modal-content'>
 
-                    <h3 style={{ color: "#DC0A2D", marginTop: 30 }}>{myBattlePokemon?.korean_name} 수고했어 들어와!</h3>
+                    <h3 style={{ color: "#DC0A2D", marginTop: 30 }}>{myBattlePokemon?.korean_name}, 수고했어 들어와!</h3>
                     <div style={{ margin: 10 }}>
-                        <button onClick={() => setclickedPokemon()}>
-                            <PokemonBattleCard BattlePokemon={myBattlePokemon} />
-                        </button>
+                        {myPokemonListData.map((item) =>
+                            <button onClick={() => setclickedPokemon(item)}>
+                                <PokemonBattleCard BattlePokemon={item} />
+                            </button>
+                        )}
+
                     </div>
                     <div className='battle-btns'>
                         <button onClick={() => changeMyBattlePokemon(clickedPokemon)} className='battle-modal-cancel-btn'>변경한다.</button>
