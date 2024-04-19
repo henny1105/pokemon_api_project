@@ -9,16 +9,17 @@ const useTickets = () => {
 		const lastDate = localStorage.getItem('lastDate');
 		const today = new Date().toISOString().slice(0, 10);
 
+		// 오늘 날짜와 로컬 스토리지에 저장된 날짜가 같다면
 		if (lastDate === today) {
-			const savedTickets = Number(localStorage.getItem('tickets'));
-			if (savedTickets === 0) {
-				localStorage.setItem('tickets', 10); // 저장된 티켓이 0이면 100으로 재설정
-				return 10;
+			const savedTickets = Number(localStorage.getItem('tickets')); // 로컬 스토리지에 저장된 티켓 수
+			if (savedTickets === 0) { // 티켓이 0개일 때
+				localStorage.setItem('tickets', 10);  // 10개로 초기화
+				return 10; 
 			}
-			return savedTickets;
+			return savedTickets; 
 		} else {
-			localStorage.setItem('lastDate', today);
-			localStorage.setItem('tickets', 10);
+			localStorage.setItem('lastDate', today); // 오늘 날짜로 갱신
+			localStorage.setItem('tickets', 10); // 티켓 수 초기화
 			return 10;
 		}
 	}
