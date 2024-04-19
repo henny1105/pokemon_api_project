@@ -1,0 +1,28 @@
+.app-footer {
+    color: #717171;
+    background-color: transparent;
+    border-top: 1px solid rgba(255, 225, 0, 0.334);
+    border-bottom: 5px solid rgb(255, 225, 0);
+    width: 100%;
+    padding: 20px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-second-child{
+    padding-left: 13px;
+  }
+  
+  @media screen and (max-width: 768px) {
+  .footer-first {
+    display: none;
+  }
+  .footer-second {
+    display: none;
+  }
+  .app-footer {
+    display: flex;
+    justify-content: center;
+    padding: 10px 12px;
+  }
+  }
