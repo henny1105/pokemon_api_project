@@ -37,12 +37,14 @@ const RaisePage = () => {
 	useEffect(()=>{
 		const fetchName = async()=>{
 			try{
-				const speciesResponse = await axios.get(data.species.url);
-				const koreanName = speciesResponse.data.names.find(
-					(name) => name.language.name === "ko"
-				  );
-				  setPokeName(koreanName ? koreanName.name :'unknown')
-				  setArtWork(data?.sprites.other["official-artwork"].front_default)
+				if(data){
+					const speciesResponse = await axios.get(data?.species?.url);
+					const koreanName = speciesResponse?.data.names.find(
+						(name) => name.language.name === "ko"
+					  );
+					  setPokeName(koreanName ? koreanName.name :'unknown')
+					  setArtWork(data?.sprites?.other["official-artwork"].front_default)
+				}
 			}catch(error){
 				console.error('Error fetching Pokemon data:', error);
 			}
