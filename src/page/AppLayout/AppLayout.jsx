@@ -16,7 +16,6 @@ const AppLayout = () => {
       <Navbar expand="lg" className="bg-body-bg navbar-box">
         <Container fixed>
           <Navbar.Brand href="/">
-            <img width={120} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" />
             <img
               width={120}
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s"
