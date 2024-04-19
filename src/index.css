@@ -182,20 +182,20 @@ button, input {
 .type {
   display: inline-block;
   width: max-content;
-  padding: 4px 16px;
-  border-radius: 10px;
-  margin-right: 16px;
-  font-size: 14px;
+  padding: 2px 8px;
+  font-size: 10px;
   font-weight: bold;
   line-height: 16px;
+  margin-right: 8px;
+  border-radius: 10px;
   color: #fff;
 
-  @media screen and (max-width: 767px) {
-    padding: 2px 8px;
-    font-size: 10px;
+  @media screen and (min-width: 767px) {
+    padding: 4px 16px;
+    margin-right: 16px;
+    font-size: 14px;
     font-weight: bold;
     line-height: 16px;
-    margin-right: 8px;
   }
 }
 .type:last-child {
