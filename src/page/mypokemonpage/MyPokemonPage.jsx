@@ -25,7 +25,7 @@ const MyPokemonPage = () => {
           <div className='w-100 body_1'>
             <div>Name : <span>ddd</span></div>
             <div>Ticket : <span>{myInfo.Ticket}</span></div>
-            <div>RareCandy : <span>0</span></div>
+            <div>RareCandy : <span>{myInfo.RareCandy}</span></div>
           </div>
 
         </Col>

@@ -17,7 +17,8 @@ let initialState = {
             },
             Lv: 1,
             Exp: 0,
-        }
+        },
+        
     ],
     Ticket: 1,
     RareCandy: 0,
