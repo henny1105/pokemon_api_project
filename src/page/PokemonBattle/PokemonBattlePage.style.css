@@ -1,4 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+.loader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+
+.loader * {
+    font-size: 1.5rem;
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
+
+#battle * {
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+}
 
 .battle-backgorund {
     height: 100vh;
@@ -8,7 +23,7 @@
 }
 
 .battle-ticket {
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-left: 30px;
     color: white;
     text-shadow: 1px 1px 2px black;
@@ -17,56 +32,88 @@
 .battle-cards {
     display: flex;
     flex-direction: column;
-    padding-top: 250px;
+    padding-top: 270px;
 }
 
 .battle-enemy-card {
     display: flex;
     justify-content: flex-end;
-    padding-right: 400px;
+    padding-right: 300px;
+}
+
+.battle-enemy-card-atk {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 300px;
+    animation-name: enemy-move;
+    animation-duration: 1s;
+    animation-iteration-count: 10s;
 }
 
 .battle-my-card {
     display: flex;
     justify-content: flex-start;
-    padding-left: 400px;
+    padding-left: 300px;
+}
+
+.battle-my-card img {
+    transform: scaleX(-1);
+}
+
+.battle-my-card-atk {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 300px;
+    animation-name: my-move;
+    animation-duration: 1s;
+    animation-iteration-count: 10s;
+}
+
+.battle-my-card-atk img {
+    transform: scaleX(-1);
 }
 
 .battle-message-container {
-    display: flex;
-    justify-content: center;
-    height: 15vh;
+    height: 100px;
     margin-top: 10px;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
 }
 
 .battle-message {
     display: flex;
+    height: 90%;
     flex-direction: column;
-    width: 600px;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
+    background-color: white;
+    color: black;
     font-weight: bold;
     font-size: 1.2rem;
-    padding-top: 10px;
-    padding-left: 10px;
+    border: 1px solid black;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
 }
 
 .battle-attack-btn {
     background-color: transparent;
-    color: white;
+    color: black;
     font-size: 1rem;
     margin-right: 20px;
+
+
 }
 
 .battle-attack-btn:hover {
     text-decoration: underline;
     font-style: italic;
     font-weight: bold;
+    color: #DC0A2D;
 }
 
 .battle-run-btn {
     background-color: transparent;
-    color: white;
+    color: black;
     font-size: 1rem;
 }
 
@@ -81,6 +128,7 @@
     text-decoration: underline;
     font-style: italic;
     font-weight: bold;
+    color: #DC0A2D;
 }
 
 .battle-modal-ok-btn {
@@ -99,6 +147,31 @@
 .battle-modal-cancel-btn:hover {
     color: #DC0A2D;
     font-weight: bold;
+}
+
+.ReactModalPortal * {
+    font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
+    text-align: center;
+}
+
+@keyframes my-move {
+    0% {
+        transform: translateX(100px)
+    }
+
+    100% {
+        transform: translateX(-100px)
+    }
+}
+
+@keyframes enemy-move {
+    0% {
+        transform: translateX(-100px)
+    }
+
+    100% {
+        transform: translateX(100px)
+    }
 }
 
 @media only screen and (max-width: 768px) {
