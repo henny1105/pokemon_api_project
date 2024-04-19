@@ -2,8 +2,9 @@ import React from 'react';
 import './PokemonFilter.style.css';
 import { usePokemonTypeQuery } from '../../../../hook/usePokemonInfoQuery';
 
-const PokemonFilter = () => {
+const PokemonFilter = ({ getTypeValue, setClicked }) => {
   const { data:types } = usePokemonTypeQuery();
+
   const translateType = (englishType) => {
     switch (englishType) {
       case "normal":
@@ -49,14 +50,15 @@ const PokemonFilter = () => {
 
   return (
     <ul className="type_list">
+    <span onClick={ () => setClicked("") }>초기화</span>
     {
       types?.results.map((type, index) => (
         <li className="type_item" key={index}>
         {
           type.name.includes('unknown') !== true && type.name.includes('shadow') !== true
           ?
-          <span className={`type ${type.name}`}>
-            { translateType(type.name) }
+          <span className={`${type.name}`} onClick={ (e) => getTypeValue(e) }>
+            { translateType(type.name ) }
           </span>
           :
           <span>{null}</span>

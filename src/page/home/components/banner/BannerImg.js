@@ -20,24 +20,12 @@ const BannerImg = [
   {
     label: "Image 4",
     alt: "image4",
-    url: "/images/21.jpg",
+    url: "/images/17.png",
   },
 
   {
     label: "Image 5",
     alt: "image5",
-    url: "/images/22.jpg",
-  },
-
-  {
-    label: "Image 6",
-    alt: "image6",
-    url: "/images/17.png",
-  },
-
-  {
-    label: "Image 7",
-    alt: "image7",
     url: "/images/14.gif",
   },
 
