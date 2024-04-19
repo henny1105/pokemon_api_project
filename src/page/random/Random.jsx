@@ -8,7 +8,7 @@ import './Random.style.css';
 import Modal from './Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTicket } from '@fortawesome/free-solid-svg-icons';
-
+import { useNavigate } from 'react-router-dom';
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
 // -랜덤 포켓몬은 진화되지 않은 포켓몬만 나온다?
 // -랜덤 뽑기시 오박사의 오늘의 포켓몬은 뭘까요?처럼 검은색 그림자로 먼저 포켓몬이 나온다
@@ -35,7 +35,7 @@ const Random = () => {
 		'ㅇㅇ 포켓몬은 ㅇㅇ타입이지.',
 		'그리고 대표적인 기술은...',
 		'ㅇㅇㅇ 이로구나!',
-		'다시 한번 포켓몬을 뽑고 싶다면 레버를 당겨보게나!',
+		'다시 한번 포켓몬을 뽑아볼까?',
 		'오늘 뽑을 수 있는 기회는 5번 남아있어!',
 	];
 	const [texts, setTexts] = useState(initialTexts);
@@ -44,12 +44,15 @@ const Random = () => {
 
 	// 포켓몬 데이터 랜덤으로 가져오기
 	useEffect(() => {
-		if (pokemonData) {
+		selectRandomPokemon();
+	}, [pokemonData]);
+
+	const selectRandomPokemon = () => {
+		if (pokemonData && pokemonData.length > 0) {
 			const randomIndex = Math.floor(Math.random() * pokemonData.length);
 			setSelectedPokemon(pokemonData[randomIndex]);
-			console.log(pokemonData[randomIndex]);
 		}
-	}, [pokemonData]);
+	};
 
 	useEffect(() => {
 		let interval;
@@ -143,6 +146,18 @@ const Random = () => {
 		setShowModal(newIndex === 4); // 4번째 컨텐츠에서 빵빠레 모션 보이기
 	};
 
+	const navigate = useNavigate();
+
+	const handleGoBack = () => {
+		navigate('/'); //	메인으로 돌아가기
+	};
+
+	// 포켓몬 다시 뽑기
+	const handleReroll = () => {
+		selectRandomPokemon(); // 새로운 포켓몬 랜덤 선택
+		setCurrentTextIndex(3); // 랜덤 이미지 뽑기 화면으로 이동
+	};
+
 	if (loading) {
 		return (
 			<div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -231,10 +246,20 @@ const Random = () => {
 										</div>
 									))}
 								</div>
-								{showButton && (
+								{showButton && currentTextIndex !== 9 && (
 									<button type='button' className='next_btn ft' onClick={handleNextClick}>
 										{buttonText}
 									</button>
+								)}
+								{currentTextIndex === 9 && (
+									<div className='button_box'>
+										<button type='button' className='next_btn ft' onClick={handleGoBack}>
+											메인으로 돌아가기
+										</button>
+										<button type='button' className='next_btn ft' onClick={handleReroll}>
+											포켓몬 다시 뽑기
+										</button>
+									</div>
 								)}
 								{showModal && <Modal />}
 							</div>

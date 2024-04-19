@@ -88,6 +88,9 @@
 .random_page .bottom_box .speech_bubble button {
 	flex-shrink: 0;
 }
+.random_page .bottom_box .speech_bubble button:last-child {
+	margin-left: 10px;
+}
 .random_page .bottom_box .speech_bubble::before {
 	content: '';
 	width: 99%;
@@ -244,6 +247,14 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+}
+.random_page .button_box {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	text-align: center;
 }
 
 /* 애니메이션 */
