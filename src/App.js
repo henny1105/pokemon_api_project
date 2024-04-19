@@ -15,28 +15,27 @@ import './App.css';
 import { Routes, Route } from 'react-router-dom/dist';
 
 const App = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<AppLayout />}>
-        <Route index element={<Home />} />
-        <Route path='/random' element={<Random />} />
-        <Route path="/pokemondex">
-          <Route index element={<PokemonDex />} />
-          <Route path="pokemoninfo/:id" element={<PokemonInfo />} />
-        </Route>
-        <Route path="/mypokemon" >
-          <Route index element={<MyPokemonPage />} />
-          <Route path=":id" element={<RaisePage />} />
-        </Route>
-        <Route path="/battle">
-          <Route index element={<PokemonBattle />} />
-          <Route path="run" element={<PokemonRunPage />} />
-        </Route>
-      </Route>
-      <Route path="*" element={<NotFoundPage/>}/>
-    </Routes>
-  )
-
-}
+	return (
+		<Routes>
+			<Route path='/' element={<AppLayout />}>
+				<Route index element={<Home />} />
+				<Route path='/random' element={<Random />} />
+				<Route path='/pokemondex'>
+					<Route index element={<PokemonDex />} />
+					<Route path='pokemoninfo/:id' element={<PokemonInfo />} />
+				</Route>
+				<Route path='/mypokemon'>
+					<Route index element={<MyPokemonPage />} />
+					<Route path=':id' element={<RaisePage />} />
+				</Route>
+				<Route path='/battle'>
+					<Route index element={<PokemonBattle />} />
+					<Route path='run' element={<PokemonRunPage />} />
+				</Route>
+			</Route>
+			<Route path='*' element={<NotFoundPage />} />
+		</Routes>
+	);
+};
 
 export default App;
