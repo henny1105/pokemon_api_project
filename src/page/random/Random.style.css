@@ -283,3 +283,112 @@
 		border-color: black;
 	}
 }
+
+/* 반응형 */
+@media screen and (max-width: 989px) {
+	.cursor {
+		display: none;
+	}
+	.random_page .speech_bubble p {
+		font-size: 16px;
+	}
+	.random_page .bottom_box .speech_bubble {
+		padding: 10px;
+	}
+	.random_page .pokemon_cont .random_pokemon_cont {
+		flex-direction: column;
+	}
+	.random_page .pokemon_cont .txt_box {
+		width: 100%;
+	}
+	.random_page .pokemon_cont .txt_box p.name {
+		font-size: 25px;
+	}
+	.random_page .pokemon_cont .txt_box p,
+	.random_page .pokemon_cont .txt_box li {
+		font-size: 13px;
+	}
+	.random_page .pokemon_cont .txt_box {
+		padding: 15px;
+		margin-top: 25px;
+	}
+	.random_page .top_cont {
+		padding: 10px;
+	}
+	.random_page .pokemon_cont .img_box {
+		width: 100%;
+	}
+	.random_page .pokemon_cont .random_pokemon_cont img {
+		top: 34px;
+		right: 5%;
+		left: auto;
+		width: 150px;
+		height: 150px;
+		transform: none;
+	}
+	.random_page p.id {
+		margin: 9px 0 -10px 0;
+	}
+	.random_page .spec li span:nth-of-type(1) {
+		font-weight: bold;
+	}
+	.random_page .battle-ticket {
+		top: -10px;
+		font-size: 20px;
+	}
+	.battle-ticket img {
+		width: 31px;
+		margin-right: 5px;
+	}
+	.random_page .spec {
+		margin-top: 20px;
+	}
+	.random_page .bottom_box {
+		height: 15%;
+	}
+	.random_page .bottom_box .speech_bubble .img_box {
+		width: 50px;
+		height: 50px;
+		position: absolute;
+		top: -29px;
+		border-radius: 50%;
+		border: 1px solid #b9b9b982;
+	}
+	.random_page .bottom_box .speech_bubble .img_box img {
+		border-radius: 50%;
+	}
+	.random_page .bottom_box .speech_bubble .txt_desc::before {
+		display: none;
+	}
+	.random_page .next_btn {
+		font-size: 13px;
+		padding: 0.5rem;
+		position: absolute;
+		top: -50px;
+		right: 0;
+	}
+	.random_page .bottom_box .speech_bubble .txt_box {
+		padding: 0;
+	}
+	.random_page .random_pokemon_img_cont img {
+		width: 200px;
+		height: 200px;
+	}
+	.random_page .button_box {
+		flex-direction: row;
+		position: absolute;
+		right: 0;
+		top: -50px;
+	}
+	.random_page .button_box button {
+		position: relative;
+		top: auto;
+		right: auto;
+		/* flex-direction: row;
+		position: absolute;
+		top: -50px;
+		margin: 0 auto;
+		left: 50%;
+		transform: translateX(-50%); */
+	}
+}

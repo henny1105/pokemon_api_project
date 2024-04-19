@@ -6,9 +6,10 @@ import FloatingCursor from './FloatingCursor';
 import usePokemonData from './hook/usePokemonData';
 import './Random.style.css';
 import Modal from './Modal';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTicket } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faTicket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
+
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
 // -랜덤 포켓몬은 진화되지 않은 포켓몬만 나온다?
 // -랜덤 뽑기시 오박사의 오늘의 포켓몬은 뭘까요?처럼 검은색 그림자로 먼저 포켓몬이 나온다
@@ -53,11 +54,16 @@ const Random = () => {
 
 		if (lastDate === today) {
 			const savedTickets = Number(localStorage.getItem('tickets'));
-			return savedTickets; // 저장된 티켓이 있으면 그 값을 반환
+			console.log(`Loaded saved tickets: ${savedTickets}`);
+			if (savedTickets === 0) {
+				localStorage.setItem('tickets', 10); // 저장된 티켓이 0이면 100으로 재설정
+				return 10;
+			}
+			return savedTickets;
 		} else {
 			localStorage.setItem('lastDate', today);
-			localStorage.setItem('tickets', 5);
-			return 5; // 날짜가 다르면 티켓 수를 5로 리셋하고 그 값을 반환
+			localStorage.setItem('tickets', 10);
+			return 10;
 		}
 	}
 
@@ -229,7 +235,8 @@ const Random = () => {
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
 							<div className='battle-ticket'>
-								<FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} />
+								<img style={{ width: 40, marginRight: 10 }} src='https://cdn-icons-png.flaticon.com/128/4533/4533935.png' />
+								{/* <FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} /> */}
 								{tickets}
 							</div>
 
