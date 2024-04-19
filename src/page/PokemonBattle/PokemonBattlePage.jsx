@@ -23,14 +23,20 @@ const PokemonBattlePage = () => {
     const dispatch = useDispatch();
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
 
-    //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
+    console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
 
     useEffect(() => {
         getRandomEnemyPokemonData();
-        setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
-        //setMyBattlePokemon(pokemonData[148]);          // 임시로 내 포켓몬도 1번값으로 지정
+        // 내 포켓몬 리스트의 첫(index:0번째 값을 처음 나오는 포켓몬으로!
+        console.log("내 포켓몬 1번째", myPokemonList[0].data.name);
+        let myFirstBattlePokemon = pokemonData.find((item) => item.name === myPokemonList[0].data.name);
+        console.log("내 포켓몬 1번째랑 이름 같은 거 찾기", myFirstBattlePokemon);
+        setMyBattlePokemon(myFirstBattlePokemon);
+
+        //setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬 1번값으로 지정(공격력 약함)
+        //setMyBattlePokemon(pokemonData[148]);          // 임시로 내 포켓몬 148번값으로 지정(공격력 셈)
     }, [pokemonData]);
 
     useEffect(() => {
