@@ -31,7 +31,7 @@ const AppLayout = () => {
             >
               <Nav.Link href="/">Home</Nav.Link>
               <Nav.Link href="/pokemondex">PokemonDex</Nav.Link>
-              <Nav.Link href="/random">Lucky Drow</Nav.Link>
+              <Nav.Link href="/random">Lucky Draw</Nav.Link>
               <Nav.Link href="/battle">Battle</Nav.Link>
               <Nav.Link href="/mypokemon">MyPokemon</Nav.Link>
             </Nav>
