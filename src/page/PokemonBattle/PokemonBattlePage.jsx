@@ -105,6 +105,7 @@ const PokemonBattlePage = () => {
         setEnemyBattlePokemon(null);
         setIsAttack(false);
         setIsWin(false);
+
         getRandomEnemyPokemonData();
     }
 
