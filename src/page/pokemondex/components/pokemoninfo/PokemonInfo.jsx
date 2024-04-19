@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import { usePokemonInfoQuery } from '../../../../hook/usePokemonInfoQuery';
 import { usePokemonSpeciesQuery, usePokemonEvolutionQuery } from '../../../../hook/usePokemonInfoQuery';
 
+
+
 const PokemonInfo = () => {
   const [catchPokemon, setCatchPokemon] = useState(false); // redux 처리
   const navigate = useNavigate();
@@ -63,7 +65,6 @@ const PokemonInfo = () => {
     }
   };
 
-
   return (
     <div className={ `${styles.info} ${data?.types[0].type.name}` }>
       <div className={ styles.info_background }>
@@ -90,6 +91,7 @@ const PokemonInfo = () => {
         <div className={ styles.info_image }>
           {
             catchPokemon
+            // pokemonCatch
             ?
             <img src={ data?.sprites.other["official-artwork"].front_default } alt="" />
             :
@@ -97,12 +99,13 @@ const PokemonInfo = () => {
           }
           {
             catchPokemon
+            // pokemonCatch
             ?
-            <button type="button" className={ styles.catch_button } onClick={ catchToggle }>
+            <button type="button" className={ styles.catch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
             </button>
             :
-            <button type="button" className={ styles.uncatch_button } onClick={ catchToggle }>
+            <button type="button" className={ styles.uncatch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M29.7144 24C29.7144 27.1559 27.156 29.7143 24.0001 29.7143C20.8442 29.7143 18.2858 27.1559 18.2858 24C18.2858 20.8441 20.8442 18.2857 24.0001 18.2857C27.156 18.2857 29.7144 20.8441 29.7144 24Z" fill="#1D1D1D"/>
                 <path fillRule="evenodd" clipRule="evenodd" d="M24.0001 48C36.0909 48 46.0934 39.0593 47.7571 27.4286H33.7006C32.2885 31.4235 28.4786 34.2857 24.0001 34.2857C19.5217 34.2857 15.7117 31.4235 14.2997 27.4286H0.243164C1.90681 39.0593 11.9094 48 24.0001 48ZM14.2997 20.5714H0.243164C1.90681 8.94071 11.9094 0 24.0001 0C36.0909 0 46.0934 8.94071 47.7571 20.5714H33.7006C32.2885 16.5765 28.4786 13.7143 24.0001 13.7143C19.5217 13.7143 15.7117 16.5765 14.2997 20.5714ZM29.7144 24C29.7144 27.1559 27.156 29.7143 24.0001 29.7143C20.8442 29.7143 18.2858 27.1559 18.2858 24C18.2858 20.8441 20.8442 18.2857 24.0001 18.2857C27.156 18.2857 29.7144 20.8441 29.7144 24Z" fill="#1D1D1D"/>
