@@ -240,6 +240,11 @@
 .dark_pokemon_img {
 	filter: grayscale(100%) brightness(0);
 }
+.random_page .battle-ticket {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
 
 /* 애니메이션 */
 @keyframes typing {
@@ -254,7 +259,7 @@
 	overflow: hidden;
 	border-right: 0.15em solid black;
 	white-space: nowrap;
-	letter-spacing: 0.15em;
+	/* letter-spacing: 0.15em; */
 	animation: typing 0.5s steps(40, end), blink-caret 0.75s step-end infinite;
 	margin: 0;
 }

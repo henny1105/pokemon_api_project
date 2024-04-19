@@ -25,11 +25,19 @@ const usePokemonData = () => {
 					const speciesInfo = responses[i + 1].data;
 					const koreanName = speciesInfo.names.find((name) => name.language.name === 'ko')?.name || '이름 없음';
 					const koreanFlavorText = speciesInfo.flavor_text_entries.find((entry) => entry.language.name === 'ko')?.flavor_text || '';
+					const abilityRequests = pokemonInfo.abilities.map((ability) => axios.get(ability.ability.url));
+					const abilityResponses = await Promise.all(abilityRequests);
+					const abilities = abilityResponses
+						.map((response) => {
+							const koreanAbility = response.data.names.find((name) => name.language.name === 'ko');
+							return koreanAbility ? koreanAbility.name : '능력 없음';
+						})
+						.join(', ');
 
 					allPokemonData.push({
 						...pokemonInfo,
 						korean_name: koreanName,
-						korean_flavor_text: koreanFlavorText.replace(/\n|\f/g, ' '), // 줄바꿈 제거
+						korean_flavor_text: koreanFlavorText,
 						image: pokemonInfo.sprites.other['official-artwork'].front_default,
 						height: (pokemonInfo.height * 0.1).toFixed(1),
 						id: pokemonInfo.id,
@@ -41,6 +49,7 @@ const usePokemonData = () => {
 						special_attack: pokemonInfo.stats[3].base_stat,
 						special_defense: pokemonInfo.stats[4].base_stat,
 						speed: pokemonInfo.stats[5].base_stat,
+						abilities: abilities,
 						full_data: pokemonInfo,
 					});
 				}

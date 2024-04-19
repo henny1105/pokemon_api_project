@@ -6,6 +6,8 @@ import FloatingCursor from './FloatingCursor';
 import usePokemonData from './hook/usePokemonData';
 import './Random.style.css';
 import Modal from './Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTicket } from '@fortawesome/free-solid-svg-icons';
 
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
 // -랜덤 포켓몬은 진화되지 않은 포켓몬만 나온다?
@@ -24,7 +26,17 @@ const Random = () => {
 	const [randomImgIndex, setRandomImgIndex] = useState(3);
 	const [showPokemon, setShowPokemon] = useState(false);
 	const [showModal, setShowModal] = useState(false);
-	const initialTexts = ['나는 오박사라네!', '자 오늘의 포켓몬은 뭘까요~~?', '오늘의 포켓몬은~~~~~!', '랜덤으로 포켓몬 불러오는 중.....', ''];
+	const initialTexts = [
+		'나는 오박사라네!',
+		'자 오늘의 포켓몬은 뭘까요~~?',
+		'오늘의 포켓몬은~~~~~!',
+		'랜덤으로 포켓몬 불러오는 중.....',
+		'특징은..',
+		'특징은',
+		'특징은바로',
+		'ㅇㅇㅇㅇㅇㅇ',
+		'ㅇㅇㅇㄹㅈㄷㄱㅈㄷ',
+	];
 	const [texts, setTexts] = useState(initialTexts);
 	const [buttonText, setButtonText] = useState('넘어가기 >');
 	const [showButton, setShowButton] = useState(true);
@@ -34,6 +46,7 @@ const Random = () => {
 		if (pokemonData) {
 			const randomIndex = Math.floor(Math.random() * pokemonData.length);
 			setSelectedPokemon(pokemonData[randomIndex]);
+			console.log(pokemonData[randomIndex]);
 		}
 	}, [pokemonData]);
 
@@ -61,7 +74,7 @@ const Random = () => {
 			const timer = setTimeout(() => {
 				setButtonText('포켓몬 확인하기 >');
 				setShowButton(true);
-			}, 3000); // 3초 후 버튼 보이기
+			}, 2000); // 3초 후 버튼 보이기
 
 			return () => clearTimeout(timer);
 		} else {
@@ -80,22 +93,44 @@ const Random = () => {
 	}, [currentTextIndex]);
 
 	useEffect(() => {
-		if (selectedPokemon && currentTextIndex === 4) {
-			setTexts((prevTexts) => {
-				const newTexts = [...prevTexts];
-				newTexts[4] = `오늘의 포켓몬은 바로 '${selectedPokemon.korean_name}' 포켓몬이다!`; // 4번째 컨텐츠에서 포켓몬 이름 보여주기
-				return newTexts;
-			});
-			setShowPokemon(true);
-		} else {
-			setShowPokemon(false);
+		if (selectedPokemon) {
+			if (currentTextIndex === 4) {
+				// 랜덤으로 뽑은 포켓몬이 있고, 4번째 컨텐츠일 때
+				setTexts((prevTexts) => {
+					const newTexts = [...prevTexts];
+					newTexts[4] = `오늘의 포켓몬은 바로 '${selectedPokemon.korean_name}' 포켓몬이다!`; // 포켓몬 이름 보여주기
+					return newTexts;
+				});
+				setShowPokemon(true);
+			} else if (currentTextIndex === 5) {
+				// 5번째 컨텐츠일 때, 특징 보여주기
+				setTexts((prevTexts) => {
+					const newTexts = [...prevTexts];
+					newTexts[5] = `${selectedPokemon.korean_name} 포켓몬의 대표적 기술은...`; // 포켓몬 특징 시작
+					return newTexts;
+				});
+				setShowPokemon(true);
+			} else if (currentTextIndex === 6) {
+				// 6번째 컨텐츠일 때, 특징 보여주기
+				setTexts((prevTexts) => {
+					const newTexts = [...prevTexts];
+					newTexts[6] = `${selectedPokemon.abilities} 이로구나!`; // 포켓몬 특징 끝
+					return newTexts;
+				});
+				setShowPokemon(true);
+			} else {
+				setShowPokemon(false);
+			}
 		}
 	}, [selectedPokemon, currentTextIndex]);
+
+	useEffect(() => {
+		setShowPokemon(currentTextIndex >= 4);
+	}, [currentTextIndex]);
 
 	const handleNextClick = () => {
 		const newIndex = (currentTextIndex + 1) % texts.length; // 다음 컨텐츠로 이동
 		setCurrentTextIndex(newIndex); // 컨텐츠 변경
-		setShowPokemon(newIndex === 4); // 4번째 컨텐츠에서 포켓몬 상세정보 보이기
 		setShowModal(newIndex === 4); // 4번째 컨텐츠에서 빵빠레 모션 보이기
 	};
 
@@ -126,6 +161,9 @@ const Random = () => {
 				<div className='inner'>
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
+							<div className='battle-ticket'>
+								<FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} />5
+							</div>
 							{currentTextIndex === 3 && (
 								<div className='random_pokemon_img_cont'>
 									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
@@ -164,6 +202,7 @@ const Random = () => {
 												))}
 											</ul>
 											<p className='desc'>{selectedPokemon.korean_flavor_text}</p>
+											{/* <p>{selectedPokemon.abilities}</p> */}
 										</div>
 									</>
 								)}
