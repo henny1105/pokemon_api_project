@@ -9,6 +9,8 @@ let initialState = {
             },
             Lv: 1,
             Exp: 0,
+            hp: 70,
+            attack: 100,
         },
         {
             data: {
@@ -17,6 +19,8 @@ let initialState = {
             },
             Lv: 1,
             Exp: 0,
+            hp: 20,
+            attack: 60,
         },
         {
             data: {
@@ -25,6 +29,8 @@ let initialState = {
             },
             Lv: 1,
             Exp: 0,
+            hp: 20,
+            attack: 10,
         },
 
     ],
@@ -56,6 +62,10 @@ const myInfoSlice = createSlice({
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Exp += 5;
             }
+        },
+        addTicket: (state, action) => {
+            state.Ticket = state.Ticket + 1;
+            console.log("now ticket : ", state.Ticket);
         }
     }
 })
