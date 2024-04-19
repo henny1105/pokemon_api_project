@@ -1,3 +1,7 @@
 .navbar-button:hover{
     color: white !important;
 }
+
+.navbar-box{
+    border-top: 5px solid rgb(255, 225, 0);
+}

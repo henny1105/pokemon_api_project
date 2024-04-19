@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Main.css"; // 스타일 파일을 불러옵니다.
-import {Button, Container} from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 
 // 타입을 한글로 번역하는 함수
 const translateType = (englishType) => {
@@ -47,7 +47,7 @@ const translateType = (englishType) => {
   }
 };
 
-function PokemonCard({ pokemon, koreanName }) {
+function PokemonCard({ pokemon, koreanName, generation }) {
   // 포켓몬의 첫 번째 타입을 추출합니다.
   const primaryType =
     pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
@@ -57,15 +57,20 @@ function PokemonCard({ pokemon, koreanName }) {
 
   return (
     <div className={`home-pokemon-card gmd-1 ${primaryType}`}>
-      <p className="home-pokemon-id">
-        <img
-          width="15"
-          height="15"
-          src="https://img.icons8.com/office/40/pokeball.png"
-          alt="pokeball"
-        />{" "}
-        {pokemon.id}
-      </p>
+      <div className="home-pokemon-id">
+        <div>
+          <img
+            width="15"
+            height="15"
+            src="https://img.icons8.com/office/40/pokeball.png"
+            alt="pokeball"
+          />{" "}
+          {generation}
+        </div>
+          
+        <div>#{pokemon.id}</div>
+      </div>
+
       <h2 className="home-pokemon-name">{koreanName}</h2>
       <img
         src={
@@ -103,9 +108,11 @@ function Main() {
           const koreanName = speciesResponse.data.names.find(
             (name) => name.language.name === "ko"
           );
+          const generation = res.data.id <= 151 ? "1세대" : "2세대"; // 세대 정보 추가
           return {
             ...res.data,
             koreanName: koreanName ? koreanName.name : res.data.name,
+            generation: generation,
           };
         });
 
@@ -152,28 +159,60 @@ function Main() {
             key={pokemon.id}
             pokemon={pokemon}
             koreanName={pokemon.koreanName}
+            generation={pokemon.generation} // 세대 정보 전달
           />
         ))}
-        {loading && <p><img
-          width="40"
-          height="40"
-          src="https://img.icons8.com/office/40/pokeball.png"
-          alt="pokeball"
-        /></p>}
+        {loading && (
+          <p>
+            <img
+              width="40"
+              height="40"
+              src="https://img.icons8.com/office/40/pokeball.png"
+              alt="pokeball"
+            />
+          </p>
+        )}
       </div>
 
       <div className="mobile-home">
         <div>
-          <Button variant="outline-warning" className="mobile-home-button gmd-1">1세대도감</Button>
-          <Button variant="outline-warning" className="mobile-home-button gmd-1">2세대도감</Button>
+          <Button
+            variant="outline-warning"
+            className="mobile-home-button gmd-1"
+          >
+            1세대도감
+          </Button>
+          <Button
+            variant="outline-warning"
+            className="mobile-home-button gmd-1"
+          >
+            2세대도감
+          </Button>
         </div>
         <div>
-          <Button variant="outline-warning" className="mobile-home-button gmd-1">배틀</Button>
-          <Button variant="outline-warning" className="mobile-home-button gmd-1">랜덤뽑기</Button>
+          <Button
+            variant="outline-warning"
+            className="mobile-home-button gmd-1"
+          >
+            배틀
+          </Button>
+          <Button
+            variant="outline-warning"
+            className="mobile-home-button gmd-1"
+          >
+            랜덤뽑기
+          </Button>
         </div>
         <div>
-          <Button variant="outline-warning" className="mobile-home-button gmd-1">포켓몬키우기</Button>
-          <Button variant="outline-warning" className="mobile-home-button">나의포켓몬</Button>
+          <Button
+            variant="outline-warning"
+            className="mobile-home-button gmd-1"
+          >
+            포켓몬키우기
+          </Button>
+          <Button variant="outline-warning" className="mobile-home-button">
+            나의포켓몬
+          </Button>
         </div>
       </div>
     </Container>

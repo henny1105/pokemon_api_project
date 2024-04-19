@@ -24,7 +24,7 @@ const Banner = () => {
           videoId="Xm_lnAIclY0" //동영상 주소
           opts={{
             width: "100%",
-            height: "360",
+            height: "400",
             playerVars: {
               autoplay: 1, //자동 재생 1 / 자동 재생X 0
               rel: 0, //관련 동영상 표시하지 않는다
@@ -36,7 +36,7 @@ const Banner = () => {
           
         />
       </div>
-      <div className="banner-carousel justify-center items-center">
+      {/* <div className="banner-carousel justify-center items-center">
         <Carousel
           showArrows={false}
           autoPlay={true}
@@ -48,7 +48,7 @@ const Banner = () => {
         >
           {renderSlides}
         </Carousel>
-      </div>
+      </div> */}
     </div>
   );
 };
