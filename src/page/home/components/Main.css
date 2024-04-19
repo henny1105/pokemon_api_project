@@ -8,7 +8,7 @@
   border-style: solid;
     border-radius: 10px;
     padding: 20px;
-    margin: 15px;
+    margin: 10px;
     width: 200px;
     display: inline-block;
     text-align: center;
@@ -112,9 +112,11 @@
   }  
   
   .home-pokemon-id {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 14px;
     color: #717171;
+    display: flex;
+    justify-content: space-between;
   }
 
   .home-pokemon-img {
@@ -218,6 +220,7 @@
     
     .home-pokemon-id {
       font-size: 8px;
+      margin-bottom: 5px;
     }
   
     .home-pokemon-img {

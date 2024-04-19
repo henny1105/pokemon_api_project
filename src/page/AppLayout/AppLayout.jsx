@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { Button, Container, Form, Nav, Navbar } from 'react-bootstrap';
-import { Outlet, Link } from 'react-router-dom';
-import './AppLayout.style.css';
-import YouTube from 'react-youtube';
-
+import React, { useState } from "react";
+import { Button, Container, Form, Nav, Navbar } from "react-bootstrap";
+import { Outlet, Link } from "react-router-dom";
+import "./AppLayout.style.css";
+import YouTube from "react-youtube";
 
 const AppLayout = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const toggleMusic = () => {
-    setIsPlaying(prevState => !prevState);
+    setIsPlaying((prevState) => !prevState);
   };
 
   return (
     <Container>
-      <Navbar expand="lg" className="bg-body-bg">
+      <Navbar expand="lg" className="bg-body-bg navbar-box">
         <Container fixed>
           <Navbar.Brand href="/">
-            <img width={120} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s" />
+            <img
+              width={120}
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRZr30BEmKcV7KsVuoSMqhd5HkFnQ7m7Yzvy9OuaqVskA&s"
+            />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="navbarScroll" />
           <Navbar.Collapse id="navbarScroll">
             <Nav
               className="me-auto my-2 my-lg-0"
-              style={{ maxHeight: '100px' }}
+              style={{ maxHeight: "200px" }}
               navbarScroll
             >
               <Nav.Link href="/">Home</Nav.Link>
@@ -39,19 +41,25 @@ const AppLayout = () => {
                 className="me-2 search-text"
                 aria-label="Search"
               />
-              <Button variant="outline-warning" className="navbar-button">Search</Button>
+              <Button variant="outline-warning" className="navbar-button">
+                Search
+              </Button>
             </Form>
             {/* 음악 재생 버튼 */}
-            <Button variant="outline-success" onClick={toggleMusic}>
-              {isPlaying ? '⏹️' : '▶️'}
-            </Button>
+            {/* <Button
+              variant="outline-warning"
+              className="navbar-button"
+              onClick={toggleMusic}
+            >
+              {isPlaying ? "⏹" : "▶️"}
+            </Button> */}
             {/* YouTube 플레이어 */}
-            {isPlaying && (
+            {/* {isPlaying && (
               <YouTube
                 videoId="96KbDuAV4ds" // Shape of You의 유튜브 영상 ID
-                opts={{ height: '0', width: '0', playerVars: { autoplay: 1 } }}
+                opts={{ height: "0", width: "0", playerVars: { autoplay: 1 } }}
               />
-            )}
+            )} */}
           </Navbar.Collapse>
         </Container>
       </Navbar>
