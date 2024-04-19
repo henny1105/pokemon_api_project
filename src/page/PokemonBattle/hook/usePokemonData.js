@@ -29,6 +29,7 @@ const usePokemonData = () => {
                         ...pokemonInfo,
                         korean_name: koreanName,
                         image: pokemonInfo.sprites.other['official-artwork'].front_default, // 공식 아트워크 이미지 추가
+                        animated_image: pokemonInfo.sprites.versions["generation-v"]["black-white"].animated.front_default,
                         height: pokemonInfo.height,
                         id: pokemonInfo.id,
                         weight: pokemonInfo.weight,

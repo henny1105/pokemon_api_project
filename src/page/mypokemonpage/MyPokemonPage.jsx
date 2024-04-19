@@ -47,7 +47,7 @@ const MyPokemonPage = () => {
           </div>
 
           <Row>
-            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(index+1)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
+            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(pokemons.data.name)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
           </Row>
 
         </Col>

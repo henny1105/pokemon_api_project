@@ -1,8 +1,38 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import './RaisePage.style.css';
 import { Button, Col, Container, ProgressBar, Row } from 'react-bootstrap';
+import { useParams } from 'react-router-dom';
+import { usePokemonInfoQuery } from '../../hook/usePokemonInfoQuery';
+import { useDispatch, useSelector } from 'react-redux';
+import { playPoke,levelUp,eat } from '../../redux/actions/raiseActions';
 
 const RaisePage = () => {
+  const {id} = useParams()
+  const {data} = usePokemonInfoQuery({id})
+  const raiseInfoFiltered = useSelector(state => state.myInfo.MyPokeMons.filter(pokemon => pokemon.data.name === id));
+  const raiseInfo = raiseInfoFiltered.length > 0 ? raiseInfoFiltered[0] : null;
+  const maxExp = (raiseInfo.Lv*10)*2;
+  const dispatch=useDispatch()
+
+  const ClickPlayPoke = ()=>{
+    dispatch(playPoke(id))
+  }
+
+  const ClickEat = ()=>{
+    dispatch(eat(id))
+  }
+
+  const clickRareCandy = ()=>{
+    dispatch(levelUp(id))
+  }
+
+  useEffect(() => {
+    if(maxExp<=raiseInfo.Exp){
+      dispatch(levelUp(id))
+    }
+  }, [raiseInfo.Exp])
+  
+
 	return (
 		<Container>
 			<div className='py-3'>
@@ -11,22 +41,21 @@ const RaisePage = () => {
 
 			<Row>
 				<Col lg={6}>
-					<img className='img-fluid' src='https://i.namu.wiki/i/l0x04r27DjSQmS-WgYk6I5x6IkKMyvZjRMyK5dI3EMoMikzCd2Kfl2SMRdvL3-y4zpxI_qLP-fs3QToSR7AU3g.webp' alt='pokemon' />
-					<div>LV.1</div>
+					<img className='img-fluid' src={ data?.sprites.other["official-artwork"].front_default } alt='pokemon' />
+					<div>{`LV.${raiseInfo.Lv}`}</div>
 					<div>
-						<div>exp 1/30</div>
-						<ProgressBar now={10} variant='warning' />
+						<div>{`Exp ${raiseInfo.Exp}/${maxExp}`}</div>
+						<ProgressBar now={raiseInfo.Exp} max={maxExp} variant='warning' />
 					</div>
-					<div>속성</div>
 				</Col>
 				<Col lg={6} className='d-flex flex-column'>
-					<Button variant='warning' className='mb-1'>
+					<Button onClick={clickRareCandy} variant='warning' className='mb-1'>
 						이상한 사탕 주기(LV 1+)
 					</Button>
-					<Button variant='outline-success' className='mb-1'>
-						밥먹기(Exp 10+)
+					<Button onClick={ClickEat} variant='outline-success' className='mb-1'>
+						밥먹기(Exp 5+)
 					</Button>
-					<Button variant='outline-success'>놀아주기(Exp 1+)</Button>
+					<Button onClick={ClickPlayPoke} variant='outline-success'>놀아주기(Exp 1+)</Button>
 				</Col>
 			</Row>
 		</Container>
