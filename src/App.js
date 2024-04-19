@@ -24,7 +24,8 @@ const App = () => {
 					<Route index element={<PokemonDex />} />
 					<Route path='pokemoninfo/:id' element={<PokemonInfo />} />
 				</Route>
-				<Route path='/mypokemon' element={<MyPokemonPage />}>
+				<Route path='/mypokemon'>
+					<Route index element={<MyPokemonPage />} />
 					<Route path=':id' element={<RaisePage />} />
 				</Route>
 				<Route path='/battle'>
