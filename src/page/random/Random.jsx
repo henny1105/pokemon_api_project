@@ -26,6 +26,7 @@ const Random = () => {
 	const [randomImgIndex, setRandomImgIndex] = useState(3);
 	const [showPokemon, setShowPokemon] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const navigate = useNavigate();
 	const initialTexts = [
 		'나는 오박사라네!',
 		'자 오늘의 포켓몬은 뭘까요~~?',
@@ -41,6 +42,33 @@ const Random = () => {
 	const [texts, setTexts] = useState(initialTexts);
 	const [buttonText, setButtonText] = useState('넘어가기 >');
 	const [showButton, setShowButton] = useState(true);
+
+	const [tickets, setTickets] = useState(() => {
+		return loadTickets();
+	});
+
+	function loadTickets() {
+		const lastDate = localStorage.getItem('lastDate');
+		const today = new Date().toISOString().slice(0, 10);
+
+		if (lastDate === today) {
+			const savedTickets = Number(localStorage.getItem('tickets'));
+			return savedTickets; // 저장된 티켓이 있으면 그 값을 반환
+		} else {
+			localStorage.setItem('lastDate', today);
+			localStorage.setItem('tickets', 5);
+			return 5; // 날짜가 다르면 티켓 수를 5로 리셋하고 그 값을 반환
+		}
+	}
+
+	// 티켓 수 감소 시 로컬 스토리지에 저장
+	function useTickets() {
+		useEffect(() => {
+			localStorage.setItem('tickets', tickets);
+		}, [tickets]);
+	}
+
+	useTickets(); // 티켓 수 변동 시 마다 로컬 스토리지에 저장
 
 	// 포켓몬 데이터 랜덤으로 가져오기
 	useEffect(() => {
@@ -130,6 +158,18 @@ const Random = () => {
 					return newTexts;
 				});
 				setShowPokemon(true);
+			} else if (currentTextIndex === 9) {
+				// 9번째 컨텐츠일 때, 특징 보여주기
+				setTexts((prevTexts) => {
+					const newTexts = [...prevTexts];
+					if (tickets > 0) {
+						newTexts[9] = `오늘 뽑을 수 있는 기회는 ${tickets}번 남아있어!`;
+					} else {
+						newTexts[9] = '아쉽지만 티켓을 다 썼단다! 내일 다시 찾아다오!';
+					}
+					return newTexts;
+				});
+				setShowPokemon(true);
 			} else {
 				setShowPokemon(false);
 			}
@@ -146,16 +186,19 @@ const Random = () => {
 		setShowModal(newIndex === 4); // 4번째 컨텐츠에서 빵빠레 모션 보이기
 	};
 
-	const navigate = useNavigate();
-
 	const handleGoBack = () => {
 		navigate('/'); //	메인으로 돌아가기
 	};
 
 	// 포켓몬 다시 뽑기
 	const handleReroll = () => {
-		selectRandomPokemon(); // 새로운 포켓몬 랜덤 선택
-		setCurrentTextIndex(3); // 랜덤 이미지 뽑기 화면으로 이동
+		if (tickets > 0) {
+			selectRandomPokemon(); // 새로운 포켓몬 랜덤 선택
+			setCurrentTextIndex(3); // 랜덤 이미지 뽑기 화면으로 이동
+			setTickets(tickets - 1); // 티켓 1개 차감
+		} else {
+			alert('티켓이 부족합니다!');
+		}
 	};
 
 	if (loading) {
@@ -186,8 +229,10 @@ const Random = () => {
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
 							<div className='battle-ticket'>
-								<FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} />5
+								<FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} />
+								{tickets}
 							</div>
+
 							{currentTextIndex === 3 && (
 								<div className='random_pokemon_img_cont'>
 									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
@@ -256,9 +301,11 @@ const Random = () => {
 										<button type='button' className='next_btn ft' onClick={handleGoBack}>
 											메인으로 돌아가기
 										</button>
-										<button type='button' className='next_btn ft' onClick={handleReroll}>
-											포켓몬 다시 뽑기
-										</button>
+										{tickets > 0 && (
+											<button type='button' className='next_btn ft' onClick={handleReroll}>
+												포켓몬 다시 뽑기
+											</button>
+										)}
 									</div>
 								)}
 								{showModal && <Modal />}
