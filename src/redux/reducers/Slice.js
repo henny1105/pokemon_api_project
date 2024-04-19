@@ -35,7 +35,7 @@ let initialState = {
 
     ],
     Ticket: 1,
-    RareCandy: 0,
+    RareCandy: 10,
 }
 
 const myInfoSlice = createSlice({
@@ -48,6 +48,17 @@ const myInfoSlice = createSlice({
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Exp += 1;
             }
+        },
+        levelUpCandy(state, action) {
+            const { name,evolveName } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
+            if (pokemonIndex !== -1) {
+                state.MyPokeMons[pokemonIndex].Lv += 1;
+                state.RareCandy -=1;
+            }
+        },
+        cheats(state, action) {
+            state.RareCandy +=10;
         },
         levelUp(state, action) {
             const { name,evolveName } = action.payload;

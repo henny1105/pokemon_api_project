@@ -12,6 +12,12 @@ function levelUp(name,evolveName) {
   }
 }
 
+function levelUpCandy(name,evolveName) {
+  return (dispatch, getState) => {
+    dispatch(myInfoActions.levelUpCandy({ name }))
+  }
+}
+
 function eat(name,evolveName) {
   return (dispatch, getstate) => {
     dispatch(myInfoActions.eat({ name }))
@@ -24,4 +30,10 @@ function evolve(name,evolveName,evolveUrl) {
   }
 }
 
-export { playPoke, levelUp, eat, evolve }
+function cheats(){
+  return (dispatch, getstate) => {
+    dispatch(myInfoActions.cheats())
+  }
+}
+
+export { playPoke, levelUp, eat, evolve,levelUpCandy,cheats }
