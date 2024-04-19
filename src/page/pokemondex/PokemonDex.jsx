@@ -3,11 +3,9 @@ import axios from 'axios';
 // > style
 import styles from './PokemonDex.module.css';
 // > components
-
 import PokemonCard from './components/pokemoncard/PokemonCard';
 import PokemonSearch from './components/pokemonSearch/PokemonSearch';
 import PokemonFilter from './components/PokemonFilter/PokemonFilter';
-
 // > router
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +16,7 @@ const PokemonDex = () => {
   const [pokemonData, setPokemonData] = useState([]);
   const [search, setSearch] = useState("");
   const [filtered, setFiltered] = useState("");
+  const [clicked, setClicked] = useState("");
 
   const pokemonSearch = (e) => {
     e.preventDefault();
@@ -51,7 +50,6 @@ const PokemonDex = () => {
           id: pokemonInfo.id,
         });
       }
-
       setPokemonData(allPokemonData);
     }
     fetchData();
@@ -60,22 +58,24 @@ const PokemonDex = () => {
   useEffect(() => {
     const searchFiltered = () => {
       const final = pokemonData?.filter((val) => {
-        if( search === "" ) {
+        if(search === "") {
           return val
-        } else if(val.korean_name.includes(search)) {
+        } else if(val?.korean_name.includes(search)) {
           return val
         }
       }).map((data) => {
         return data;
       })
-  
       setFiltered(final);
     };
-
     searchFiltered();
-
     // eslint-disable-next-line
   }, [search]);
+
+  const getTypeValue = (e) => {
+    const currentClick = e.currentTarget.className;
+    setClicked(currentClick);
+  }
 
   return (
     <>
@@ -92,14 +92,14 @@ const PokemonDex = () => {
         </button>
       </div>
       {
-        searchOpen === true ? <PokemonSearch search={ search } setSearch={setSearch} pokemonSearch={pokemonSearch} /> : null
+        searchOpen === true ? <PokemonSearch setSearch={setSearch} pokemonSearch={pokemonSearch} /> : null
       }
       {
-        filterOpen === true ? <PokemonFilter /> : null
+        filterOpen === true ? <PokemonFilter pokemonData={ pokemonData } getTypeValue={ getTypeValue } setClicked={setClicked} /> : null
       }
       <div className={ styles.pokemondex } >
         {
-          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } filtered={ filtered } search={ search } />
+          <PokemonCard pokemonData={ pokemonData } movePokemonInfo={ movePokemonInfo } filtered={ filtered } search={ search } clicked={ clicked } />
         }
       </div>
     </>
