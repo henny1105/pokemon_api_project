@@ -1,4 +1,14 @@
-/* Main.css */
+.main-genbtn-area{
+  display: flex;
+  justify-content: center;
+}
+.main-genbtn{
+  width: 150px;
+  margin: 20px 10px 10px 10px;
+}
+.main-genbtn:hover{
+  color: white !important;
+}
 .home-pokemon-container{
     margin-top: 10px;
     text-align: center;
