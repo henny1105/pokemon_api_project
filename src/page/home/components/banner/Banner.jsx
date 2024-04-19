@@ -26,7 +26,7 @@ const Banner = () => {
             width: "100%",
             height: "400",
             playerVars: {
-              autoplay: 1, //자동 재생 1 / 자동 재생X 0
+              autoplay: 0, //자동 재생 1 / 자동 재생X 0
               rel: 0, //관련 동영상 표시하지 않는다
               modestbranding: 1, //컨트롤 바에 유튜브 로고 표시 하지 않는다
               loop: 0, //반복 재생

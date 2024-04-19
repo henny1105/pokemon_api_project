@@ -35,32 +35,7 @@ const AppLayout = () => {
               <Nav.Link href="/battle">Battle</Nav.Link>
               <Nav.Link href="/mypokemon">MyPokemon</Nav.Link>
             </Nav>
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2 search-text"
-                aria-label="Search"
-              />
-              <Button variant="outline-warning" className="navbar-button">
-                Search
-              </Button>
-            </Form>
-            {/* 음악 재생 버튼 */}
-            {/* <Button
-              variant="outline-warning"
-              className="navbar-button"
-              onClick={toggleMusic}
-            >
-              {isPlaying ? "⏹" : "▶️"}
-            </Button> */}
-            {/* YouTube 플레이어 */}
-            {/* {isPlaying && (
-              <YouTube
-                videoId="96KbDuAV4ds" // Shape of You의 유튜브 영상 ID
-                opts={{ height: "0", width: "0", playerVars: { autoplay: 1 } }}
-              />
-            )} */}
+            
           </Navbar.Collapse>
         </Container>
       </Navbar>
