@@ -6,13 +6,15 @@ const usePokemonData = () => {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
+	//1세대 1-151 //2세대 152-251
+
 	useEffect(() => {
 		setLoading(true);
 		setError(null);
 		const fetchData = async () => {
 			try {
 				const requests = [];
-				for (let i = 1; i <= 300; i++) {
+				for (let i = 1; i <= 151; i++) {
 					requests.push(axios.get(`https://pokeapi.co/api/v2/pokemon/${i}`));
 					requests.push(axios.get(`https://pokeapi.co/api/v2/pokemon-species/${i}`));
 				}
@@ -25,6 +27,16 @@ const usePokemonData = () => {
 					const speciesInfo = responses[i + 1].data;
 					const koreanName = speciesInfo.names.find((name) => name.language.name === 'ko')?.name || '이름 없음';
 					const koreanFlavorText = speciesInfo.flavor_text_entries.find((entry) => entry.language.name === 'ko')?.flavor_text || '';
+
+					const typeRequests = pokemonInfo.types.map((type) => axios.get(type.type.url));
+					const typeResponses = await Promise.all(typeRequests);
+					const types = typeResponses
+						.map((response) => {
+							const koreanType = response.data.names.find((name) => name.language.name === 'ko');
+							return koreanType ? koreanType.name : '유형 없음';
+						})
+						.join(', ');
+
 					const abilityRequests = pokemonInfo.abilities.map((ability) => axios.get(ability.ability.url));
 					const abilityResponses = await Promise.all(abilityRequests);
 					const abilities = abilityResponses
@@ -43,6 +55,7 @@ const usePokemonData = () => {
 						id: pokemonInfo.id,
 						weight: (pokemonInfo.weight * 0.1).toFixed(1),
 						type: pokemonInfo.types[0].type.name,
+						types: types,
 						hp: pokemonInfo.stats[0].base_stat,
 						attack: pokemonInfo.stats[1].base_stat,
 						defense: pokemonInfo.stats[2].base_stat,

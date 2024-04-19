@@ -31,11 +31,12 @@ const Random = () => {
 		'자 오늘의 포켓몬은 뭘까요~~?',
 		'오늘의 포켓몬은~~~~~!',
 		'랜덤으로 포켓몬 불러오는 중.....',
-		'특징은..',
-		'특징은',
-		'특징은바로',
-		'ㅇㅇㅇㅇㅇㅇ',
-		'ㅇㅇㅇㄹㅈㄷㄱㅈㄷ',
+		'그래 ㅇㅇ (이)로군',
+		'ㅇㅇ 포켓몬은 ㅇㅇ타입이지.',
+		'그리고 대표적인 기술은...',
+		'ㅇㅇㅇ 이로구나!',
+		'다시 한번 포켓몬을 뽑고 싶다면 레버를 당겨보게나!',
+		'오늘 뽑을 수 있는 기회는 5번 남아있어!',
 	];
 	const [texts, setTexts] = useState(initialTexts);
 	const [buttonText, setButtonText] = useState('넘어가기 >');
@@ -98,7 +99,7 @@ const Random = () => {
 				// 랜덤으로 뽑은 포켓몬이 있고, 4번째 컨텐츠일 때
 				setTexts((prevTexts) => {
 					const newTexts = [...prevTexts];
-					newTexts[4] = `오늘의 포켓몬은 바로 '${selectedPokemon.korean_name}' 포켓몬이다!`; // 포켓몬 이름 보여주기
+					newTexts[4] = `그래 '${selectedPokemon.korean_name}' (이)로군`; // 포켓몬 이름 보여주기
 					return newTexts;
 				});
 				setShowPokemon(true);
@@ -106,7 +107,7 @@ const Random = () => {
 				// 5번째 컨텐츠일 때, 특징 보여주기
 				setTexts((prevTexts) => {
 					const newTexts = [...prevTexts];
-					newTexts[5] = `${selectedPokemon.korean_name} 포켓몬의 대표적 기술은...`; // 포켓몬 특징 시작
+					newTexts[5] = `${selectedPokemon.korean_name} 포켓몬은 ${selectedPokemon.types}타입이지.`; // 포켓몬 특징 시작
 					return newTexts;
 				});
 				setShowPokemon(true);
@@ -114,7 +115,15 @@ const Random = () => {
 				// 6번째 컨텐츠일 때, 특징 보여주기
 				setTexts((prevTexts) => {
 					const newTexts = [...prevTexts];
-					newTexts[6] = `${selectedPokemon.abilities} 이로구나!`; // 포켓몬 특징 끝
+					newTexts[6] = `그리고 대표적인 기술은...`; // 포켓몬 특징 끝
+					return newTexts;
+				});
+				setShowPokemon(true);
+			} else if (currentTextIndex === 7) {
+				// 7번째 컨텐츠일 때, 특징 보여주기
+				setTexts((prevTexts) => {
+					const newTexts = [...prevTexts];
+					newTexts[7] = `${selectedPokemon.abilities} 이로구나!`; // 포켓몬 특징 끝
 					return newTexts;
 				});
 				setShowPokemon(true);
