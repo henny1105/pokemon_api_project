@@ -29,7 +29,8 @@ const PokemonBattlePage = () => {
 
     useEffect(() => {
         getRandomEnemyPokemonData();
-        setMyBattlePokemon(pokemonData[2]);          // 임시로 내 포켓몬도 1번값으로 지정
+        setMyBattlePokemon(pokemonData[0]);          // 임시로 내 포켓몬도 1번값으로 지정
+        //setMyBattlePokemon(pokemonData[148]);          // 임시로 내 포켓몬도 1번값으로 지정
     }, [pokemonData]);
 
     useEffect(() => {
@@ -85,6 +86,7 @@ const PokemonBattlePage = () => {
         if (myBattlePokemon.attack == enemyBattlePokemon.attack) {
             console.log("비김");
             setResultText("이번엔 비겼지만 다음엔 이기겠어!");
+            setIsWin(false);
         }
         else if (myBattlePokemon.attack > enemyBattlePokemon.attack) {
             console.log("내가 이김");
@@ -96,6 +98,7 @@ const PokemonBattlePage = () => {
         else {
             console.log("상대가 이김");
             setResultText("이런 졌군... 더 강한 포켓몬을 잡아야겠다.");
+            setIsWin(false);
         }
 
     }
@@ -195,7 +198,8 @@ const PokemonBattlePage = () => {
                                         <div style={{ marginBottom: 10 }}>{resultText}</div>
                                         <div className='battle-btns'>
                                             <button className='battle-attack-btn' onClick={() => attack()}>다시 싸우기.</button>
-                                            <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로</button>
+                                            <button className='battle-attack-btn' onClick={() => navigate("/random")}>포켓몬 뽑으러 가기.</button>
+                                            <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로.</button>
                                         </div>
                                     </div>
                                 </div>
