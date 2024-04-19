@@ -1,4 +1,5 @@
-# 😎 포켓몬 도감 프로젝트
+# 포켓몬 도감 프로젝트
+<img alt="PokéAPI" src="https://raw.githubusercontent.com/PokeAPI/media/master/logo/pokeapi_256.png">
 포켓몬 open API를 활용한 리액트 프로젝트
 
 ## 프로젝트 소개
@@ -11,11 +12,11 @@ https://pokemon-api-project-nine.vercel.app/
 - 24년 4월 14일~21일
   
 ## 멤버구성
-- 선웅태(Product Owner) : 나의 포켓몬 리스트 
-- 김혜인(Scrum master) : 포켓몬 랜덤뽑기
-- 곽슬기 : 포켓몬 도감 메인 
-- 김현주 : 포켓몬 도감 상세
-- 윤신혜 : 포켓몬 배틀
+- [선웅태(Product Owner)](https://github.com/moojaa) : 나의 포켓몬 리스트 
+- [김혜인(Scrum master)](https://github.com/henny1105) : 포켓몬 랜덤뽑기
+- [곽슬기](https://github.com/noel-vibe) : 포켓몬 도감 메인 
+- [김현주](https://github.com/hyesom2) : 포켓몬 도감 상세
+- [윤신혜](https://github.com/sinheyy) : 포켓몬 배틀
   
 ## 기술 스택
 ### Environment
@@ -46,3 +47,7 @@ https://pokemon-api-project-nine.vercel.app/
 
 
 ### ✨ 나의 포켓몬 리스트
+
+
+## 아키텍쳐
+### 디렉토리 구조
