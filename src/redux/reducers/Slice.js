@@ -12,13 +12,21 @@ let initialState = {
         },
         {
             data: {
-                name: "ivysaur",
-                url: "https://pokeapi.co/api/v2/pokemon/2/"
+                name: "charmander",
+                url: "https://pokeapi.co/api/v2/pokemon/4/"
             },
             Lv: 1,
             Exp: 0,
         },
-        
+        {
+            data: {
+                name: "squirtle",
+                url: "https://pokeapi.co/api/v2/pokemon/7/"
+            },
+            Lv: 1,
+            Exp: 0,
+        },
+
     ],
     Ticket: 1,
     RareCandy: 0,
@@ -28,21 +36,21 @@ const myInfoSlice = createSlice({
     name: "myInfo",
     initialState,
     reducers: {
-        playPoke(state,action){
+        playPoke(state, action) {
             const { name } = action.payload;
             const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Exp += 1;
             }
         },
-        levelUp(state,action){
+        levelUp(state, action) {
             const { name } = action.payload;
             const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Lv += 1;
             }
         },
-        eat(state,action){
+        eat(state, action) {
             const { name } = action.payload;
             const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
             if (pokemonIndex !== -1) {
