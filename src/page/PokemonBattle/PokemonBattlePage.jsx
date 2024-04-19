@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import "./PokemonBattlePage.style.css"
 import PokemonBattleCard from './components/PokemonBattleCard/PokemonBattleCard';
+import PokemonBattleCard from './components/PokemonBattleCard/PokemonBattleCard';
 import Modal from 'react-modal';
 import { useDispatch, useSelector } from 'react-redux';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -46,8 +47,29 @@ const PokemonBattlePage = () => {
 
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
     const getRandomEnemyPokemonData = () => {
+    }, [modalIsOpen]);
+
+    // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
+    const getRandomEnemyPokemonData = () => {
         if (pokemonData) {
             const randomIndex = Math.floor(Math.random() * pokemonData.length);
+            console.log("지금 배틀 포켓몬", pokemonData[randomIndex]);
+            console.log("지금 배틀 포켓몬 공격력", pokemonData[randomIndex]?.attack);
+            setEnemyBattlePokemon(pokemonData[randomIndex]);       // 랜덤한 적 설정
+        }
+    }
+
+
+    if (loading) {
+        return (<div className="loader" style={{ margin: 10 }}>
+            <div>걸어가는 중...</div>
+            <BarLoader color="#DC0A2D" loading={loading} width={300} height={10} />
+        </div>);
+    }
+
+    if (error) {
+        return (<div>ERROR : {error.message}</div>);
+    }
             console.log("지금 배틀 포켓몬", pokemonData[randomIndex]);
             console.log("지금 배틀 포켓몬 공격력", pokemonData[randomIndex]?.attack);
             setEnemyBattlePokemon(pokemonData[randomIndex]);       // 랜덤한 적 설정
@@ -117,13 +139,16 @@ const PokemonBattlePage = () => {
     }
 
     // 도망칠 경우, run 페이지로 navigate
+    // 도망칠 경우, run 페이지로 navigate
     function battleRun() {
         setIsOpen(false);
 
         // 확인 버튼 누르면 도망 감
         navigate("/battle/run");
+        navigate("/battle/run");
     }
 
+    // modal style
     // modal style
     const customStyles = {
         overlay: {
@@ -151,9 +176,12 @@ const PokemonBattlePage = () => {
 
     return (
         <div id="battle" className='battle-backgorund' style={{
+        <div id="battle" className='battle-backgorund' style={{
             backgroundImage: "url(" + `https://podic.kr/images/misc/Natural_Green_Berry_Tree.png` + ")"
         }}>
             <div className="battle-ticket">
+                <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png" />
+                {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
                 <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png" />
                 {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
                 {ticketNum}</div>
@@ -162,6 +190,7 @@ const PokemonBattlePage = () => {
                 <div className={isAttack ? 'battle-enemy-card-atk' : 'battle-enemy-card'}>
                     <PokemonBattleCard BattlePokemon={enemyBattlePokemon} />
                 </div>
+                <div className={isAttack ? 'battle-my-card-atk' : 'battle-my-card'}>
                 <div className={isAttack ? 'battle-my-card-atk' : 'battle-my-card'}>
                     <PokemonBattleCard BattlePokemon={myBattlePokemon} />
                 </div>
@@ -220,9 +249,12 @@ const PokemonBattlePage = () => {
                 style={customStyles}
                 contentLabel="알림"
                 className="battle-modal"
+                className="battle-modal"
             >
                 <div className='battle-modal-content'>
 
+                    <h2 style={{ color: "#DC0A2D", marginTop: 30 }}>주의</h2>
+                    <p style={{ margin: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
                     <h2 style={{ color: "#DC0A2D", marginTop: 30 }}>주의</h2>
                     <p style={{ margin: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
                     <div className='battle-btns'>
