@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import "./PokemonBattlePage.style.css"
 import PokemonBattleCard from './components/PokemonBattleCard/PokemonBattleCard';
 import Modal from 'react-modal';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { faTicket } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react';
@@ -10,6 +10,7 @@ import usePokemonData from './hook/usePokemonData';
 import '@kfonts/neodgm-code';
 import { useNavigate } from 'react-router-dom/dist';
 import BarLoader from "react-spinners/BarLoader";
+import { myInfoActions } from '../../redux/reducers/Slice';
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
@@ -17,7 +18,11 @@ const PokemonBattlePage = () => {
     const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 내가 선택한 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);     // 랜덤 상대 배틀 포켓몬
     const [isAttack, setIsAttack] = useState(false);        // 현재 공격중인지?
+    const [resultText, setResultText] = useState("");       // 결과 텍스트
+    const [isWin, setIsWin] = useState(false);
+    const dispatch = useDispatch();
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
+
     //console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
     const navigate = useNavigate();
@@ -28,9 +33,13 @@ const PokemonBattlePage = () => {
     }, [pokemonData]);
 
     useEffect(() => {
-        console.log("Is attack?", isAttack);
+        console.log("Is attack? ", isAttack);
 
     }, [isAttack]);
+
+    useEffect(() => {
+        setIsAttack(false);
+    }, [enemyBattlePokemon]);
 
     useEffect(() => {
     }, [modalIsOpen]);
@@ -67,9 +76,37 @@ const PokemonBattlePage = () => {
         }
 
         // 피 깎이는 모션
+
         // 내 포켓몬과 상대 포켓몬 공격력 비교
-        // 더 공격력 큰 포켓몬이 승리! -> 내가 승리하면 티켓 획득
-        // dispatch({ type: "INCREMENT", payload: { step: Number(ticketNum) } });
+        console.log("내 포켓몬", myBattlePokemon);
+        console.log("나", myBattlePokemon.attack, "배틀", enemyBattlePokemon.attack);
+
+        // 더 공격력 큰 포켓몬이 승리!
+        if (myBattlePokemon.attack == enemyBattlePokemon.attack) {
+            console.log("비김");
+            setResultText("이번엔 비겼지만 다음엔 이기겠어!");
+        }
+        else if (myBattlePokemon.attack > enemyBattlePokemon.attack) {
+            console.log("내가 이김");
+            setResultText("야호! 내가 배틀에서 승리했다!");
+            setIsWin(true);
+            // 내가 승리하면 티켓 획득
+            dispatch(myInfoActions.addTicket());
+        }
+        else {
+            console.log("상대가 이김");
+            setResultText("이런 졌군... 더 강한 포켓몬을 잡아야겠다.");
+        }
+
+    }
+
+    // 배틀 이후에 또 배틀 할 경우
+    const changeEnemy = () => {
+        setEnemyBattlePokemon(null);
+        setIsAttack(false);
+        setIsWin(false);
+
+        getRandomEnemyPokemonData();
     }
 
     function openModal() {
@@ -122,7 +159,7 @@ const PokemonBattlePage = () => {
                 {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
                 {ticketNum}</div>
             <div className='battle-cards'>
-                {/* 포켓몬이 공격 중인 경운에는 애니메이션 수행 */}
+                {/* 포켓몬이 공격 중인 경우에는 애니메이션 수행 */}
                 <div className={isAttack ? 'battle-enemy-card-atk' : 'battle-enemy-card'}>
                     <PokemonBattleCard BattlePokemon={enemyBattlePokemon} />
                 </div>
@@ -130,16 +167,53 @@ const PokemonBattlePage = () => {
                     <PokemonBattleCard BattlePokemon={myBattlePokemon} />
                 </div>
             </div>
-
-            <div className='battle-message-container'>
-                <div className='battle-message'>
-                    <div style={{ marginBottom: 10 }}>앗! 야생의 "{enemyBattlePokemon?.korean_name}"이/가 나타났다.</div>
-                    <div className='battle-btns'>
-                        <button className='battle-attack-btn' onClick={() => attack()}>공격한다.</button>
-                        <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
-                    </div>
-                </div>
+            <div>
+                <button>변경
+                    <img width={20} src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png"></img>
+                </button>
             </div>
+
+            {
+                isAttack ?
+                    (
+                        isWin ?
+                            (
+                                <div className='battle-message-container'>
+                                    <div className='battle-message'>
+                                        <div style={{ marginBottom: 10 }}>{resultText}</div>
+                                        <div className='battle-btns'>
+                                            <button className='battle-attack-btn' onClick={() => changeEnemy()}>또 싸우러 가기.</button>
+                                            <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                            :
+                            (
+                                <div className='battle-message-container'>
+                                    <div className='battle-message'>
+                                        <div style={{ marginBottom: 10 }}>{resultText}</div>
+                                        <div className='battle-btns'>
+                                            <button className='battle-attack-btn' onClick={() => attack()}>다시 싸우기.</button>
+                                            <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                    )
+                    :
+                    (
+                        <div className='battle-message-container'>
+                            <div className='battle-message'>
+                                <div style={{ marginBottom: 10 }}>앗! 야생의 "{enemyBattlePokemon?.korean_name}"이/가 나타났다.</div>
+                                <div className='battle-btns'>
+                                    <button className='battle-attack-btn' onClick={() => attack()}>공격한다.</button>
+                                    <button className='battle-run-btn' onClick={openModal}>도망간다.</button>
+                                </div>
+                            </div>
+                        </div>
+                    )
+            }
 
             <Modal
                 isOpen={modalIsOpen}
@@ -163,6 +237,8 @@ const PokemonBattlePage = () => {
 
 
         </div>
+
+
     )
 }
 
