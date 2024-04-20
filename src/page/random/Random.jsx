@@ -7,6 +7,8 @@ import usePokemonData from './components/hook/usePokemonData';
 import useTickets from './components/hook/useTickets';
 import Modal from './components/Modal';
 import './Random.style.css';
+import { useDispatch } from 'react-redux';
+import { myInfoActions } from '../../redux/reducers/Slice';
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTicket } from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +25,18 @@ import { useNavigate } from 'react-router-dom';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
+	const dispatch = useDispatch();
+	const handleSelectPokemon = () => {
+		if (selectedPokemon) {
+			dispatch(
+				myInfoActions.addPokemon({
+					id: selectedPokemon.id,
+					name: selectedPokemon.name,
+				})
+			);
+		}
+	};
+
 	const { pokemonData, loading, error } = usePokemonData();
 	const { tickets, setTickets } = useTickets();
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -30,7 +44,17 @@ const Random = () => {
 	const [randomImgIndex, setRandomImgIndex] = useState(3);
 	const [showPokemon, setShowPokemon] = useState(false);
 	const [showModal, setShowModal] = useState(false);
+	const [progressWidths, setProgressWidths] = useState(Array(6).fill(0));
 	const navigate = useNavigate();
+	const statKeys = {
+		HP: 'hp',
+		ATK: 'attack',
+		DEF: 'defense',
+		SATK: 'special_attack',
+		SDEF: 'special_defense',
+		SPD: 'speed',
+	};
+
 	const initialTexts = [
 		'나는 오박사라네!',
 		'자 오늘의 포켓몬은 뭘까요~~?',
@@ -58,6 +82,23 @@ const Random = () => {
 			setSelectedPokemon(pokemonData[randomIndex]);
 		}
 	};
+
+	useEffect(() => {
+		if (selectedPokemon && currentTextIndex === 4) {
+			handleSelectPokemon();
+			// 모든 스탯 바를 0%로 초기화
+			setProgressWidths(Array(6).fill(0));
+
+			setTimeout(() => {
+				// 실제 값으로 설정
+				const newWidths = [selectedPokemon.hp, selectedPokemon.attack, selectedPokemon.defense, selectedPokemon.special_attack, selectedPokemon.special_defense, selectedPokemon.speed].map((stat) =>
+					((stat / 255) * 100).toFixed(1)
+				);
+
+				setProgressWidths(newWidths);
+			}, 100); // 100ms 후에 실제 값으로 업데이트
+		}
+	}, [currentTextIndex, selectedPokemon]);
 
 	useEffect(() => {
 		let interval;
@@ -190,14 +231,6 @@ const Random = () => {
 		return <div>에러 발생: {error.message}</div>;
 	}
 
-	const statKeys = {
-		HP: 'hp',
-		ATK: 'attack',
-		DEF: 'defense',
-		SATK: 'special_attack',
-		SDEF: 'special_defense',
-		SPD: 'speed',
-	};
 	return (
 		<>
 			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
@@ -231,23 +264,24 @@ const Random = () => {
 											<p className='height'>키 : {selectedPokemon.height}m</p>
 											<p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
 											<ul className='spec'>
-												{['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'].map((statLabel) => (
+												{['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'].map((statLabel, index) => (
 													<li key={statLabel}>
-														<span>{statLabel}</span>
-														<span>{selectedPokemon[statKeys[statLabel]]}</span>
+														<span className='stats'>{statLabel}</span>
+														<span className='stats_num'>{selectedPokemon ? selectedPokemon[statKeys[statLabel].toLowerCase()] : ''}</span>
 														<div className='progress'>
 															<div
 																className={`progress-bar progress-bar-striped progress-bar-animated ${selectedPokemon ? selectedPokemon.type : ''}`}
 																role='progressbar'
-																aria-valuenow={selectedPokemon[statKeys[statLabel]]}
+																aria-valuenow={selectedPokemon[statLabel.toLowerCase()]}
 																aria-valuemin='0'
 																aria-valuemax='255'
-																style={{ width: `${((selectedPokemon[statKeys[statLabel]] / 255) * 100).toFixed(1)}%` }}
+																style={{ width: `${progressWidths[index]}%`, transition: 'width 0.5s ease-in-out' }}
 															></div>
 														</div>
 													</li>
 												))}
 											</ul>
+
 											<p className='desc'>{selectedPokemon.korean_flavor_text}</p>
 											{/* <p>{selectedPokemon.abilities}</p> */}
 										</div>

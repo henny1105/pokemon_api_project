@@ -4,7 +4,7 @@
 
 .random_page {
 	width: 100%;
-	height: calc(100vh - 70px);
+	height: calc(100vh - 75px);
 	background: url(../../../public/img/random/img02.jpg) no-repeat center/cover;
 }
 .random_page p,
@@ -94,7 +94,7 @@
 .random_page .bottom_box .speech_bubble::before {
 	content: '';
 	width: 99%;
-	height: 90%;
+	height: 95%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -223,6 +223,9 @@
 .random_page .spec li span {
 	width: 10%;
 	white-space: nowrap;
+}
+.random_page .spec li span:nth-of-type(1) {
+	font-weight: bold;
 }
 .random_page .spec li .progress {
 	width: 75%;
