@@ -14,14 +14,14 @@ const useTickets = () => {
 			const savedTickets = Number(localStorage.getItem('tickets')); // 로컬 스토리지에 저장된 티켓 수
 			if (savedTickets === 0) {
 				// 티켓이 0개일 때
-				localStorage.setItem('tickets', 100); // 10개로 초기화
-				return 100;
+				localStorage.setItem('tickets', 10); // 10개로 초기화
+				return 10;
 			}
 			return savedTickets;
 		} else {
 			localStorage.setItem('lastDate', today); // 오늘 날짜로 갱신
-			localStorage.setItem('tickets', 100); // 티켓 수 초기화
-			return 100;
+			localStorage.setItem('tickets', 10); // 티켓 수 초기화
+			return 10;
 		}
 	}
 
