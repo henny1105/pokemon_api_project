@@ -7,6 +7,8 @@ import usePokemonData from './components/hook/usePokemonData';
 import useTickets from './components/hook/useTickets';
 import Modal from './components/Modal';
 import './Random.style.css';
+import { useDispatch } from 'react-redux';
+import { myInfoActions } from '../../redux/reducers/Slice';
 
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faTicket } from '@fortawesome/free-solid-svg-icons';
@@ -23,6 +25,18 @@ import { useNavigate } from 'react-router-dom';
 // -테스트 용으로 티켓 최대치를 채우는 버튼을 숨겨둔다
 
 const Random = () => {
+	const dispatch = useDispatch();
+	const handleSelectPokemon = () => {
+		if (selectedPokemon) {
+			dispatch(
+				myInfoActions.addPokemon({
+					id: selectedPokemon.id,
+					name: selectedPokemon.name,
+				})
+			);
+		}
+	};
+
 	const { pokemonData, loading, error } = usePokemonData();
 	const { tickets, setTickets } = useTickets();
 	const [selectedPokemon, setSelectedPokemon] = useState(null);
@@ -71,6 +85,7 @@ const Random = () => {
 
 	useEffect(() => {
 		if (selectedPokemon && currentTextIndex === 4) {
+			handleSelectPokemon();
 			// 모든 스탯 바를 0%로 초기화
 			setProgressWidths(Array(6).fill(0));
 
