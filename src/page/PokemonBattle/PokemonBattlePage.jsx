@@ -227,7 +227,7 @@ const PokemonBattlePage = () => {
             left: "0",
         },
         content: {
-            width: "600px",
+            width: "90%",
             height: "400px",
             position: "absolute",
             top: "50%",
@@ -279,7 +279,7 @@ const PokemonBattlePage = () => {
                                         <div className='battle-btns'>
                                             <button className='battle-attack-btn' onClick={() => changeEnemyBattlePokemon()}>또 싸우러 가기.</button>
                                             {visibleCatch ?
-                                                (<button className='battle-catch-btn' style={{ marginRight: 15 }} onClick={() => catchPokemon()}>포획한다.</button>)
+                                                (<button className='battle-catch-btn' onClick={() => catchPokemon()}>포획한다.</button>)
                                                 :
                                                 (<></>)
                                             }
@@ -327,8 +327,8 @@ const PokemonBattlePage = () => {
 
                     <h2 style={{ color: "#DC0A2D", marginTop: 30 }}>주의</h2>
                     <p style={{ margin: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
-                    <div className='battle-btns'>
-                        <button onClick={battleRun} className='battle-modal-ok-btn' style={{ marginRight: 20 }}>확인</button>
+                    <div className='battle-modal-btns'>
+                        <button onClick={battleRun} className='battle-modal-ok-btn'>확인</button>
                         <button onClick={closeModal} className='battle-modal-cancel-btn'>취소</button>
                     </div>
 
@@ -354,9 +354,9 @@ const PokemonBattlePage = () => {
                         )}
 
                     </div>
-                    <div className='battle-btns'>
+                    <div className='battle-modal-btns'>
                         <button onClick={() => changeMyBattlePokemon(clickedPokemon)} className='battle-modal-cancel-btn'>가랏, {clickedPokemon?.korean_name}!</button>
-                        <button onClick={closeModal2} style={{ marginLeft: 15 }} className='battle-modal-cancel-btn'>그대로.</button>
+                        <button onClick={closeModal2} className='battle-modal-cancel-btn'>그대로.</button>
                     </div>
 
                 </div>
