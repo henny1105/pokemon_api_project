@@ -117,18 +117,31 @@
     font-size: 1rem;
 }
 
-.battle-modal-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
 .battle-run-btn:hover {
     text-decoration: underline;
     font-style: italic;
     font-weight: bold;
     color: #DC0A2D;
+}
+
+.battle-catch-btn {
+    background-color: transparent;
+    color: black;
+    font-size: 1rem;
+}
+
+.battle-catch-btn:hover {
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+    color: #DC0A2D;
+}
+
+.battle-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .battle-modal-ok-btn {
