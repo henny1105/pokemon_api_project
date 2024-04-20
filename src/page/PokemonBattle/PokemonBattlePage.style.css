@@ -154,6 +154,16 @@
     text-align: center;
 }
 
+.battlecard-choice-btn {
+    margin: 5px;
+    padding: 5px;
+}
+
+.battlecard-choice-btn:focus {
+    border: 2px solid #DC0A2D;
+    background-color: #EFEFEF;
+}
+
 @keyframes my-move {
     0% {
         transform: translateX(100px)
