@@ -7,16 +7,19 @@ import { useParams } from 'react-router-dom';
 // > hooks
 import { usePokemonInfoQuery } from '../../../../hook/usePokemonInfoQuery';
 import { usePokemonSpeciesQuery, usePokemonEvolutionQuery } from '../../../../hook/usePokemonInfoQuery';
-
-
+import { useDispatch, useSelector } from 'react-redux';
+import { myInfoActions } from '../../../../redux/reducers/Slice';
 
 const PokemonInfo = () => {
-  const [catchPokemon, setCatchPokemon] = useState(false); // redux 처리
+  const [catchPokemon, setCatchPokemon] = useState(false);
   const navigate = useNavigate();
   const { id } = useParams();
   const { data } = usePokemonInfoQuery({ id });
   const { data:species } = usePokemonSpeciesQuery({ id });
   const { data:evolution } = usePokemonEvolutionQuery();
+
+  const dispatch = useDispatch();
+  const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
 
   const catchToggle = () => {
     setCatchPokemon(!catchPokemon);
@@ -90,16 +93,14 @@ const PokemonInfo = () => {
         </div>
         <div className={ styles.info_image }>
           {
-            catchPokemon
-            // pokemonCatch
+            Number(pokemonCatched[0]?.id) === data?.id
             ?
             <img src={ data?.sprites.other["official-artwork"].front_default } alt="" />
             :
             <img src={ data?.sprites.other["official-artwork"].front_default } alt="" className={ styles.non_catch } />
           }
           {
-            catchPokemon
-            // pokemonCatch
+            Number(pokemonCatched[0]?.id) === data?.id
             ?
             <button type="button" className={ styles.catch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
