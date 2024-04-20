@@ -92,7 +92,7 @@ const PokemonDex = () => {
         </button>
       </div>
       {
-        searchOpen === true ? <PokemonSearch setSearch={setSearch} pokemonSearch={pokemonSearch} /> : null
+        searchOpen === true ? <PokemonSearch setSearch={setSearch} pokemonSearch={pokemonSearch} setClicked={setClicked} /> : null
       }
       {
         filterOpen === true ? <PokemonFilter pokemonData={ pokemonData } getTypeValue={ getTypeValue } setClicked={setClicked} /> : null

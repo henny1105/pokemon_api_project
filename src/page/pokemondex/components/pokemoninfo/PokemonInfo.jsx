@@ -26,8 +26,6 @@ const PokemonInfo = () => {
   const goTopokemonDex = () => {
     navigate('/pokemondex')
   }
-
-  console.log(pokemonCatched.find((item) => item.id === id));
   
   const translateType = (englishType) => {
     switch (englishType) {

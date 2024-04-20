@@ -182,7 +182,7 @@ button, input {
 .type {
   display: inline-block;
   width: max-content;
-  padding: 4px 16px;
+  padding: 2px 8px;
   font-size: 12px;
   font-weight: bold;
   line-height: 16px;
@@ -191,11 +191,9 @@ button, input {
   color: #fff;
 
   @media screen and (min-width: 767px) {
+    font-size: 14px;
     padding: 4px 16px;
     margin-right: 16px;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 16px;
   }
 }
 .type:last-child {
