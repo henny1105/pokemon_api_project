@@ -2,16 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '@kfonts/neodgm-code';
 import { Spinner } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FloatingCursor from './components/FloatingCursor';
 import usePokemonData from './components/hook/usePokemonData';
 import useTickets from './components/hook/useTickets';
 import Modal from './components/Modal';
 import './Random.style.css';
 import { useDispatch } from 'react-redux';
 import { myInfoActions } from '../../redux/reducers/Slice';
-
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faTicket } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 
 // -랜덤으로 뽑은 포켓몬은 나의 포켓몬에 저장된다
@@ -233,7 +229,6 @@ const Random = () => {
 
 	return (
 		<>
-			<FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
 			<div className={`random_page ${selectedPokemon ? `${selectedPokemon.type}_page` : ''}`}>
 				<div className='inner'>
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>

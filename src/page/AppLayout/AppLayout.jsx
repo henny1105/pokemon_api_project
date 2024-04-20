@@ -4,6 +4,8 @@ import { Outlet, Link } from "react-router-dom";
 import "./AppLayout.style.css";
 import YouTube from "react-youtube";
 import Footer from "./footer/Footer";
+import FloatingCursor from "../random/components/FloatingCursor";
+
 
 const AppLayout = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -13,6 +15,8 @@ const AppLayout = () => {
   };
 
   return (
+    <>
+    <FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
     <Container>
       <Navbar expand="lg" className="bg-body-bg navbar-box">
         <Container fixed>
@@ -41,7 +45,7 @@ const AppLayout = () => {
       </Navbar>
       <Outlet />
       <Footer/>
-    </Container>
+    </Container></>
   );
 };
 
