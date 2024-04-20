@@ -57,7 +57,8 @@ const PokemonDex = () => {
 
   useEffect(() => {
     const searchFiltered = () => {
-      const final = pokemonData?.filter((val) => {
+      // eslint-disable-next-line
+      const final = pokemonData?.filter(val => {
         if(search === "") {
           return val
         } else if(val?.korean_name.includes(search)) {
