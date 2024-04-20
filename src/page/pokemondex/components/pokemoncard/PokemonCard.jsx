@@ -16,20 +16,17 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
     const pokemonId = e.currentTarget.value;
     const pokemonImgUrl = pokemonData?.map((pokemon) => pokemon?.image);
     dispatch(myInfoActions.putCatchPokemon({ id: `${pokemonId}`, name: `${pokemonName}`, catching:true, imgUrl: `${pokemonImgUrl[pokemonId - 1]}` }));
-
-    console.log(pokemonCatched);
   };
 
   const outCatchPokemon = (e) => {
     e.stopPropagation();
     const pokemonId = e.currentTarget.value;
     dispatch(myInfoActions.deleteCatchPokemon({ id: `${pokemonId}`, name: "", catching:false }));
-
-    console.log(pokemonCatched);
   };
   
   useEffect(() => {
     const typeFilter = () => {
+      // eslint-disable-next-line
       const a = pokemonData?.filter((val) => {
         if( clicked === "" ) {
           return val
@@ -87,11 +84,6 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
         return "알 수 없음";
     }
   };
-
-  useEffect(() => {
-
-    // eslint-disable-next-line
-  }, [pokemonCatched]);
 
   return (
     <>
