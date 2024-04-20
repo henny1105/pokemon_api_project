@@ -148,8 +148,8 @@ const PokemonBattlePage = () => {
         if (enemyBattlePokemon) {
             let isExist = false;
 
-            for (let i = 0; i < myPokemonList.length; i++) {
-                isExist = pokemonData.find((item) => item.name === enemyBattlePokemon.name)
+            for (let i = 0; i < myPokemonListData.length; i++) {
+                isExist = myPokemonListData.find((item) => item.name === enemyBattlePokemon.name)
             }
 
             if (isExist) {
@@ -233,7 +233,7 @@ const PokemonBattlePage = () => {
         },
         content: {
             width: "600px",
-            height: "300px",
+            height: "400px",
             position: "absolute",
             top: "50%",
             left: "50%",
