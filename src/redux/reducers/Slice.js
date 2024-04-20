@@ -59,6 +59,7 @@ const myInfoSlice = createSlice({
 			const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);
 			if (pokemonIndex !== -1) {
 				state.MyPokeMons[pokemonIndex].Lv += 1;
+                state.MyPokeMons[pokemonIndex].Exp = 0;
 			}
 		},
 		eat(state, action) {
