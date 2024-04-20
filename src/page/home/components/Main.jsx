@@ -2,18 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Main.css";
 import { Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const translateType = (englishType) => {
   // 번역 함수는 그대로입니다.
 };
 
+
 function PokemonCard({ pokemon, koreanName, generation }) {
   const primaryType =
     pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
   const translatedType = translateType(primaryType);
-
+  const navigate = useNavigate();
+ 
+  const navPokemonInfo = () => {
+    navigate("pokemondex/pokemoninfo/:id");
+  };
   return (
-    <div className={`home-pokemon-card gmd-1 ${primaryType}`}>
+    <div className={`home-pokemon-card gmd-1 ${primaryType}`} onClick={navPokemonInfo}>
       <div className="home-pokemon-id">
         <div>
           <img
@@ -125,9 +131,9 @@ function Main() {
   return (
     <Container>
       <div className="main-genbtn-area">
-        <Button variant="outline-warning" className="main-genbtn" onClick={() => handleGenerationFilter("전체")}>전체 포켓몬</Button>
-        <Button variant="outline-warning" className="main-genbtn" onClick={() => handleGenerationFilter("1세대")}>1세대</Button>
-        <Button variant="outline-warning" className="main-genbtn" onClick={() => handleGenerationFilter("2세대")}>2세대</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("전체")}>전체 포켓몬</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("1세대")}>1세대</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("2세대")}>2세대</Button>
       </div>
       <div className="home-pokemon-container" ref={containerRef}>
         {pokemons.map((pokemon, index) => (

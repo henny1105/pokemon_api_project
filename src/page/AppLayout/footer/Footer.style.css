@@ -13,6 +13,9 @@
   .footer-second-child{
     padding-left: 15px;
   }
+  .footer-img{
+    cursor : pointer;
+  }
   
   @media screen and (max-width: 768px) {
   .footer-first {
