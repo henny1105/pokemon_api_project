@@ -33,11 +33,11 @@ const AppLayout = () => {
               style={{ maxHeight: "200px" }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/pokemondex">PokemonDex</Nav.Link>
-              <Nav.Link href="/random">Lucky Draw</Nav.Link>
-              <Nav.Link href="/battle">Battle</Nav.Link>
-              <Nav.Link href="/mypokemon">MyPokemon</Nav.Link>
+              <Nav.Link href="/" className="navbar-link">Home</Nav.Link>
+              <Nav.Link href="/pokemondex" className="navbar-link">PokemonDex</Nav.Link>
+              <Nav.Link href="/random" className="navbar-link">Lucky Draw</Nav.Link>
+              <Nav.Link href="/battle" className="navbar-link">Battle</Nav.Link>
+              <Nav.Link href="/mypokemon" className="navbar-link">MyPokemon</Nav.Link>
             </Nav>
             
           </Navbar.Collapse>
