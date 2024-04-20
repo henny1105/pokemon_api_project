@@ -35,7 +35,7 @@ let initialState = {
 
     ],
     Ticket: 1,
-    RareCandy: 0,
+    RareCandy: 10,
 }
 
 const myInfoSlice = createSlice({
@@ -43,22 +43,33 @@ const myInfoSlice = createSlice({
     initialState,
     reducers: {
         playPoke(state, action) {
-            const { name } = action.payload;
-            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
+            const { name,evolveName } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Exp += 1;
             }
         },
+        levelUpCandy(state, action) {
+            const { name,evolveName } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
+            if (pokemonIndex !== -1) {
+                state.MyPokeMons[pokemonIndex].Lv += 1;
+                state.RareCandy -=1;
+            }
+        },
+        cheats(state, action) {
+            state.RareCandy +=10;
+        },
         levelUp(state, action) {
-            const { name } = action.payload;
-            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
+            const { name,evolveName } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Lv += 1;
             }
         },
         eat(state, action) {
-            const { name } = action.payload;
-            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name);
+            const { name,evolveName } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
             if (pokemonIndex !== -1) {
                 state.MyPokeMons[pokemonIndex].Exp += 5;
             }
@@ -66,6 +77,14 @@ const myInfoSlice = createSlice({
         addTicket: (state, action) => {
             state.Ticket = state.Ticket + 1;
             console.log("now ticket : ", state.Ticket);
+        },
+        evolve(state, action) {
+            const { name,evolveName,evolveUrl } = action.payload;
+            const pokemonIndex = state.MyPokeMons.findIndex(pokemon => pokemon.data.name === name|| pokemon.data.name === evolveName);
+            if (pokemonIndex !== -1) {
+                state.MyPokeMons[pokemonIndex].data.name = evolveName;
+                state.MyPokeMons[pokemonIndex].data.url = evolveUrl;
+            }
         }
     }
 })
