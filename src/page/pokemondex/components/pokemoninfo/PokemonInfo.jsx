@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 // > hooks
 import { usePokemonInfoQuery } from '../../../../hook/usePokemonInfoQuery';
-import { usePokemonSpeciesQuery, usePokemonEvolutionQuery } from '../../../../hook/usePokemonInfoQuery';
+import { usePokemonSpeciesQuery } from '../../../../hook/usePokemonInfoQuery';
 import { useSelector } from 'react-redux';
 
 const PokemonInfo = () => {
@@ -16,10 +16,8 @@ const PokemonInfo = () => {
   const { id } = useParams();
   const { data } = usePokemonInfoQuery({ id });
   const { data:species } = usePokemonSpeciesQuery({ id });
-  const { data:evolution } = usePokemonEvolutionQuery();
 
-  const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
-  console.log(pokemonCatched);
+  const pokemonCatched = useSelector( (state) => state.myInfo.MyPokeMons );
 
   const catchToggle = () => {
     setCatchPokemon(!catchPokemon);
@@ -100,7 +98,7 @@ const PokemonInfo = () => {
           </div>
           <div className={ styles.info_image }>
             {
-              pokemonCatched.find((item) => item.id === id)
+              pokemonCatched.find((item) => item.data.id === id)
               ?
               <img src={ data?.sprites.other["official-artwork"].front_default } alt="" />
               :
@@ -108,7 +106,7 @@ const PokemonInfo = () => {
             }
           </div>
           {
-            pokemonCatched.find((item) => item.id === id)
+            pokemonCatched.find((item) => item.data.id === id)
             ?
             <button type="button" className={ styles.catch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
@@ -133,11 +131,11 @@ const PokemonInfo = () => {
           <strong className={ styles.sub_title }>About</strong>
           <ul className={ styles.attribute_list }>
             <li className={ styles.attribute_item }>
-              <strong className={ `${styles.body_3} black`}>{ data?.weight } kg</strong>
+              <strong className={ `${styles.body_3} black`}>{ data?.weight * 0.1 } kg</strong>
               <span className={ `${styles.body_caption} medium` }>weight</span>
             </li>
             <li className={ styles.attribute_item }>
-              <strong className={ `${styles.body_3} black` }>{ data?.height } m</strong>
+              <strong className={ `${styles.body_3} black` }>{ (data?.height * 0.1).toFixed(1) } m</strong>
               <span className={ `${styles.body_caption} medium` }>Height</span>
             </li>
             <li className={ styles.attribute_item }>
@@ -173,23 +171,6 @@ const PokemonInfo = () => {
                 ))
               }
             </dl>
-          </div>
-          <strong className={ styles.sub_title }>Evolution</strong>
-          <div className={ styles.evolution }>
-            <ul className={ styles.evolution_list }>
-              <li className={ styles.evolution_item }>
-                <strong>이미지</strong>
-                <span>{evolution?.chain.species.name}</span>
-              </li>
-              <li className={ styles.evolution_item }>
-                <strong>이미지</strong>
-                <span>{evolution?.chain.evolves_to[0]?.species.name}</span>
-              </li>
-              <li className={ styles.evolution_item }>
-                <strong>이미지</strong>
-                <span>{evolution?.chain.evolves_to[0].evolves_to[0].species.name}</span>
-              </li>
-            </ul>
           </div>
         </div>
       </div>
