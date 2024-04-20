@@ -129,7 +129,7 @@ const PokemonInfo = () => {
           <strong className={ styles.sub_title }>About</strong>
           <ul className={ styles.attribute_list }>
             <li className={ styles.attribute_item }>
-              <strong className={ `${styles.body_3} black`}>{ data?.weight * 0.1 } kg</strong>
+              <strong className={ `${styles.body_3} black`}>{ (data?.weight * 0.1).toFixed(1) } kg</strong>
               <span className={ `${styles.body_caption} medium` }>weight</span>
             </li>
             <li className={ styles.attribute_item }>
@@ -141,12 +141,18 @@ const PokemonInfo = () => {
               <span className={ `${styles.body_caption} medium` }>Ability</span>
             </li>
           </ul>
-          { 
+          {
             species?.flavor_text_entries.map((item, index) => (
               item.language.name === "ko" && item.version.name === "lets-go-pikachu"
               ?
               <div key={ index }>
-                <p className={ `${styles.desc}` }>{ item.flavor_text }</p>
+                {
+                  pokemonCatched.find((item) => item.data.id === id && item.data.catching !== false)
+                  ?
+                  <p className={ `${styles.desc}` }>{ item.flavor_text }</p>
+                  :
+                  <p className={ `${styles.desc}` }>???</p>
+                }
               </div>
               :
               null
