@@ -13,6 +13,7 @@ const RaisePage = () => {
 	const [artWork, setArtWork] = useState('')
 	const [pokeName, setPokeName] = useState('')
 	const [evolveId, setEvolveId] = useState('')
+	const [originName,setOriginName]= useState('')
 	const { id } = useParams()
 	const { data } = usePokemonInfoQuery({ id })
 	const candy = useSelector(state => state.myInfo.RareCandy)
@@ -52,6 +53,7 @@ const RaisePage = () => {
 						(name) => name.language.name === "ko"
 					);
 					setPokeName(koreanName ? koreanName.name : 'unknown')
+					setOriginName(koreanName ? koreanName.name : 'unknown')
 					setArtWork(data.sprites.other["official-artwork"].front_default)
 				}
 			} catch (error) {
@@ -186,7 +188,7 @@ const RaisePage = () => {
 				<div className='battle-modal-content'>
 
 					<h2 style={{ color: "#DC0A2D", marginTop: 30 }}>어라랏?</h2>
-					<p style={{ margin: 10 }}>{`${id}가 ${pokeName}으로 진화했다!!!!`}</p>
+					<p style={{ margin: 10 }}>{`${originName}(이)가 ${pokeName}으로 진화했다!!!!`}</p>
 					<div className='battle-btns'>
 						<button onClick={battleRun} className='battle-modal-ok-btn' style={{ marginRight: 20 }}>확인</button>
 					</div>
