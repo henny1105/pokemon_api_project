@@ -1,19 +1,30 @@
 import React from 'react'
 import './MyPokemonPage.style.css'
-import { useSelector } from 'react-redux'
-import { Col, Row, Container } from 'react-bootstrap'
+import { useDispatch,useSelector } from 'react-redux'
+import { Col, Row, Container,Button } from 'react-bootstrap'
 import MyPokeCard from './component/mypokemcard/MyPokeCard'
+import { cheats } from '../../redux/actions/raiseActions';
 import { useNavigate } from 'react-router-dom'
 
 const MyPokemonPage = () => {
   const myInfo = useSelector(state => state.myInfo)
-
   const navigate = useNavigate()
+  const dispatch = useDispatch()
   const moveRaisePage = (id) =>{
     navigate(`/mypokemon/${id}`)
   }
+
+  const reset = ()=>{
+    localStorage.removeItem('persist:root');
+    window.location.reload();
+  }
+
+  const onCheat = ()=>{
+    dispatch(cheats())
+  }
+
   return (
-    <Container>
+    <Container className='mb-1'>
       <div className='py-3'>
         <h1 className='headline'>나의 포켓몬</h1>
       </div>
@@ -25,7 +36,9 @@ const MyPokemonPage = () => {
           <div className='w-100 body_1'>
             <div>Name : <span>ddd</span></div>
             <div>Ticket : <span>{myInfo.Ticket}</span></div>
-            <div>RareCandy : <span>0</span></div>
+            <div>RareCandy : <span>{myInfo.RareCandy}</span></div>
+            <Button onClick={reset} variant='outline-danger' size='sm' className='mt-1 me-1'>초기화</Button>
+            <Button onClick={onCheat} variant='outline-warning' size='sm' className='mt-1'>사탕 추가</Button>
           </div>
 
         </Col>
@@ -47,7 +60,7 @@ const MyPokemonPage = () => {
           </div>
 
           <Row>
-            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(index+1)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
+            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(pokemons.data.name)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
           </Row>
 
         </Col>

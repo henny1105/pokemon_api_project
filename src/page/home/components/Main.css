@@ -1,4 +1,14 @@
-/* Main.css */
+.main-genbtn-area{
+  display: flex;
+  justify-content: center;
+}
+.main-genbtn{
+  width: 150px;
+  margin: 20px 10px 10px 10px;
+}
+.main-genbtn:hover{
+  color: white !important;
+}
 .home-pokemon-container{
     margin-top: 10px;
     text-align: center;
@@ -8,7 +18,7 @@
   border-style: solid;
     border-radius: 10px;
     padding: 20px;
-    margin: 15px;
+    margin: 10px;
     width: 200px;
     display: inline-block;
     text-align: center;
@@ -112,9 +122,11 @@
   }  
   
   .home-pokemon-id {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
     font-size: 14px;
     color: #717171;
+    display: flex;
+    justify-content: space-between;
   }
 
   .home-pokemon-img {
@@ -187,14 +199,44 @@
   
   .mobile-home{
     display: none;
+    text-align: center;
+  }
+  .mobile-home-button{
+    width: 130px;
+    height: 130px;
+    margin: 10px;
+    
+  }
+  .mobile-home-button:hover{
+    color: white;
   }
 
   @media screen and (max-width: 768px) {
-    .mobile-home {
+    /* .mobile-home {
       display: inline;
     }
     .home-pokemon-container {
       display: none;
+    } */
+    .home-pokemon-card{
+      width: 100px;
+      height: 100px;
+      padding: 8px;
     }
+    .home-pokemon-name {
+      font-size: 10px; /* 포켓몬 이름 텍스트 크기 키움 */
+      margin-bottom: 5px;
+    }  
+    
+    .home-pokemon-id {
+      font-size: 8px;
+      margin-bottom: 5px;
+    }
+  
+    .home-pokemon-img {
+      width: 40px;
+      height: 40px;
+    }
+
 
   }

@@ -18,8 +18,8 @@ const fetchPokemonInfoSpecies = ({ id  }) => {
   return api.get(`/pokemon-species/${id}`);
 }
 
-const fetchPokemonEvolution = () => {
-  return api.get(`/evolution-chain/1`);
+const fetchPokemonEvolution = (id) => {
+  return api.get(`/evolution-chain/${id}`);
 }
 
 const fetchPokemonType = () => {
@@ -51,10 +51,10 @@ const usePokemonSpeciesQuery = ({ id, url }) => {
   });
 }
 
-const usePokemonEvolutionQuery = () => {
+const usePokemonEvolutionQuery = (id) => {
   return useQuery({
-    queryKey: ['pokemon_evolution'],
-    queryFn: fetchPokemonEvolution,
+    queryKey: ['pokemon_evolution', id],
+    queryFn: () => fetchPokemonEvolution(id),
     select: (result) => result.data,
   });
 }

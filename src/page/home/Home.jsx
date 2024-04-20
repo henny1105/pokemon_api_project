@@ -1,6 +1,6 @@
 import React from 'react'
-import PokeApi from '../PokeApi'
 import Main from './components/Main'
+import Banner from './components/banner/Banner'
 
 
 
@@ -8,8 +8,8 @@ const Home = () => {
 
   return (
     <div>
+        <Banner />
         <Main />
-        {/* <PokeApi /> */}
     </div>
   )
 }
