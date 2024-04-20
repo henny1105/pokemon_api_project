@@ -217,7 +217,7 @@ const Random = () => {
 			alert('티켓이 부족합니다!');
 		}
 	};
-
+	
 	if (loading) {
 		return (
 			<div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
