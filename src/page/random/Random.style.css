@@ -208,6 +208,10 @@
 	text-align: center;
 	align-items: center;
 	gap: 24px;
+	position: relative !important;
+	top: auto !important;
+	left: auto !important;
+	transform: none !important;
 }
 .random_page .spec {
 	padding: 0;
