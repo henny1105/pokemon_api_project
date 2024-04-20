@@ -98,7 +98,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
     {
       search === "" && clicked === ""
       ?
-      pokemonData?.map((pokemon, index) => (
+      pokemonData?.map((pokemon) => (
         <div className={ `${styles.card} drop_shadow_2` } key={ pokemon.id } onClick={ () => movePokemonInfo(pokemon.id) }>
           <div className={ styles.card_type_group } >
           { 
