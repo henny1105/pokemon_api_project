@@ -1,16 +1,16 @@
 .info {
   position: relative;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   padding: 15px;
   
-  @media screen and (max-width: 767px) {
-    flex-direction: column;
-    height: 100%;
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    height: 100vh;
   }
 }
 .info_background {
@@ -20,34 +20,35 @@
   opacity: 0.2;
   z-index: 0;
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     left: 0;
   }
 }
-.info_background img {
+.info_background > img {
   display: block;
   width: 100%;
   height: 100%;
 
-  @media (min-width: 767px) {
+  @media (min-width: 768px) {
     width: 400px;
     height: 400px;
   }
 }
 
 .info_head {
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 50px 0;
+  padding: 0;
   z-index: 1;
 
   @media screen and (min-width: 768px) {
     width: 50%;
-    margin-right: 20px;
+    margin-right: 50px;
   }
 }
 
@@ -55,19 +56,24 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 380px;
+  width: 100%;
   height: 76px;
   color: #fff;
-  padding: 20px 20px 24px 20px;
 
   @media screen and (min-width: 768px) {
-    width: 100%;
   }
+}
+.info_header button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
 }
 .info_header button > svg {
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 100%;
+  height: 100%;
 }
 .info_header h1 {
   font-size: 24px;
@@ -79,7 +85,7 @@
   }
 }
 .info_header span {
-  font-size: 12px;
+  font-size: 14px;
   font-weight: bold;
   line-height: 16px;
 
@@ -90,14 +96,20 @@
 
 .info_image {
   position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 10%);
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 164px;
+  height: 150px;
   z-index: 100;
 
   @media screen and (min-width: 768px) {
+    top: 0;
+    left: 0;
+    transform: translate(0);
     height: 100%;
   }
 }
@@ -105,19 +117,16 @@
   filter: brightness(0);
 }
 .info_image > img {
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
+  width: 250px;
+  height: 250px;
 
-  @media screen and (max-width: 767px) {
-    position: absolute;
-    top: 10px;
-    /* position: relative; */
-    /* top: 20px; */
-    width: 250px;
-    height: 250px;
+  @media screen and (min-width: 768px) {
+    width: 400px;
+    height: 400px;
+    object-fit: cover;
   }
 }
+
 .catch_button,
 .uncatch_button {
   position: absolute;
@@ -125,7 +134,7 @@
   bottom: 0;
   width: 30px;
   height: 30px;
-  margin: 0 0 10px 15px;
+  margin-bottom: 15px;
 }
 .catch_button img,
 .uncatch_button svg {
@@ -138,29 +147,30 @@
 .info_body {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
-  width: 50%;
+  width: 100%;
+  height: 100%;
   background-color: #fff;
   border-radius: 8px;
-  padding: 60px 30px 20px 30px;
+  padding: 60px 15px 15px 20px;
 
-  @media screen and (max-width: 767px) {
-    justify-content: space-between;
-    width: 352px;
+  @media screen and (min-width: 768px) {
+    /* justify-content: ; */
+    width: 50%;
     height: 100%;
-    padding: 60px 15px 15px 20px;
+    padding: 30px;
   }
 }
-.info_body .type_group {
+.type_group {
   display: flex;
 }
-.info_body .sub_title {
-  font-size: 14px;
+.sub_title {
+  font-size: 16px;
   font-weight: bold;
   line-height: 16px;
   color: #B8B8B8;
-  margin: 16px 0;
+  margin-bottom: 16px;
 }
 
 .attribute_list {
@@ -169,8 +179,8 @@
   height: 80px;
   margin-bottom: 16px;
 
-  @media screen and (max-width: 767px) {
-    height: 60px;
+  @media screen and (min-width: 767px) {
+    height: 100px;
   }
 }
 .attribute_item {
@@ -182,70 +192,114 @@
   border-right: 1px solid #e0e0e0;
 }
 .attribute_item > strong {
+  text-align: center;
   padding: 8px 0;
 }
 .attribute_item:last-child {
   border-right: 0;
 }
 
+.desc {
+  font-size: 14px;
+  text-align: center;
+}
+
 .stats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100%;
+  margin-bottom: 16px;
 }
 .stats_list {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: flex-start;
-}
-.stats_item {
-  display: flex;
-  justify-content: flex-start;
   align-items: center;
   width: 100%;
 
   @media screen and (min-width: 768px) {
+    display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
+    width: 100%;
   }
+}
+.stats_item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 5px;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+}
+.stats_item:last-child {
+  margin-bottom: 0;
 }
 .stats_item strong {
   display: inline-flex;
+  flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   flex-grow: 1;
   width: 100%;
-  font-size: 10px;
+  font-size: 14px;
   font-weight: bold;
   line-height: 16px;
   color: #B8B8B8;
-  max-width: 100px;
   white-space: nowrap;
   text-transform: uppercase;
-  text-align: left;
+  text-align: center;
+  margin-bottom: 2px;
 
   @media screen and (min-width: 768px) {
-    max-width: 120px;
+    flex-direction: row;
+    text-align: left;
+    max-width: 140px;
+    border-right: 1px solid #eee;
   }
 }
 .stats_item dt {
-  font-size: 10px;
+  font-size: 12px;
   line-height: 16px;
   color: #1d1d1d;
-  border-left: 1px solid #eee;
-  padding-left: 12px;
+
+  @media screen and (min-width: 768px) {
+    font-size: 10px;
+    line-height: 16px;
+    color: #1d1d1d;
+    /* border-left: 1px solid #eee; */
+    padding-left: 12px;
+  }
 }
 .stats_item dd {
   display: flex;
+  width: 100%;
   flex-grow: 0;
-  margin-left: 8px;
-}
-.stats_item .bar_graph {
-  width: 180px;
-  height: 4px;
-  background-color: #efefef;
+  margin-bottom: 0 !important;
 
   @media screen and (min-width: 768px) {
-    width: 300px;
+  }
+}
+.stats_item .bar_graph {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #efefef;
+  
+  @media screen and (min-width: 768px) {
+    max-width: 300px;
+    width: 100%;
     height: 6px;
+    margin-left: 10px;
+    border-radius: 4px;
+    overflow: hidden;
   }
 }
 .stats_item .bar_graph_active { 

@@ -2,56 +2,62 @@ import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
   MyPokeMons: [
-    {
-      data: {
-          name: "bulbasaur",
-          url: "https://pokeapi.co/api/v2/pokemon/1/"
-      },
-      Lv: 1,
-      Exp: 0,
-    },
-    {
-      data: {
-          name: "charmander",
-          url: "https://pokeapi.co/api/v2/pokemon/4/"
-      },
-      Lv: 1,
-      Exp: 0,
-    },
-    {
-      data: {
-          name: "squirtle",
-          url: "https://pokeapi.co/api/v2/pokemon/7/"
-      },
-      Lv: 1,
-      Exp: 0,
-    },
+    // {
+    //   data: {
+    //       name: "bulbasaur",
+    //       url: "https://pokeapi.co/api/v2/pokemon/1/"
+    //   },
+    //   Lv: 1,
+    //   Exp: 0,
+    // },
+    // {
+    //   data: {
+    //       name: "charmander",
+    //       url: "https://pokeapi.co/api/v2/pokemon/4/"
+    //   },
+    //   Lv: 1,
+    //   Exp: 0,
+    // },
+    // {
+    //   data: {
+    //       name: "squirtle",
+    //       url: "https://pokeapi.co/api/v2/pokemon/7/"
+    //   },
+    //   Lv: 1,
+    //   Exp: 0,
+    // },
   ],
   Ticket: 1,
   RareCandy: 10,
-  CatchPokemon: [
-    // {
-      // id: "",
-      // name: "",
-      // imgUrl: "",
-      // catching: false,
-    // },
-  ],
+  CatchPokemon: [],
 }
 
 const putCatchPokemonFn = (state, action) => { 
   const newItem = action.payload;
-  state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
-  state.CatchPokemon.push({
-    id: newItem.id,
-    name: newItem.name,
-    imgUrl: newItem.imgUrl,
-    catching: newItem.catching
+  // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+  // state.CatchPokemon.push({
+    // id: newItem.id,
+    // name: newItem.name,
+    // imgUrl: newItem.imgUrl,
+    // catching: newItem.catching
+    // });
+  state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
+  state.MyPokeMons.push({
+    data: {
+      id: newItem.id,
+      name: newItem.name,
+      url: `https://pokeapi.co/api/v2/pokemon/${newItem.id}/`,
+      imgUrl: newItem.imgUrl,
+      catching: newItem.catching,
+    },
+    Lv: 1,
+    Exp: 0,
   });
 }
 const deleteCatchPookemonFn = (state, action) => {
   const newItem = action.payload;
-  state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+  // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+  state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
 }
 
 const myInfoSlice = createSlice({
@@ -103,16 +109,16 @@ const myInfoSlice = createSlice({
       state.MyPokeMons[pokemonIndex].data.url = evolveUrl;
     }
   },
-  addPokemon: (state, action) => {
-    state.MyPokeMons.push({
-      data: {
-        name: action.payload.name,
-        url: `https://pokeapi.co/api/v2/pokemon/${action.payload.id}/`,
-      },
-      Lv: 1,
-      Exp: 0,
-    });
-  },
+  // addPokemon: (state, action) => {
+  //   state.MyPokeMons.push({
+  //     data: {
+  //       name: action.payload.name,
+  //       url: `https://pokeapi.co/api/v2/pokemon/${action.payload.id}/`,
+  //     },
+  //     Lv: 1,
+  //     Exp: 0,
+  //   });
+  // },
   putCatchPokemon: putCatchPokemonFn,
   deleteCatchPokemon: deleteCatchPookemonFn,
 },
