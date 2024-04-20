@@ -117,18 +117,31 @@
     font-size: 1rem;
 }
 
-.battle-modal-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
 .battle-run-btn:hover {
     text-decoration: underline;
     font-style: italic;
     font-weight: bold;
     color: #DC0A2D;
+}
+
+.battle-catch-btn {
+    background-color: transparent;
+    color: black;
+    font-size: 1rem;
+}
+
+.battle-catch-btn:hover {
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+    color: #DC0A2D;
+}
+
+.battle-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
 .battle-modal-ok-btn {
@@ -152,6 +165,16 @@
 .ReactModalPortal * {
     font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
     text-align: center;
+}
+
+.battlecard-choice-btn {
+    margin: 5px;
+    padding: 5px;
+}
+
+.battlecard-choice-btn:focus {
+    border: 2px solid #DC0A2D;
+    background-color: #EFEFEF;
 }
 
 @keyframes my-move {

@@ -22,6 +22,7 @@ const PokemonBattlePage = () => {
     const [resultText, setResultText] = useState("");       // 결과 텍스트
     const [isWin, setIsWin] = useState(false);
     const [clickedPokemon, setclickedPokemon] = useState(null);
+    const [visibleCatch, setvisibleCatch] = useState(true);     // 한 번 잡으면 안 보이게 하기 - 포획한다
     const dispatch = useDispatch();
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
 
@@ -123,6 +124,7 @@ const PokemonBattlePage = () => {
         setEnemyBattlePokemon(null);
         setIsAttack(false);
         setIsWin(false);
+        setvisibleCatch(true);
 
         getRandomEnemyPokemonData();
     }
@@ -134,6 +136,40 @@ const PokemonBattlePage = () => {
 
         // 모달 닫기
         closeModal2();
+    }
+
+    // 배틀에서 이기면 포켓몬 잡을 수 있게 함!
+    const catchPokemon = () => {
+        setvisibleCatch(false);
+
+        //console.log("enemyBattlePokemon", enemyBattlePokemon, enemyBattlePokemon.name, enemyBattlePokemon.id);
+        setResultText(enemyBattlePokemon?.korean_name + ", 너 내 동료가 돼라!");
+
+        if (enemyBattlePokemon) {
+            let isExist = false;
+
+            for (let i = 0; i < myPokemonList.length; i++) {
+                isExist = pokemonData.find((item) => item.name === enemyBattlePokemon.name)
+            }
+
+            if (isExist) {
+                setResultText("이미 잡은 포켓몬 입니다.");
+            }
+            else {
+                dispatch(
+                    myInfoActions.addPokemon({
+                        name: enemyBattlePokemon?.name,
+                        id: enemyBattlePokemon?.id,
+                    })
+                );
+            }
+
+
+
+
+        }
+
+
     }
 
     function openModal() {
@@ -160,7 +196,7 @@ const PokemonBattlePage = () => {
         navigate("/battle/run");
     }
 
-    // modal style
+    // modal style - 도망간다
     const customStyles = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -185,7 +221,7 @@ const PokemonBattlePage = () => {
         },
     }
 
-    // modal style
+    // modal style2 - 변경
     const customStyles2 = {
         overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
@@ -196,8 +232,8 @@ const PokemonBattlePage = () => {
             left: "0",
         },
         content: {
-            width: "400px",
-            height: "180px",
+            width: "600px",
+            height: "300px",
             position: "absolute",
             top: "50%",
             left: "50%",
@@ -228,9 +264,12 @@ const PokemonBattlePage = () => {
                 </div>
             </div>
             <div>
-                <button onClick={openModal2}>변경
-                    <img width={20} src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png"></img>
-                </button>
+                {myPokemonList.map((item) =>
+                    <button onClick={openModal2} className="battle-change-pokemon-btn">
+                        <img width={30} src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png"></img>
+                    </button>
+                )}
+
             </div>
 
             {
@@ -243,6 +282,11 @@ const PokemonBattlePage = () => {
                                         <div style={{ marginBottom: 10 }}>{resultText}</div>
                                         <div className='battle-btns'>
                                             <button className='battle-attack-btn' onClick={() => changeEnemyBattlePokemon()}>또 싸우러 가기.</button>
+                                            {visibleCatch ?
+                                                (<button className='battle-catch-btn' style={{ marginRight: 15 }} onClick={() => catchPokemon()}>포획한다.</button>)
+                                                :
+                                                (<></>)
+                                            }
                                             <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로</button>
                                         </div>
                                     </div>
@@ -308,15 +352,15 @@ const PokemonBattlePage = () => {
                     <h3 style={{ color: "#DC0A2D", marginTop: 30 }}>{myBattlePokemon?.korean_name}, 수고했어 들어와!</h3>
                     <div style={{ margin: 10 }}>
                         {myPokemonListData.map((item) =>
-                            <button onClick={() => setclickedPokemon(item)}>
+                            <button className="battlecard-choice-btn" onClick={() => setclickedPokemon(item)}>
                                 <PokemonBattleCard BattlePokemon={item} />
                             </button>
                         )}
 
                     </div>
                     <div className='battle-btns'>
-                        <button onClick={() => changeMyBattlePokemon(clickedPokemon)} className='battle-modal-cancel-btn'>변경한다.</button>
-                        <button onClick={closeModal2} className='battle-modal-cancel-btn'>그대로.</button>
+                        <button onClick={() => changeMyBattlePokemon(clickedPokemon)} className='battle-modal-cancel-btn'>가랏, {clickedPokemon?.korean_name}!</button>
+                        <button onClick={closeModal2} style={{ marginLeft: 15 }} className='battle-modal-cancel-btn'>그대로.</button>
                     </div>
 
                 </div>
