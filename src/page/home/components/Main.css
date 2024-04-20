@@ -3,11 +3,20 @@
   justify-content: center;
 }
 .main-genbtn{
+  font-size: 15px;
   width: 150px;
   margin: 20px 10px 10px 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+  transition: all 0.25s ease-in-out;
 }
 .main-genbtn:hover{
   color: white !important;
+  transform: scale(1.1);
+  opacity: 0.8;
 }
 .home-pokemon-container{
     margin-top: 10px;
@@ -145,36 +154,6 @@
     padding: 2px 0 2px 0;
     box-shadow: 0 1px 3px rgba(254, 245, 112, 0.12), 0 1px 2px rgba(255, 233, 33, 0.608);
   }
-  
-  .home-pagination {
-    margin: 20px 0;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .home-pagination-group {
-    margin-right: 10px;
-  }
-  
-  .home-pagination button {
-    background-color: #f0f0f0;
-    border: none;
-    color: #333;
-    padding: 8px 12px;
-    margin-right: 5px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .home-pagination button:hover {
-    background-color: #ccc;
-  }
-  
-  .home-pagination button.active {
-    font-weight: bold;
-    text-decoration: underline;
-  }
 
   .gmd-1 {
     -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
@@ -187,6 +166,7 @@
     -ms-transition: all 0.25s ease-in-out;
     -o-transition: all 0.25s ease-in-out;
     transition: all 0.25s ease-in-out;
+    opacity: 0.8;
   }
   
   .gmd-1:hover {
@@ -195,6 +175,8 @@
     -ms-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     -o-box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+    transform: scale(1.1);
+    opacity: 1;
   }
   
   .mobile-home{
