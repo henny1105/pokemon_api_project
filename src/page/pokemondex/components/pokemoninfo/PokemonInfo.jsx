@@ -19,6 +19,7 @@ const PokemonInfo = () => {
   const { data:evolution } = usePokemonEvolutionQuery();
 
   const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
+  console.log(pokemonCatched);
 
   const catchToggle = () => {
     setCatchPokemon(!catchPokemon);
@@ -27,6 +28,8 @@ const PokemonInfo = () => {
   const goTopokemonDex = () => {
     navigate('/pokemondex')
   }
+
+  console.log(pokemonCatched.find((item) => item.id === id));
   
   const translateType = (englishType) => {
     switch (englishType) {
@@ -97,7 +100,7 @@ const PokemonInfo = () => {
           </div>
           <div className={ styles.info_image }>
             {
-              Number(pokemonCatched[0]?.id) === data?.id
+              pokemonCatched.find((item) => item.id === id)
               ?
               <img src={ data?.sprites.other["official-artwork"].front_default } alt="" />
               :
@@ -105,7 +108,7 @@ const PokemonInfo = () => {
             }
           </div>
           {
-            Number(pokemonCatched[0]?.id) === data?.id
+            pokemonCatched.find((item) => item.id === id)
             ?
             <button type="button" className={ styles.catch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />

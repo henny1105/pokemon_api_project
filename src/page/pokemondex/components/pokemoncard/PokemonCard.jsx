@@ -42,6 +42,11 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
     // eslint-disable-next-line
   }, [clicked]);
 
+  const myPokemonListData = [];
+  for(let i = 0; i < pokemonCatched.length ; i++) {
+    myPokemonListData.push(pokemonData.find((item) => item?.id === Number(pokemonCatched[i]?.id)));
+  }
+
   const translateType = (englishType) => {
     switch (englishType) {
       case "normal":
@@ -110,10 +115,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
               ?
               <img src={ pokemon.image } alt="색X" value={pokemon.id} className={ styles.non_catch } />
               :
-              Number(pokemonCatched[0]?.id) === pokemon.id
-              // pokemonCatched?.map((item, i) => (
-              //   Number(item.id) === pokemon.id && item.catching
-              // ))
+              myPokemonListData.find((item) => item.id === pokemon.id)
               ?
               <img src={ pokemon.image } alt="색O" className={ styles.catch } />
               :
@@ -124,7 +126,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
             <span>{ pokemon.korean_name }</span>
             
             {
-              Number(pokemonCatched[0]?.id) === pokemon.id
+              myPokemonListData.find((item) => item.id === pokemon.id)
               ?
               <button type="button" className={ styles.catch_button } value={ pokemon?.id }  onClick={ (e) => outCatchPokemon(e) }>
                 <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
@@ -163,10 +165,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
                 ?
                 <img src={ pokemon.image } alt="색X" value={pokemon.id} className={ styles.non_catch } />
                 :
-                Number(pokemonCatched[0]?.id) === pokemon.id
-                // pokemonCatched?.map((item, i) => (
-                //   item.id === pokemon.id && item.catching
-                // ))
+                myPokemonListData.find((item) => item.id === pokemon.id)
                 ?
                 <img src={ pokemon.image } alt="색O" value={pokemon.id} className={ styles.catch } />
                 :
@@ -177,7 +176,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
               { pokemon.korean_name }
               
               {
-                Number(pokemonCatched[0]?.id) === pokemon.id
+                myPokemonListData.find((item) => item.id === pokemon.id)
                 ?
                 <button type="button" className={ styles.catch_button } value={ pokemon?.id }  onClick={ (e) => outCatchPokemon(e) }>
                   <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
@@ -214,10 +213,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
                 ?
                 <img src={ pokemon.image } alt="색X" value={pokemon.id} className={ styles.non_catch } />
                 :
-                Number(pokemonCatched[0]?.id) === pokemon.id
-                // pokemonCatched?.map((item, i) => (
-                //   item.id === pokemon.id && item.catching
-                // ))
+                myPokemonListData.find((item) => item.id === pokemon.id)
                 ?
                 <img src={ pokemon.image } alt="색O" value={pokemon.id} className={ styles.catch } />
                 :
@@ -228,7 +224,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
               { pokemon.korean_name }
               
               {
-                Number(pokemonCatched[0]?.id) === pokemon.id
+                myPokemonListData.find((item) => item.id === pokemon.id)
                 ?
                 <button type="button" className={ styles.catch_button } value={ pokemon?.id }  onClick={ (e) => outCatchPokemon(e) }>
                   <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
@@ -267,10 +263,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
                   ?
                   <img src={ pokemon.image } alt="색X" value={pokemon.id} className={ styles.non_catch } />
                   :
-                  Number(pokemonCatched[0]?.id) === pokemon.id
-                  // pokemonCatched?.map((item, i) => (
-                  //   item.id === pokemon.id && item.catching
-                  // ))
+                  myPokemonListData.find((item) => item.id === pokemon.id)
                   ?
                   <img src={ pokemon.image } alt="색O" value={pokemon.id} className={ styles.catch } />
                   :
@@ -281,7 +274,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
                 { pokemon.korean_name }
                 
                 {
-                  Number(pokemonCatched[0]?.id) === pokemon.id
+                  myPokemonListData.find((item) => item.id === pokemon.id)
                   ?
                   <button type="button" className={ styles.catch_button } value={ pokemon?.id }  onClick={ (e) => outCatchPokemon(e) }>
                     <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
