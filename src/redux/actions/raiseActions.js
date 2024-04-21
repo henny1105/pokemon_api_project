@@ -36,4 +36,16 @@ function cheats(){
   }
 }
 
-export { playPoke, levelUp, eat, evolve,levelUpCandy,cheats }
+function Ticket(){
+  return (dispatch, getstate) => {
+    dispatch(myInfoActions.Ticket())
+  }
+}
+
+function changeName(name){
+  return (dispatch, getstate) => {
+    dispatch(myInfoActions.changeName(name))
+  }
+}
+
+export { playPoke, levelUp, eat, evolve,levelUpCandy,cheats,Ticket,changeName }

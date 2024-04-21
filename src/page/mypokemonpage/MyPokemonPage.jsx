@@ -1,27 +1,80 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './MyPokemonPage.style.css'
-import { useDispatch,useSelector } from 'react-redux'
-import { Col, Row, Container,Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Col, Row, Container, Button } from 'react-bootstrap'
 import MyPokeCard from './component/mypokemcard/MyPokeCard'
-import { cheats } from '../../redux/actions/raiseActions';
+import { cheats, Ticket,changeName } from '../../redux/actions/raiseActions';
 import { useNavigate } from 'react-router-dom'
+import Modal from 'react-modal';
 
 const MyPokemonPage = () => {
   const myInfo = useSelector(state => state.myInfo)
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const moveRaisePage = (id) =>{
+  const [modalIsOpen, setIsOpen] = useState(false);
+  const [inputName, setInputName] = useState('');
+
+  const moveRaisePage = (id) => {
     navigate(`/mypokemon/${id}`)
   }
 
-  const reset = ()=>{
+  const reset = () => {
     localStorage.removeItem('persist:root');
     window.location.reload();
   }
 
-  const onCheat = ()=>{
+  const onCheat = () => {
     dispatch(cheats())
   }
+
+  const onTicket = () => {
+    dispatch(Ticket())
+  }
+
+  const handleInputChange = (event) => {
+    setInputName(event.target.value);
+  };
+
+  const onName = () => {
+    dispatch(changeName(inputName))
+    setInputName('')
+    setIsOpen(false);
+  }
+
+  const closeModal =()=>{
+    setInputName('')
+    setIsOpen(false);
+  }
+
+
+  const openModal=()=> {
+    setIsOpen(true);
+  }
+
+  const customStyles = {
+    overlay: {
+      backgroundColor: " rgba(0, 0, 0, 0.4)",
+      width: "100%",
+      height: "100vh",
+      position: "fixed",
+      top: "0",
+      left: "0",
+    },
+    content: {
+      width: "400px",
+      height: "180px",
+      position: "absolute",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+      borderRadius: "10px",
+      boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+      backgroundColor: "white",
+      justifyContent: "center",
+      overflow: "auto",
+    },
+  }
+
 
   return (
     <Container className='mb-1'>
@@ -34,11 +87,17 @@ const MyPokemonPage = () => {
 
           <img className='img-fluid' src="https://i.namu.wiki/i/dBxPv_wrni8hyvOBa9Ew-NtM6McepEFnB0phMKYX-RR4cY0epTURECZyYyCMTtAuoHKTGBc-pM2CgaXJcky1nQ.webp" alt="player" />
           <div className='w-100 body_1'>
-            <div>Name : <span>ddd</span></div>
+            <div>Name : <span>{myInfo.name}</span></div>
             <div>Ticket : <span>{myInfo.Ticket}</span></div>
             <div>RareCandy : <span>{myInfo.RareCandy}</span></div>
-            <Button onClick={reset} variant='outline-danger' size='sm' className='mt-1 me-1'>초기화</Button>
-            <Button onClick={onCheat} variant='outline-warning' size='sm' className='mt-1'>사탕 추가</Button>
+            <div className='mt-1'>
+              <Button onClick={openModal} variant='outline-danger' size='sm' className='w-100'>이름변경</Button>
+            </div>
+            <div className='mt-1'>
+              <Button onClick={reset} variant='outline-danger' size='sm' className='me-1'>초기화</Button>
+              <Button onClick={onCheat} variant='outline-warning' size='sm' className='me-1'>사탕 추가</Button>
+              <Button onClick={onTicket} variant='outline-warning' size='sm' >티켓 추가</Button>
+            </div>
           </div>
 
         </Col>
@@ -60,11 +119,30 @@ const MyPokemonPage = () => {
           </div>
 
           <Row>
-            {myInfo.MyPokeMons.map((pokemons,index)=><Col xs='auto' className='py-1' onClick={()=>moveRaisePage(pokemons.data.name)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
+            {myInfo.MyPokeMons.map((pokemons, index) => <Col xs='auto' className='py-1' onClick={() => moveRaisePage(pokemons.data.name)} ><MyPokeCard key={index} myPoke={pokemons} /></Col>)}
           </Row>
 
         </Col>
       </Row>
+
+      <Modal
+        isOpen={modalIsOpen}
+        style={customStyles}
+        onRequestClose={closeModal}
+        contentLabel="알림"
+        className="battle-modal"
+      >
+        <div className='d-flex justify-content-center h-100 align-items-center flex-column'>
+
+          <h24 className='my-2' style={{ color: "#DC0A2D" }}>변경할 이름을 입력해주세요</h24>
+          <input value={inputName} onChange={handleInputChange} className='sun-input-style2 my-2' type="text" />
+          <div className='battle-btns'>
+            <button onClick={onName} className='battle-modal-ok-btn' style={{ marginRight: 20 }}>확인</button>
+          </div>
+
+        </div>
+
+      </Modal>
     </Container>
   )
 }
