@@ -103,6 +103,10 @@ const myInfoSlice = createSlice({
             state.Ticket = state.Ticket + 1;
             console.log('now ticket : ', state.Ticket);
         },
+        addRareCandy: (state, action) => {
+            state.RareCandy = state.RareCandy + 1;
+            console.log('now RareCandy : ', state.RareCandy);
+        },
         evolve(state, action) {
             const { name, evolveName, evolveUrl } = action.payload;
             const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);

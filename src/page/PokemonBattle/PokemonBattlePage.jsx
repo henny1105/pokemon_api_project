@@ -27,6 +27,7 @@ const PokemonBattlePage = () => {
     const dispatch = useDispatch();
     const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트 가져오기
     const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
+    const candyNum = useSelector(state => state.myInfo.RareCandy);    // 내가 가진 이상한 사탕 수
     const navigate = useNavigate();
 
     const myPokemonListData = [];       // 내가 가진 포켓몬리스트인데 객체 data 저장
@@ -107,6 +108,7 @@ const PokemonBattlePage = () => {
             setIsWin(true);
             // 내가 승리하면 티켓 획득
             dispatch(myInfoActions.addTicket());
+            dispatch(myInfoActions.addRareCandy());
         }
         else {
             console.log("상대가 이김");
@@ -245,10 +247,17 @@ const PokemonBattlePage = () => {
         <div id="battle" className='battle-backgorund' style={{
             backgroundImage: "url(" + `https://podic.kr/images/misc/Natural_Green_Berry_Tree.png` + ")"
         }}>
-            <div className="battle-ticket">
-                <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png" />
-                {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
-                {ticketNum}</div>
+            <div className="battle-ticket-candy-container">
+                <div>
+                    <img style={{ width: 40, marginRight: 10 }} src="https://cdn-icons-png.flaticon.com/128/4533/4533935.png" />
+                    {/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
+                    {ticketNum}
+                </div>
+                <div style={{ marginLeft: 15 }}>
+                    <img style={{ width: 40, marginRight: 10 }} src="https://www.serebii.net/itemdex/sprites/sv/rarecandy.png" />
+                    {candyNum}
+                </div>
+            </div>
             <div className='battle-cards'>
                 {/* 포켓몬이 공격 중인 경우에는 애니메이션 수행 */}
                 <div className={isAttack ? 'battle-enemy-card-atk' : 'battle-enemy-card'}>
