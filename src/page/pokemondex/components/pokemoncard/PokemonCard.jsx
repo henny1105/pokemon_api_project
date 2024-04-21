@@ -46,7 +46,7 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
 
   const myPokemonListData = [];
   for(let i = 0; i < pokemonCatched.length ; i++) {
-    myPokemonListData.push(pokemonData.find((item) => item?.id === Number(pokemonCatched[i]?.data.id)));
+    myPokemonListData.push(pokemonData.find((item) => item?.id === Number(pokemonCatched[i]?.data?.id)));
   }
 
   const translateType = (englishType) => {
