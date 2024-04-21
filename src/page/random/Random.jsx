@@ -203,7 +203,7 @@ const Random = () => {
 					if (ticketNum > 0) {
 						newTexts[9] = `오늘 뽑을 수 있는 기회는 ${ticketNum}번 남아있어!`;
 					} else {
-						newTexts[9] = '아쉽지만 티켓을 다 썼단다! 내일 다시 찾아다오!';
+						newTexts[9] = '아쉽지만 티켓을 다 썼단다! 티켓을 얻어 다시 찾아다오! ';
 					}
 					return newTexts;
 				});
@@ -219,13 +219,23 @@ const Random = () => {
 	}, [currentTextIndex]);
 
 	const handleNextClick = () => {
-		const newIndex = (currentTextIndex + 1) % texts.length; // 다음 컨텐츠로 이동
-		setCurrentTextIndex(newIndex); // 컨텐츠 변경
-		setShowModal(newIndex === 4); // 4번째 컨텐츠에서 빵빠레 모션 보이기
+		let newIndex = (currentTextIndex + 1) % texts.length;
+
+		if (newIndex === 1 && ticketNum === 0) {
+			setTexts((prevTexts) => {
+				const newTexts = [...prevTexts];
+				newTexts[1] = '아쉽지만 티켓을 다 썼단다! 티켓을 얻어 다시 찾아다오! ';
+				return newTexts;
+			});
+		} else {
+		}
+
+		setCurrentTextIndex(newIndex);
+		setShowModal(newIndex === 4);
 	};
 
 	const handleGoBack = () => {
-		navigate('/'); //	메인으로 돌아가기
+		navigate('/battle'); //	배틀로 돌아가기
 	};
 
 	// 포켓몬 다시 뽑기
@@ -233,7 +243,6 @@ const Random = () => {
 		if (ticketNum > 0) {
 			selectRandomPokemon(); // 새로운 포켓몬 랜덤 선택
 			setCurrentTextIndex(3); // 랜덤 이미지 뽑기 화면으로 이동
-			dispatch(myInfoActions.removeTicket()); // Redux 액션을 통해 티켓 1개 차감
 		} else {
 			alert('티켓이 부족합니다!');
 		}
@@ -328,15 +337,22 @@ const Random = () => {
 										</div>
 									))}
 								</div>
-								{showButton && currentTextIndex !== 9 && (
+								{showButton && currentTextIndex !== 9 && !(currentTextIndex === 1 && ticketNum === 0) && (
 									<button type='button' className='next_btn ft' onClick={handleNextClick}>
 										{buttonText}
 									</button>
 								)}
+								{currentTextIndex === 1 && ticketNum === 0 && (
+									<div className='button_box'>
+										<button type='button' className='next_btn ft' onClick={handleGoBack}>
+											배틀로 티켓얻기
+										</button>
+									</div>
+								)}
 								{currentTextIndex === 9 && (
 									<div className='button_box'>
 										<button type='button' className='next_btn ft' onClick={handleGoBack}>
-											메인으로 돌아가기
+											배틀로 티켓얻기
 										</button>
 										{ticketNum > 0 && (
 											<button type='button' className='next_btn ft' onClick={handleReroll}>
