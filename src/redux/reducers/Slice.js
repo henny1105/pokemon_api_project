@@ -58,6 +58,7 @@ let initialState = {
 			},
 		},
 	],
+	name:"player"
 };
 
 const putCatchPokemonFn = (state, action) => {
@@ -130,7 +131,7 @@ const myInfoSlice = createSlice({
 			console.log('now ticket : ', state.Ticket);
 		},
 		removeTicket: (state) => {
-			if (state.Ticket > 1) {
+			if (state.Ticket > 0) {
 				state.Ticket -= 1;
 			}
 		},
@@ -161,6 +162,12 @@ const myInfoSlice = createSlice({
 		},
 		putCatchPokemon: putCatchPokemonFn,
 		deleteCatchPokemon: deleteCatchPookemonFn,
+		Ticket:(state,action)=>{
+			state.Ticket += 10;
+		},
+		changeName:(state,action)=>{
+			state.name = action.payload;
+		},
 	},
 });
 

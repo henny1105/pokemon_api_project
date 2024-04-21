@@ -94,18 +94,17 @@ const PokemonBattlePage = () => {
         }
         else if (myBattlePokemon.attack > enemyBattlePokemon.attack) {
             console.log("내가 이김");
-            setResultText("야호! 내가 배틀에서 승리했다!");
             setIsWin(true);
 
             // 내가 승리하면 랜덤으로 티켓 또는 사탕 획득
             let getRandom = Math.random();
             console.log("두구두구 랜덤 숫자 : ", getRandom);
             if (getRandom < 0.2){
-                alert("축하드립니다! 사탕을 얻었습니다.");
+                setResultText("야호! 내가 배틀에서 승리했다! [보상 : 이상한 사탕🍬]");
                 dispatch(myInfoActions.addRareCandy());
             }
             else{
-                alert("티켓을 얻었습니다.");
+                setResultText("야호! 내가 배틀에서 승리했다! [보상 : 티켓🎫]");
                 dispatch(myInfoActions.addTicket());
             }
 
