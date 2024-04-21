@@ -404,4 +404,8 @@
 		left: 50%;
 		transform: translateX(-50%); */
 	}
+	.random_page .battle-ticket-candy-container {
+		top: -9px;
+		font-size: 2rem;
+	}
 }
