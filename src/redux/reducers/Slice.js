@@ -69,8 +69,8 @@ const putCatchPokemonFn = (state, action) => {
 	// imgUrl: newItem.imgUrl,
 	// catching: newItem.catching
 	// });
-	state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
-	state.MyPokeMons.push({
+	state.CatchPokemon = state.CatchPokemon.filter((item) => item.data.id !== newItem.id);
+	state.CatchPokemon.push({
 		data: {
 			id: newItem.id,
 			name: newItem.name,
@@ -83,10 +83,10 @@ const putCatchPokemonFn = (state, action) => {
 	});
 };
 const deleteCatchPookemonFn = (state, action) => {
-	const newItem = action.payload;
-	// state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
-	state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
-};
+    const newItem = action.payload;
+    // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+    state.CatchPokemon = state.CatchPokemon.filter((item) => Number(item?.data?.id) !== Number(newItem.id));
+}
 
 const myInfoSlice = createSlice({
 	name: 'myInfo',
@@ -134,6 +134,10 @@ const myInfoSlice = createSlice({
 				state.Ticket -= 1;
 			}
 		},
+        addRareCandy: (state, action) => {
+            state.RareCandy = state.RareCandy + 1;
+            console.log('now RareCandy : ', state.RareCandy);
+        },
 		evolve(state, action) {
 			const { name, evolveName, evolveUrl } = action.payload;
 			const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);
