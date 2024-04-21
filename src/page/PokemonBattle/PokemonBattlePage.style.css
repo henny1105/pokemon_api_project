@@ -192,6 +192,11 @@
     background-color: #EFEFEF;
 }
 
+.battlecard-choice-btn:active {
+    border: 2px solid #DC0A2D;
+    background-color: #EFEFEF;
+}
+
 @keyframes my-move {
     0% {
         transform: translateX(100px)
@@ -310,6 +315,21 @@
 
     .battle-catch-btn {
         font-size: 1.2rem;
+    }
+
+    .battlecard-choice-btn {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .battlecard-choice-btn:focus {
+        border: 2px solid #DC0A2D;
+        background-color: #EFEFEF;
+    }
+
+    .battlecard-choice-btn:active {
+        border: 2px solid #DC0A2D;
+        background-color: #EFEFEF;
     }
 
 }
