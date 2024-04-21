@@ -208,6 +208,10 @@
 	text-align: center;
 	align-items: center;
 	gap: 24px;
+	position: relative !important;
+	top: auto !important;
+	left: auto !important;
+	transform: none !important;
 }
 .random_page .spec {
 	padding: 0;
@@ -246,10 +250,16 @@
 .dark_pokemon_img {
 	filter: grayscale(100%) brightness(0);
 }
-.random_page .battle-ticket {
+.random_page .battle-ticket-candy-container {
 	position: absolute;
-	top: 0;
+	top: -24px;
 	left: 0;
+	font-size: 2.5rem;
+	color: #fff;
+	margin: 0;
+}
+.random_page .battle-ticket-candy-container div {
+	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
 .random_page .button_box {
 	display: flex;
@@ -393,5 +403,9 @@
 		margin: 0 auto;
 		left: 50%;
 		transform: translateX(-50%); */
+	}
+	.random_page .battle-ticket-candy-container {
+		top: -9px;
+		font-size: 2rem;
 	}
 }
