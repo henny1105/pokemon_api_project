@@ -13,7 +13,7 @@ const RaisePage = () => {
 	const [artWork, setArtWork] = useState('')
 	const [pokeName, setPokeName] = useState('')
 	const [evolveId, setEvolveId] = useState('')
-	const [originName,setOriginName]= useState('')
+	const [originName, setOriginName] = useState('')
 	const { id } = useParams()
 	const { data } = usePokemonInfoQuery({ id })
 	const candy = useSelector(state => state.myInfo.RareCandy)
@@ -145,21 +145,18 @@ const RaisePage = () => {
 		setIsOpen(true);
 	}
 
-	// 도망칠 경우, run 페이지로 navigate
 	function battleRun() {
 		setIsOpen(false);
-
-		// 확인 버튼 누르면 도망 감
 		navigate(`/mypokemon/${evolveId}`);
 	}
 	return (
-		<Container  className='mb-1'>
+		<Container className='mb-1'>
 			<div className='py-3'>
 				<h1 className='headline'>포켓몬 성장</h1>
 			</div>
 
 			<Row>
-				<Col lg={6}>
+				<Col lg={6} className='py-1'>
 					<img className='img-fluid' src={artWork ? artWork : data?.sprites?.other["official-artwork"].front_default} alt='pokemon' />
 					<div>{pokeName}</div>
 					<div>{`LV.${raiseInfo.Lv}`}</div>
@@ -168,7 +165,7 @@ const RaisePage = () => {
 						<ProgressBar now={raiseInfo.Exp} max={maxExp} variant='warning' />
 					</div>
 				</Col>
-				<Col lg={6} className='d-flex flex-column'>
+				<Col lg={6} className='d-flex flex-column py-1'>
 					<Button onClick={clickRareCandy} variant='warning' className='mb-1'>
 						{`이상한 사탕 주기(LV 1+) 남은갯수:${candy}`}
 					</Button>

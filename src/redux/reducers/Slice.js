@@ -58,6 +58,7 @@ let initialState = {
 			},
 		},
 	],
+	name:"player"
 };
 
 const putCatchPokemonFn = (state, action) => {
@@ -161,6 +162,12 @@ const myInfoSlice = createSlice({
 		},
 		putCatchPokemon: putCatchPokemonFn,
 		deleteCatchPokemon: deleteCatchPookemonFn,
+		Ticket:(state,action)=>{
+			state.Ticket += 10;
+		},
+		changeName:(state,action)=>{
+			state.name = action.payload;
+		},
 	},
 });
 
