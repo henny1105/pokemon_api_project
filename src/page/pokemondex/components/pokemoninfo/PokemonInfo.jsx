@@ -17,7 +17,7 @@ const PokemonInfo = () => {
   const { data } = usePokemonInfoQuery({ id });
   const { data:species } = usePokemonSpeciesQuery({ id });
 
-  const pokemonCatched = useSelector( (state) => state.myInfo.MyPokeMons );
+  const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
 
   const catchToggle = () => {
     setCatchPokemon(!catchPokemon);
@@ -70,6 +70,8 @@ const PokemonInfo = () => {
     }
   };
 
+  console.log(pokemonCatched);
+
   return (
     <Container>
       <div className={ `${styles.info} ${data?.types[0].type.name}` }>
@@ -96,7 +98,8 @@ const PokemonInfo = () => {
           </div>
           <div className={ styles.info_image }>
             {
-              pokemonCatched.find((item) => item.data.id === id)
+              pokemonCatched?.find((item) => Number(item?.data?.id) === Number(data?.id) && item?.data?.catching)
+              // pokemonCatched?.find((item) => item?.data?.id === id && item?.data?.catching)
               ?
               <img src={ data?.sprites.other["official-artwork"].front_default } alt="" />
               :
@@ -104,8 +107,8 @@ const PokemonInfo = () => {
             }
           </div>
           {
-            pokemonCatched.find((item) => item.data.id === id)
-            ?
+              pokemonCatched?.find((item) => Number(item?.data?.id) === Number(data?.id) && item?.data?.catching)
+              ?
             <button type="button" className={ styles.catch_button } onClick={ () => catchToggle(!catchPokemon) }>
               <img src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png" alt="" />
             </button>
@@ -129,7 +132,7 @@ const PokemonInfo = () => {
           <strong className={ styles.sub_title }>About</strong>
           <ul className={ styles.attribute_list }>
             <li className={ styles.attribute_item }>
-              <strong className={ `${styles.body_3} black`}>{ data?.weight * 0.1 } kg</strong>
+              <strong className={ `${styles.body_3} black`}>{ (data?.weight * 0.1).toFixed(1) } kg</strong>
               <span className={ `${styles.body_caption} medium` }>weight</span>
             </li>
             <li className={ styles.attribute_item }>
@@ -141,12 +144,18 @@ const PokemonInfo = () => {
               <span className={ `${styles.body_caption} medium` }>Ability</span>
             </li>
           </ul>
-          { 
+          {
             species?.flavor_text_entries.map((item, index) => (
               item.language.name === "ko" && item.version.name === "lets-go-pikachu"
               ?
               <div key={ index }>
-                <p className={ `${styles.desc}` }>{ item.flavor_text }</p>
+                {
+                  pokemonCatched?.find((item) => Number(item?.data?.id) === Number(data?.id) && item?.data?.catching)
+                  ?
+                  <p className={ `${styles.desc}` }>{ item.flavor_text }</p>
+                  :
+                  <p className={ `${styles.desc}` }>???</p>
+                }
               </div>
               :
               null

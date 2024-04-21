@@ -5,13 +5,16 @@
 .navbar-link:hover {
   transform: scale(1.1);
   opacity: 1;
-  transition: all 0.25s ease-in-out;
-}
-.navbar-link:target{
-    text-decoration: underline;
-}
 
+}
 
 .navbar-box {
   border-top: 5px solid rgb(255, 225, 0);
+}
+
+@media screen and (max-width: 990px) {
+  .navbar-link:hover {
+    transform: scale(1.0);
+    text-decoration: underline;
+  }
 }
