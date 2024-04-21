@@ -69,8 +69,8 @@ const putCatchPokemonFn = (state, action) => {
 	// imgUrl: newItem.imgUrl,
 	// catching: newItem.catching
 	// });
-	state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
-	state.MyPokeMons.push({
+	state.CatchPokemon = state.CatchPokemon.filter((item) => item.data.id !== newItem.id);
+	state.CatchPokemon.push({
 		data: {
 			id: newItem.id,
 			name: newItem.name,
