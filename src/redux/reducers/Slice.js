@@ -83,10 +83,10 @@ const putCatchPokemonFn = (state, action) => {
 	});
 };
 const deleteCatchPookemonFn = (state, action) => {
-	const newItem = action.payload;
-	// state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
-	state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
-};
+    const newItem = action.payload;
+    // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+    state.CatchPokemon = state.CatchPokemon.filter((item) => Number(item?.data?.id) !== Number(newItem.id));
+}
 
 const myInfoSlice = createSlice({
 	name: 'myInfo',
