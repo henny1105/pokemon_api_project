@@ -13,8 +13,9 @@ import { useNavigate } from 'react-router-dom';
 const Random = () => {
 	const dispatch = useDispatch();
 	const myPokemons = useSelector((state) => state.myInfo.MyPokeMons);
-	const [selectedPokemon, setSelectedPokemon] = useState(null);
 	const ticketNum = useSelector((state) => state.myInfo.Ticket);
+	const candyNum = useSelector((state) => state.myInfo.RareCandy);
+	const [selectedPokemon, setSelectedPokemon] = useState(null);
 
 	const handleSelectPokemon = () => {
 		const isDuplicate = myPokemons.some((pokemon) => {
@@ -26,7 +27,8 @@ const Random = () => {
 
 		if (isDuplicate) {
 			setTimeout(() => {
-				alert('이미 내가 포획한 포켓몬입니다!');
+				alert('이미 내가 포획한 포켓몬입니다! 이상한 사탕 1개를 얻었습니다.');
+				dispatch(myInfoActions.addRandomCandy(1)); // 이상한 사탕 1개 추가
 			}, 1000);
 		} else {
 			dispatch(
@@ -247,10 +249,16 @@ const Random = () => {
 				<div className='inner'>
 					<div className={`top_cont ${showPokemon ? 'visible' : ''}`}>
 						<div className='pokemon_cont'>
-							<div className='battle-ticket'>
-								<img style={{ width: 40, marginRight: 10 }} src='https://cdn-icons-png.flaticon.com/128/4533/4533935.png' />
-								{/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
-								{ticketNum}
+							<div className='battle-ticket-candy-container'>
+								<div>
+									<img style={{ width: 40, marginRight: 10 }} src='https://cdn-icons-png.flaticon.com/128/4533/4533935.png' />
+									{/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
+									{ticketNum}
+								</div>
+								<div style={{ marginLeft: 15 }}>
+									<img style={{ width: 40, marginRight: 10 }} src='https://www.serebii.net/itemdex/sprites/sv/rarecandy.png' />
+									{candyNum}
+								</div>
 							</div>
 
 							{currentTextIndex === 3 && (

@@ -83,10 +83,10 @@ const putCatchPokemonFn = (state, action) => {
 	});
 };
 const deleteCatchPookemonFn = (state, action) => {
-    const newItem = action.payload;
-    // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
-    state.CatchPokemon = state.CatchPokemon.filter((item) => Number(item?.data?.id) !== Number(newItem.id));
-}
+	const newItem = action.payload;
+	// state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+	state.CatchPokemon = state.CatchPokemon.filter((item) => Number(item?.data?.id) !== Number(newItem.id));
+};
 
 const myInfoSlice = createSlice({
 	name: 'myInfo',
@@ -134,10 +134,13 @@ const myInfoSlice = createSlice({
 				state.Ticket -= 1;
 			}
 		},
-        addRareCandy: (state, action) => {
-            state.RareCandy = state.RareCandy + 1;
-            console.log('now RareCandy : ', state.RareCandy);
-        },
+		addRareCandy: (state, action) => {
+			state.RareCandy = state.RareCandy + 1;
+			console.log('now RareCandy : ', state.RareCandy);
+		},
+		addRandomCandy: (state, action) => {
+			state.RareCandy += action.payload;
+		},
 		evolve(state, action) {
 			const { name, evolveName, evolveUrl } = action.payload;
 			const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);
