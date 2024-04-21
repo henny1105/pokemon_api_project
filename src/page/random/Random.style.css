@@ -254,6 +254,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
 }
 .random_page .button_box {
 	display: flex;
