@@ -18,6 +18,8 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
     dispatch(myInfoActions.putCatchPokemon({ id: `${pokemonId}`, name: `${pokemonName}`, catching:true, imgUrl: `${pokemonImgUrl[pokemonId - 1]}` }));
   };
 
+  console.log(pokemonCatched);
+
   const outCatchPokemon = (e) => {
     e.stopPropagation();
     const pokemonId = e.currentTarget.value;
