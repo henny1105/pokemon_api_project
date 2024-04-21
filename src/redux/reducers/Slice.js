@@ -130,7 +130,7 @@ const myInfoSlice = createSlice({
 			console.log('now ticket : ', state.Ticket);
 		},
 		removeTicket: (state) => {
-			if (state.Ticket > 1) {
+			if (state.Ticket > 0) {
 				state.Ticket -= 1;
 			}
 		},
