@@ -78,8 +78,17 @@ const Random = () => {
 
 	const selectRandomPokemon = () => {
 		if (pokemonData && pokemonData.length > 0) {
-			const randomIndex = Math.floor(Math.random() * pokemonData.length);
-			setSelectedPokemon(pokemonData[randomIndex]);
+			const weights = pokemonData.map((pokemon) => (pokemon.id === 151 ? 1 : 2)); // 뮤가 뽑힐 확률을 낮춤
+			const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+			let random = Math.floor(Math.random() * totalWeight);
+
+			for (let i = 0; i < weights.length; i++) {
+				random -= weights[i];
+				if (random < 0) {
+					setSelectedPokemon(pokemonData[i]);
+					return;
+				}
+			}
 		}
 	};
 
