@@ -1,35 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
-    MyPokeMons: [
-        {
-            data: {
-                name: "bulbasaur",
-                url: "https://pokeapi.co/api/v2/pokemon/1/"
-            },
-            Lv: 1,
-            Exp: 0,
-        },
-        {
-            data: {
-                name: "charmander",
-                url: "https://pokeapi.co/api/v2/pokemon/4/"
-            },
-            Lv: 1,
-            Exp: 0,
-        },
-        {
-            data: {
-                name: "squirtle",
-                url: "https://pokeapi.co/api/v2/pokemon/7/"
-            },
-            Lv: 1,
-            Exp: 0,
-        },
+	MyPokeMons: [
+		{
+			data: {
+				name: "bulbasaur",
+				url: "https://pokeapi.co/api/v2/pokemon/1/"
+			},
+			Lv: 1,
+			Exp: 0,
+		},
+		{
+			data: {
+				name: "charmander",
+				url: "https://pokeapi.co/api/v2/pokemon/4/"
+			},
+			Lv: 1,
+			Exp: 0,
+		},
+		{
+			data: {
+				name: "squirtle",
+				url: "https://pokeapi.co/api/v2/pokemon/7/"
+			},
+			Lv: 1,
+			Exp: 0,
+		},
 
-    ],
-    Ticket: 1,
-    RareCandy: 10,
+	],
+	Ticket: 1,
+	RareCandy: 10,
 }
 
 const myInfoSlice = createSlice({
@@ -59,7 +59,7 @@ const myInfoSlice = createSlice({
 			const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);
 			if (pokemonIndex !== -1) {
 				state.MyPokeMons[pokemonIndex].Lv += 1;
-                state.MyPokeMons[pokemonIndex].Exp = 0;
+				state.MyPokeMons[pokemonIndex].Exp = 0;
 			}
 		},
 		eat(state, action) {
