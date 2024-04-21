@@ -4,11 +4,8 @@ let initialState = {
     MyPokeMons: [
         {
             data: {
-                id: 1,
                 name: "bulbasaur",
                 url: "https://pokeapi.co/api/v2/pokemon/1/",
-                imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
-                catching: true,
             },
             Lv: 1,
             Exp: 0,
@@ -16,11 +13,8 @@ let initialState = {
         },
         {
             data: {
-                id: 4,
                 name: "charmander",
                 url: "https://pokeapi.co/api/v2/pokemon/4/",
-                imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
-                catching: true,
             },
             Lv: 1,
             Exp: 0,
@@ -28,11 +22,8 @@ let initialState = {
         },
         {
             data: {
-                id: 7,
                 name: "squirtle",
                 url: "https://pokeapi.co/api/v2/pokemon/7/",
-                imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
-                catching: true,
             },
             Lv: 1,
             Exp: 0,
@@ -123,11 +114,8 @@ const myInfoSlice = createSlice({
         addPokemon: (state, action) => {
             state.MyPokeMons.push({
                 data: {
-                    id: action.payload.id,
                     name: action.payload.name,
                     url: `https://pokeapi.co/api/v2/pokemon/${action.payload.id}/`,
-                    imgUrl: action.payload.image,
-                    catching: true,
                 },
                 Lv: 1,
                 Exp: 0,

@@ -8,16 +8,16 @@ const translateType = (englishType) => {
   // 번역 함수는 그대로입니다.
 };
 
-
 function PokemonCard({ pokemon, koreanName, generation }) {
   const primaryType =
     pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
   const translatedType = translateType(primaryType);
   const navigate = useNavigate();
- 
+
   const navPokemonInfo = () => {
-    navigate("pokemondex/pokemoninfo/:id");
+    navigate(`/pokemondex/pokemoninfo/${pokemon.id}`);
   };
+
   return (
     <div className={`home-pokemon-card gmd-1 ${primaryType}`} onClick={navPokemonInfo}>
       <div className="home-pokemon-id">
