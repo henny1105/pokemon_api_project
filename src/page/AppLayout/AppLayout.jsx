@@ -4,6 +4,8 @@ import { Outlet, Link } from "react-router-dom";
 import "./AppLayout.style.css";
 import YouTube from "react-youtube";
 import Footer from "./footer/Footer";
+import FloatingCursor from "../random/components/FloatingCursor";
+
 
 const AppLayout = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -13,6 +15,8 @@ const AppLayout = () => {
   };
 
   return (
+    <>
+    <FloatingCursor imgSrc='/img/random/pokeball.svg' altText='Pokeball' />
     <Container>
       <Navbar expand="lg" className="bg-body-bg navbar-box">
         <Container fixed>
@@ -29,11 +33,11 @@ const AppLayout = () => {
               style={{ maxHeight: "200px" }}
               navbarScroll
             >
-              <Nav.Link href="/">Home</Nav.Link>
-              <Nav.Link href="/pokemondex">PokemonDex</Nav.Link>
-              <Nav.Link href="/random">Lucky Draw</Nav.Link>
-              <Nav.Link href="/battle">Battle</Nav.Link>
-              <Nav.Link href="/mypokemon">MyPokemon</Nav.Link>
+              <Nav.Link href="/" className="navbar-link">Home</Nav.Link>
+              <Nav.Link href="/pokemondex" className="navbar-link">PokemonDex</Nav.Link>
+              <Nav.Link href="/random" className="navbar-link">Lucky Draw</Nav.Link>
+              <Nav.Link href="/battle" className="navbar-link">Battle</Nav.Link>
+              <Nav.Link href="/mypokemon" className="navbar-link">MyPokemon</Nav.Link>
             </Nav>
             
           </Navbar.Collapse>
@@ -41,7 +45,7 @@ const AppLayout = () => {
       </Navbar>
       <Outlet />
       <Footer/>
-    </Container>
+    </Container></>
   );
 };
 

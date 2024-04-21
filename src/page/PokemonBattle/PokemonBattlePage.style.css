@@ -74,7 +74,6 @@
 }
 
 .battle-message-container {
-    height: 100px;
     margin-top: 10px;
     border: 1px solid black;
     background-color: white;
@@ -95,13 +94,18 @@
     text-align: center;
 }
 
+.battle-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .battle-attack-btn {
     background-color: transparent;
     color: black;
     font-size: 1rem;
-    margin-right: 20px;
-
-
+    margin: 5px;
 }
 
 .battle-attack-btn:hover {
@@ -115,13 +119,7 @@
     background-color: transparent;
     color: black;
     font-size: 1rem;
-}
-
-.battle-modal-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
+    margin: 5px;
 }
 
 .battle-run-btn:hover {
@@ -131,8 +129,37 @@
     color: #DC0A2D;
 }
 
+.battle-catch-btn {
+    background-color: transparent;
+    color: black;
+    font-size: 1rem;
+    margin: 5px;
+}
+
+.battle-catch-btn:hover {
+    text-decoration: underline;
+    font-style: italic;
+    font-weight: bold;
+    color: #DC0A2D;
+}
+
+.battle-modal-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.battle-modal-btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
 .battle-modal-ok-btn {
     font-size: 1rem;
+    margin: 5px;
 }
 
 .battle-modal-ok-btn:hover {
@@ -142,6 +169,7 @@
 
 .battle-modal-cancel-btn {
     font-size: 1rem;
+    margin: 5px;
 }
 
 .battle-modal-cancel-btn:hover {
@@ -152,6 +180,21 @@
 .ReactModalPortal * {
     font-family: 'Neo둥근모 Code', 'Neo둥근모Code', 'neodgm-code';
     text-align: center;
+}
+
+.battlecard-choice-btn {
+    margin: 5px;
+    padding: 5px;
+}
+
+.battlecard-choice-btn:focus {
+    border: 2px solid #DC0A2D;
+    background-color: #EFEFEF;
+}
+
+.battlecard-choice-btn:active {
+    border: 2px solid #DC0A2D;
+    background-color: #EFEFEF;
 }
 
 @keyframes my-move {
@@ -174,9 +217,29 @@
     }
 }
 
+@keyframes my-move-mobile {
+    0% {
+        transform: translateX(40px)
+    }
+
+    100% {
+        transform: translateX(-40px)
+    }
+}
+
+@keyframes enemy-move-mobile {
+    0% {
+        transform: translateX(-40px)
+    }
+
+    100% {
+        transform: translateX(40px)
+    }
+}
+
 @media only screen and (max-width: 768px) {
     .battle-backgorund {
-        height: 100vh;
+        height: 100%;
         background-repeat: no-repeat;
         background-position: right;
         background-size: cover;
@@ -193,6 +256,7 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
+        padding-top: 150px;
     }
 
     .battle-enemy-card {
@@ -201,10 +265,28 @@
         padding-right: 0px;
     }
 
+    .battle-enemy-card-atk {
+        display: flex;
+        justify-content: flex-end;
+        padding-right: 0px;
+        animation-name: enemy-move-mobile;
+        animation-duration: 1s;
+        animation-iteration-count: 10s;
+    }
+
     .battle-my-card {
         display: flex;
         justify-content: flex-start;
         padding-left: 0px;
+    }
+
+    .battle-my-card-atk {
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0px;
+        animation-name: my-move-mobile;
+        animation-duration: 1s;
+        animation-iteration-count: 10s;
     }
 
     .battle-message-container {
@@ -213,8 +295,14 @@
 
     .battle-message {
         text-align: center;
-        position: absolute;
-        bottom: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .battle-btns {
+        display: flex;
+        flex-direction: column;
     }
 
     .battle-attack-btn {
@@ -223,6 +311,25 @@
 
     .battle-run-btn {
         font-size: 1.2rem;
+    }
+
+    .battle-catch-btn {
+        font-size: 1.2rem;
+    }
+
+    .battlecard-choice-btn {
+        margin: 5px;
+        padding: 5px;
+    }
+
+    .battlecard-choice-btn:focus {
+        border: 2px solid #DC0A2D;
+        background-color: #EFEFEF;
+    }
+
+    .battlecard-choice-btn:active {
+        border: 2px solid #DC0A2D;
+        background-color: #EFEFEF;
     }
 
 }

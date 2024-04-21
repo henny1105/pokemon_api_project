@@ -2,19 +2,24 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "./Main.css";
 import { Button, Container } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const translateType = (englishType) => {
   // 번역 함수는 그대로입니다.
 };
 
 function PokemonCard({ pokemon, koreanName, generation }) {
-  // PokemonCard 컴포넌트를 정의합니다.
   const primaryType =
     pokemon.types.length > 0 ? pokemon.types[0].type.name : "";
   const translatedType = translateType(primaryType);
+  const navigate = useNavigate();
+
+  const navPokemonInfo = () => {
+    navigate(`/pokemondex/pokemoninfo/${pokemon.id}`);
+  };
 
   return (
-    <div className={`home-pokemon-card gmd-1 ${primaryType}`}>
+    <div className={`home-pokemon-card gmd-1 ${primaryType}`} onClick={navPokemonInfo}>
       <div className="home-pokemon-id">
         <div>
           <img
@@ -43,23 +48,59 @@ function PokemonCard({ pokemon, koreanName, generation }) {
 
 function Main() {
   const [pokemons, setPokemons] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [generationFilter, setGenerationFilter] = useState(""); // 세대 필터 추가
   const containerRef = useRef(null);
 
-  const fetchPokemonData = async () => {
+  useEffect(() => {
+    const fetchPokemonData = async () => {
+      setLoading(true);
+      try {
+        let apiUrl = "https://pokeapi.co/api/v2/pokemon?limit=251";
+        const response = await axios.get(apiUrl);
+        const results = response.data.results;
+
+        const pokemonDataPromises = results.map(async (pokemon) => {
+          const res = await axios.get(pokemon.url);
+          const speciesResponse = await axios.get(res.data.species.url);
+          const koreanName = speciesResponse.data.names.find(
+            (name) => name.language.name === "ko"
+          );
+          const generation = apiUrl === "https://pokeapi.co/api/v2/pokemon?limit=251" ? "전체" : "1세대";
+          return {
+            ...res.data,
+            koreanName: koreanName ? koreanName.name : res.data.name,
+            generation: generation,
+          };
+        });
+
+        const pokemonData = await Promise.all(pokemonDataPromises);
+        setPokemons(pokemonData);
+      } catch (error) {
+        console.error(
+          "포켓몬 데이터를 불러오는 중 오류가 발생했습니다:",
+          error
+        );
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPokemonData();
+  }, []);
+
+  const handleGenerationFilter = async (generation) => {
     setLoading(true);
     try {
-      const generationOffset = generationFilter === "1세대" ? 0 : 151;
-      const limit = generationFilter === "1세대" ? 151 : 100; // 각 세대별로 가져올 포켓몬 수 설정
+      let apiUrl = "https://pokeapi.co/api/v2/pokemon";
+      if (generation !== "전체") {
+        const generationOffset = generation === "1세대" ? 0 : 151;
+        const limit = generation === "1세대" ? 151 : 100;
+        apiUrl = `${apiUrl}?limit=${limit}&offset=${generationOffset}`;
+      } else {
+        apiUrl = `${apiUrl}?limit=251`;
+      }
 
-      const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${
-          (currentPage - 1) * 20 + generationOffset
-        }`
-      );
+      const response = await axios.get(apiUrl);
       const results = response.data.results;
 
       const pokemonDataPromises = results.map(async (pokemon) => {
@@ -68,7 +109,6 @@ function Main() {
         const koreanName = speciesResponse.data.names.find(
           (name) => name.language.name === "ko"
         );
-        const generation = generationFilter ? generationFilter : "전체"; // 세대 정보 추가
         return {
           ...res.data,
           koreanName: koreanName ? koreanName.name : res.data.name,
@@ -77,10 +117,7 @@ function Main() {
       });
 
       const pokemonData = await Promise.all(pokemonDataPromises);
-      setPokemons((prevPokemons) => [...prevPokemons, ...pokemonData]);
-
-      const totalPokemonCount = generationFilter === "1세대" ? 151 : 251; // 세대에 따른 포켓몬 총 수
-      setTotalPages(Math.ceil(totalPokemonCount / 20));
+      setPokemons(pokemonData);
     } catch (error) {
       console.error(
         "포켓몬 데이터를 불러오는 중 오류가 발생했습니다:",
@@ -91,35 +128,17 @@ function Main() {
     }
   };
 
-  useEffect(() => {
-    fetchPokemonData();
-  }, [currentPage, generationFilter]);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      // 스크롤 이벤트 핸들러는 그대로입니다.
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [loading, currentPage, generationFilter]);
-
-  const handleGenerationFilter = (generation) => {
-    setGenerationFilter(generation);
-    setPokemons([]); // 필터 변경 시 포켓몬 목록 초기화
-    setCurrentPage(1); // 페이지 초기화
-  };
-
   return (
     <Container>
       <div className="main-genbtn-area">
-        <Button variant="outline-warning" className="main-genbtn" onClick={() => handleGenerationFilter("1세대")}>1세대</Button>
-        <Button variant="outline-warning" className="main-genbtn" onClick={() => handleGenerationFilter("2세대")}>2세대</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("전체")}>전체 포켓몬</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("1세대")}>1세대</Button>
+        <Button variant="outline-warning" className="main-genbtn " onClick={() => handleGenerationFilter("2세대")}>2세대</Button>
       </div>
       <div className="home-pokemon-container" ref={containerRef}>
-        {pokemons.map((pokemon) => (
+        {pokemons.map((pokemon, index) => (
           <PokemonCard
-            key={pokemon.id}
+            key={index} // 인덱스를 키로 사용
             pokemon={pokemon}
             koreanName={pokemon.koreanName}
             generation={pokemon.generation}

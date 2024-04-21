@@ -5,31 +5,61 @@ let initialState = {
 		{
 			data: {
 				name: "bulbasaur",
-				url: "https://pokeapi.co/api/v2/pokemon/1/"
+				url: "https://pokeapi.co/api/v2/pokemon/1/",
 			},
 			Lv: 1,
 			Exp: 0,
+            
 		},
 		{
 			data: {
 				name: "charmander",
-				url: "https://pokeapi.co/api/v2/pokemon/4/"
+				url: "https://pokeapi.co/api/v2/pokemon/4/",
 			},
 			Lv: 1,
 			Exp: 0,
+            
 		},
 		{
 			data: {
 				name: "squirtle",
-				url: "https://pokeapi.co/api/v2/pokemon/7/"
+				url: "https://pokeapi.co/api/v2/pokemon/7/",
 			},
 			Lv: 1,
 			Exp: 0,
 		},
-
 	],
 	Ticket: 1,
 	RareCandy: 10,
+    CatchPokemon: [],
+}
+
+const putCatchPokemonFn = (state, action) => {
+    const newItem = action.payload;
+    // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+    // state.CatchPokemon.push({
+    // id: newItem.id,
+    // name: newItem.name,
+    // imgUrl: newItem.imgUrl,
+    // catching: newItem.catching
+    // });
+    state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
+    state.MyPokeMons.push({
+        data: {
+            id: newItem.id,
+            name: newItem.name,
+            url: `https://pokeapi.co/api/v2/pokemon/${newItem.id}/`,
+            imgUrl: newItem.imgUrl,
+            catching: newItem.catching,
+        },
+        Lv: 1,
+        Exp: 0,
+    });
+}
+const deleteCatchPookemonFn = (state, action) => {
+    const newItem = action.payload;
+    // state.CatchPokemon = state.CatchPokemon.filter((item) => item.id !== newItem.id);
+    state.MyPokeMons = state.MyPokeMons.filter((item) => item.data.id !== newItem.id);
 }
 
 const myInfoSlice = createSlice({
@@ -59,7 +89,7 @@ const myInfoSlice = createSlice({
 			const pokemonIndex = state.MyPokeMons.findIndex((pokemon) => pokemon.data.name === name || pokemon.data.name === evolveName);
 			if (pokemonIndex !== -1) {
 				state.MyPokeMons[pokemonIndex].Lv += 1;
-				state.MyPokeMons[pokemonIndex].Exp = 0;
+                state.MyPokeMons[pokemonIndex].Exp = 0;
 			}
 		},
 		eat(state, action) {
@@ -94,5 +124,5 @@ const myInfoSlice = createSlice({
 	},
 });
 
-export const myInfoActions = myInfoSlice.actions;
-export default myInfoSlice.reducer;
+export const myInfoActions = myInfoSlice.actions
+export default myInfoSlice.reducer
