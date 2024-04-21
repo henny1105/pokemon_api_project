@@ -55,10 +55,6 @@ const PokemonBattlePage = () => {
         console.log("Is attack? ", isAttack);   // 공격 확인
     }, [isAttack]);
 
-    useEffect(() => {
-        setIsAttack(false);     // 상대 포켓몬이 바뀌면 배틀 끝났으니 값 reset
-    }, [enemyBattlePokemon]);
-
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
     const getRandomEnemyPokemonData = () => {
         if (pokemonData) {
@@ -84,13 +80,7 @@ const PokemonBattlePage = () => {
 
     // 공격한다 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const attack = () => {
-        // 공격했으니까 isAttack 값 바꿔주기
-        if (isAttack) {
-            setIsAttack(false);
-        }
-        else {
-            setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
-        }
+        setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
 
         // 내 포켓몬과 상대 포켓몬 공격력 비교
         // console.log("내 포켓몬", myBattlePokemon);
@@ -106,9 +96,19 @@ const PokemonBattlePage = () => {
             console.log("내가 이김");
             setResultText("야호! 내가 배틀에서 승리했다!");
             setIsWin(true);
-            // 내가 승리하면 티켓 획득
-            dispatch(myInfoActions.addTicket());
-            dispatch(myInfoActions.addRareCandy());
+
+            // 내가 승리하면 랜덤으로 티켓 또는 사탕 획득
+            let getRandom = Math.random();
+            console.log("두구두구 랜덤 숫자 : ", getRandom);
+            if (getRandom < 0.2){
+                alert("축하드립니다! 사탕을 얻었습니다.");
+                dispatch(myInfoActions.addRareCandy());
+            }
+            else{
+                alert("티켓을 얻었습니다.");
+                dispatch(myInfoActions.addTicket());
+            }
+
         }
         else {
             console.log("상대가 이김");
@@ -116,6 +116,12 @@ const PokemonBattlePage = () => {
             setIsWin(false);
         }
 
+    }
+
+    // 배틀에서 지고 나서 다시 싸울 때
+    const attackAgain=()=>{
+        setIsAttack(false);
+        setIsWin(false);
     }
 
     // 배틀 이후에 또 배틀 할 경우 - "또 싸우러 가기"
@@ -303,7 +309,7 @@ const PokemonBattlePage = () => {
                                     <div className='battle-message'>
                                         <div style={{ marginBottom: 10 }}>{resultText}</div>
                                         <div className='battle-btns'>
-                                            <button className='battle-attack-btn' onClick={() => attack()}>다시 싸우기.</button>
+                                            <button className='battle-attack-btn' onClick={() => attackAgain()}>다시 싸우기.</button>
                                             <button className='battle-attack-btn' onClick={() => navigate("/random")}>포켓몬 뽑으러 가기.</button>
                                             <button className='battle-run-btn' onClick={() => navigate("/")}>홈으로.</button>
                                         </div>
