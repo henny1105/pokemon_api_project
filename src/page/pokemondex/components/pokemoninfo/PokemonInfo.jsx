@@ -17,7 +17,7 @@ const PokemonInfo = () => {
   const { data } = usePokemonInfoQuery({ id });
   const { data:species } = usePokemonSpeciesQuery({ id });
 
-  const pokemonCatched = useSelector( (state) => state.myInfo.MyPokeMons );
+  const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
 
   const catchToggle = () => {
     setCatchPokemon(!catchPokemon);

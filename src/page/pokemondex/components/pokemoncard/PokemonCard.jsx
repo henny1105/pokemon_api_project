@@ -7,12 +7,12 @@ const PokemonCard = ({ pokemonData, movePokemonInfo, filtered, search, clicked }
   const [typeFiltered, setTypeFiltered] = useState("");
 
   const dispatch = useDispatch();
-  const pokemonCatched = useSelector( (state) => state.myInfo.MyPokeMons );
-  // const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
+  // const pokemonCatched = useSelector( (state) => state.myInfo.MyPokeMons );
+  const pokemonCatched = useSelector( (state) => state.myInfo.CatchPokemon );
 
   const toCatchButton = (e) => {
     e.stopPropagation();
-    const pokemonName = e.currentTarget.parentNode.innerText;
+    const pokemonName = pokemonData?.map((pokemon) => pokemon?.name);
     const pokemonId = e.currentTarget.value;
     const pokemonImgUrl = pokemonData?.map((pokemon) => pokemon?.image);
     dispatch(myInfoActions.putCatchPokemon({ id: `${pokemonId}`, name: `${pokemonName}`, catching:true, imgUrl: `${pokemonImgUrl[pokemonId - 1]}` }));
