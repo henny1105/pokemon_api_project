@@ -145,11 +145,8 @@ const RaisePage = () => {
 		setIsOpen(true);
 	}
 
-	// 도망칠 경우, run 페이지로 navigate
 	function battleRun() {
 		setIsOpen(false);
-
-		// 확인 버튼 누르면 도망 감
 		navigate(`/mypokemon/${evolveId}`);
 	}
 	return (
