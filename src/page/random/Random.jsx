@@ -80,7 +80,15 @@ const Random = () => {
 
 	const selectRandomPokemon = () => {
 		if (pokemonData && pokemonData.length > 0) {
-			const weights = pokemonData.map((pokemon) => (pokemon.id === 151 ? 1 : 2)); // 뮤가 뽑힐 확률을 낮춤
+			// 가중치 설정: 뮤(ID 151)와 뮤츠(ID 150)는 가중치 1, 나머지는 2
+			const weights = pokemonData.map((pokemon) => {
+				if (pokemon.id === 150 || pokemon.id === 151) {
+					return 1; // 뮤츠와 뮤의 가중치를 낮춤
+				} else {
+					return 2; // 다른 포켓몬은 기본 가중치
+				}
+			});
+
 			const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
 			let random = Math.floor(Math.random() * totalWeight);
 
