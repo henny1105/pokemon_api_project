@@ -31,7 +31,35 @@ let initialState = {
     ],
     Ticket: 1,
     RareCandy: 10,
-    CatchPokemon: [],
+    CatchPokemon: [
+      {
+        data: {
+            id: 1,
+            name: "bulbasaur",
+            url: "https://pokeapi.co/api/v2/pokemon/1/",
+            imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png",
+            catching: true,
+        },
+      },
+      {
+        data: {
+            id: 4,
+            name: "charmander",
+            url: "https://pokeapi.co/api/v2/pokemon/4/",
+            imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/4.png",
+            catching: true,
+        },
+      },
+      {
+        data: {
+            id: 7,
+            name: "squirtle",
+            url: "https://pokeapi.co/api/v2/pokemon/7/",
+            imgUrl: "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/7.png",
+            catching: true,
+        },
+      },
+    ],
 }
 
 const putCatchPokemonFn = (state, action) => {
