@@ -12,17 +12,18 @@ import { useNavigate } from 'react-router-dom';
 
 const Random = () => {
 	const dispatch = useDispatch();
-  const myPokemons = useSelector(state => state.myInfo.MyPokeMons);
-  const [selectedPokemon, setSelectedPokemon] = useState(null);
+	const myPokemons = useSelector((state) => state.myInfo.MyPokeMons);
+	const [selectedPokemon, setSelectedPokemon] = useState(null);
+	const ticketNum = useSelector((state) => state.myInfo.Ticket);
 
 	const handleSelectPokemon = () => {
-		const isDuplicate = myPokemons.some(pokemon => {
+		const isDuplicate = myPokemons.some((pokemon) => {
 			const urlParts = pokemon.data.url.split('/');
 			const pokemonId = parseInt(urlParts[urlParts.length - 2], 10); // URL에서 추출된 ID를 숫자로 변환
 			const selectedId = parseInt(selectedPokemon.id, 10); // 선택된 포켓몬의 ID를 숫자로 변환
 			return pokemonId === selectedId; // 숫자 타입으로 통일하여 비교
 		});
-		
+
 		if (isDuplicate) {
 			setTimeout(() => {
 				alert('이미 내가 포획한 포켓몬입니다!');
@@ -36,7 +37,7 @@ const Random = () => {
 			);
 		}
 	};
-	
+
 	const { pokemonData, loading, error } = usePokemonData();
 	const { tickets, setTickets } = useTickets();
 	const [currentTextIndex, setCurrentTextIndex] = useState(0);
@@ -87,6 +88,7 @@ const Random = () => {
 			handleSelectPokemon();
 			// 모든 스탯 바를 0%로 초기화
 			setProgressWidths(Array(6).fill(0));
+			dispatch(myInfoActions.removeTicket());
 
 			setTimeout(() => {
 				// 실제 값으로 설정
@@ -97,7 +99,7 @@ const Random = () => {
 				setProgressWidths(newWidths);
 			}, 100); // 100ms 후에 실제 값으로 업데이트
 		}
-	}, [currentTextIndex, selectedPokemon]);
+	}, [currentTextIndex, selectedPokemon, dispatch]);
 
 	useEffect(() => {
 		let interval;
@@ -180,7 +182,7 @@ const Random = () => {
 				setTexts((prevTexts) => {
 					const newTexts = [...prevTexts];
 					if (tickets > 0) {
-						newTexts[9] = `오늘 뽑을 수 있는 기회는 ${tickets}번 남아있어!`;
+						newTexts[9] = `오늘 뽑을 수 있는 기회는 ${ticketNum}번 남아있어!`;
 					} else {
 						newTexts[9] = '아쉽지만 티켓을 다 썼단다! 내일 다시 찾아다오!';
 					}
@@ -217,7 +219,7 @@ const Random = () => {
 			alert('티켓이 부족합니다!');
 		}
 	};
-	
+
 	if (loading) {
 		return (
 			<div className='spinner-area' style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}>
@@ -238,8 +240,8 @@ const Random = () => {
 						<div className='pokemon_cont'>
 							<div className='battle-ticket'>
 								<img style={{ width: 40, marginRight: 10 }} src='https://cdn-icons-png.flaticon.com/128/4533/4533935.png' />
-								{/* <FontAwesomeIcon icon={faTicket} style={{ color: '#DC0A2D', marginRight: 10 }} /> */}
-								{tickets}
+								{/* <FontAwesomeIcon icon={faTicket} style={{ color: "#DC0A2D", marginRight: 10 }} /> */}
+								{ticketNum}
 							</div>
 
 							{currentTextIndex === 3 && (
