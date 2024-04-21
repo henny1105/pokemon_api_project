@@ -14,34 +14,35 @@ import { myInfoActions } from '../../redux/reducers/Slice';
 
 const PokemonBattlePage = () => {
     const { pokemonData, loading, error } = usePokemonData();   // Pokemon 데이터 불러오기
+    // modal - 도망간다 클릭시 나오는 주의 창, modal2 - 내 배틀 포켓몬 변경을 위한 모달
     const [modalIsOpen, setIsOpen] = useState(false);
     const [modalIsOpen2, setIsOpen2] = useState(false);
     const [myBattlePokemon, setMyBattlePokemon] = useState(null);     // 내가 선택한 배틀 포켓몬
     const [enemyBattlePokemon, setEnemyBattlePokemon] = useState(null);     // 랜덤 상대 배틀 포켓몬
-    const [isAttack, setIsAttack] = useState(false);        // 현재 공격중인지?
+    const [isAttack, setIsAttack] = useState(false);        // 현재 공격중인지? - 애니메이션을 위해 필요
     const [resultText, setResultText] = useState("");       // 결과 텍스트
-    const [isWin, setIsWin] = useState(false);
-    const [clickedPokemon, setclickedPokemon] = useState(null);
+    const [isWin, setIsWin] = useState(false);              // 배틀 결과
+    const [clickedPokemon, setclickedPokemon] = useState(null);     // modal2에서 내가 선택한 변경할 포켓몬 값
     const [visibleCatch, setvisibleCatch] = useState(true);     // 한 번 잡으면 안 보이게 하기 - 포획한다
     const dispatch = useDispatch();
-    const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트
+    const myPokemonList = useSelector(state => state.myInfo.MyPokeMons);    // 내가 가진 포켓몬리스트 가져오기
+    const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
+    const navigate = useNavigate();
 
-    const myPokemonListData = [];       // 내가 가진 포켓몬리스트인데 객체 담겨져 있음
+    const myPokemonListData = [];       // 내가 가진 포켓몬리스트인데 객체 data 저장
     for (let i = 0; i < myPokemonList.length; i++) {
+        // pokemonData에서 myPokemonList에 있는 이름이랑 같은 거 찾아서 넣기
         myPokemonListData.push(pokemonData.find((item) => item.name === myPokemonList[i].data.name))
     }
     // console.log("내 생각이 맞을까? ", myPokemonListData);
 
-    console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
-    const ticketNum = useSelector(state => state.myInfo.Ticket);    // 내가 가진 티켓 수
-    const navigate = useNavigate();
+    // console.log("내가 가진 포켓몬 리스트 ", myPokemonList);
 
     useEffect(() => {
-        getRandomEnemyPokemonData();
-        // 내 포켓몬 리스트의 첫(index:0번째 값을 처음 나오는 포켓몬으로!
-        console.log("내 포켓몬 1번째", myPokemonList[0].data.name);
-        // let myFirstBattlePokemon = pokemonData.find((item) => item.name === myPokemonList[0].data.name);
-        // console.log("내 포켓몬 1번째랑 이름 같은 거 찾기", myFirstBattlePokemon);
+        getRandomEnemyPokemonData();    // 랜덤한 적 포켓몬 불러오기
+
+        // 내 포켓몬 리스트의 첫(index:0)번째 값을 처음 나오는 포켓몬으로 지정
+        // console.log("내 포켓몬 1번째", myPokemonList[0].data.name);
         setMyBattlePokemon(myPokemonListData[0]);
         setclickedPokemon(myPokemonListData[0]);
 
@@ -50,16 +51,12 @@ const PokemonBattlePage = () => {
     }, [pokemonData]);
 
     useEffect(() => {
-        console.log("Is attack? ", isAttack);
-
+        console.log("Is attack? ", isAttack);   // 공격 확인
     }, [isAttack]);
 
     useEffect(() => {
-        setIsAttack(false);
+        setIsAttack(false);     // 상대 포켓몬이 바뀌면 배틀 끝났으니 값 reset
     }, [enemyBattlePokemon]);
-
-    useEffect(() => {
-    }, [modalIsOpen]);
 
     // 랜덤으로 포켓몬 데이터에서 하나 가져와서 적으로 지정
     const getRandomEnemyPokemonData = () => {
@@ -71,20 +68,22 @@ const PokemonBattlePage = () => {
         }
     }
 
-
+    // 로딩 스피너
     if (loading) {
         return (<div className="loader" style={{ margin: 10 }}>
-            <div>걸어가는 중...</div>
+            <div>배틀 하러 떠나는 중...</div>
             <BarLoader color="#DC0A2D" loading={loading} width={300} height={10} />
         </div>);
     }
 
+    // 에러 메세지
     if (error) {
         return (<div>ERROR : {error.message}</div>);
     }
 
-    // 공격 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
+    // 공격한다 버튼 클릭 시, 결과를 보여줌 -> 이기면 티켓 획득
     const attack = () => {
+        // 공격했으니까 isAttack 값 바꿔주기
         if (isAttack) {
             setIsAttack(false);
         }
@@ -92,11 +91,9 @@ const PokemonBattlePage = () => {
             setIsAttack(true);          // true일 경우 포켓몬 몸 흔들기
         }
 
-        // 피 깎이는 모션
-
         // 내 포켓몬과 상대 포켓몬 공격력 비교
-        console.log("내 포켓몬", myBattlePokemon);
-        console.log("나", myBattlePokemon.attack, "배틀", enemyBattlePokemon.attack);
+        // console.log("내 포켓몬", myBattlePokemon);
+        console.log("나 ", myBattlePokemon.attack, "/ 배틀 ", enemyBattlePokemon.attack);
 
         // 더 공격력 큰 포켓몬이 승리!
         if (myBattlePokemon.attack == enemyBattlePokemon.attack) {
@@ -119,17 +116,18 @@ const PokemonBattlePage = () => {
 
     }
 
-    // 배틀 이후에 또 배틀 할 경우
+    // 배틀 이후에 또 배틀 할 경우 - "또 싸우러 가기"
     const changeEnemyBattlePokemon = () => {
+        // 값 초기화
         setEnemyBattlePokemon(null);
         setIsAttack(false);
         setIsWin(false);
         setvisibleCatch(true);
 
-        getRandomEnemyPokemonData();
+        getRandomEnemyPokemonData();    // 랜덤 포켓몬 다시 불러오기
     }
 
-    // 내 배틀 포켓몬 변경
+    // 내 배틀 포켓몬 변경 - 선택한 포켓몬으로 변경한다
     const changeMyBattlePokemon = (choosePokemon) => {
         // 선택한 포켓몬으로 변경
         setMyBattlePokemon(choosePokemon);
@@ -140,22 +138,24 @@ const PokemonBattlePage = () => {
 
     // 배틀에서 이기면 포켓몬 잡을 수 있게 함!
     const catchPokemon = () => {
-        setvisibleCatch(false);
+        setvisibleCatch(false);     // 포확한다 버튼을 누르면 버튼이 안 보이게 함
 
         //console.log("enemyBattlePokemon", enemyBattlePokemon, enemyBattlePokemon.name, enemyBattlePokemon.id);
         setResultText(enemyBattlePokemon?.korean_name + ", 너 내 동료가 돼라!");
 
         if (enemyBattlePokemon) {
-            let isExist = false;
+            let isExist = false;        // 이미 잡은 포켓몬인지 확인
 
-            for (let i = 0; i < myPokemonList.length; i++) {
-                isExist = pokemonData.find((item) => item.name === enemyBattlePokemon.name)
+            // myPokemonListData에서 상대 포켓몬이 이미 있는지 중복 여부 확인
+            for (let i = 0; i < myPokemonListData.length; i++) {
+                isExist = myPokemonListData.find((item) => item.name === enemyBattlePokemon.name)
             }
 
             if (isExist) {
                 setResultText("이미 잡은 포켓몬 입니다.");
             }
             else {
+                // 없을 경우에만 추가
                 dispatch(
                     myInfoActions.addPokemon({
                         name: enemyBattlePokemon?.name,
@@ -163,15 +163,10 @@ const PokemonBattlePage = () => {
                     })
                 );
             }
-
-
-
-
         }
-
-
     }
 
+    // 모달 관리
     function openModal() {
         setIsOpen(true);
     }
@@ -232,8 +227,8 @@ const PokemonBattlePage = () => {
             left: "0",
         },
         content: {
-            width: "600px",
-            height: "300px",
+            width: "90%",
+            height: "400px",
             position: "absolute",
             top: "50%",
             left: "50%",
@@ -264,6 +259,7 @@ const PokemonBattlePage = () => {
                 </div>
             </div>
             <div>
+                {/* 가지고 있는 포켓몬 수만큼 포켓볼 보여줌 */}
                 {myPokemonList.map((item) =>
                     <button onClick={openModal2} className="battle-change-pokemon-btn">
                         <img width={30} src="https://png.pngtree.com/png-clipart/20230823/original/pngtree-pokemon-game-symbol-pikachu-play-picture-image_8234794.png"></img>
@@ -283,7 +279,7 @@ const PokemonBattlePage = () => {
                                         <div className='battle-btns'>
                                             <button className='battle-attack-btn' onClick={() => changeEnemyBattlePokemon()}>또 싸우러 가기.</button>
                                             {visibleCatch ?
-                                                (<button className='battle-catch-btn' style={{ marginRight: 15 }} onClick={() => catchPokemon()}>포획한다.</button>)
+                                                (<button className='battle-catch-btn' onClick={() => catchPokemon()}>포획한다.</button>)
                                                 :
                                                 (<></>)
                                             }
@@ -331,8 +327,8 @@ const PokemonBattlePage = () => {
 
                     <h2 style={{ color: "#DC0A2D", marginTop: 30 }}>주의</h2>
                     <p style={{ margin: 10 }}>도망칠 경우 배틀에서 "패배"로 인정되며 티켓을 획득하실 수 없습니다.</p>
-                    <div className='battle-btns'>
-                        <button onClick={battleRun} className='battle-modal-ok-btn' style={{ marginRight: 20 }}>확인</button>
+                    <div className='battle-modal-btns'>
+                        <button onClick={battleRun} className='battle-modal-ok-btn'>확인</button>
                         <button onClick={closeModal} className='battle-modal-cancel-btn'>취소</button>
                     </div>
 
@@ -358,9 +354,9 @@ const PokemonBattlePage = () => {
                         )}
 
                     </div>
-                    <div className='battle-btns'>
+                    <div className='battle-modal-btns'>
                         <button onClick={() => changeMyBattlePokemon(clickedPokemon)} className='battle-modal-cancel-btn'>가랏, {clickedPokemon?.korean_name}!</button>
-                        <button onClick={closeModal2} style={{ marginLeft: 15 }} className='battle-modal-cancel-btn'>그대로.</button>
+                        <button onClick={closeModal2} className='battle-modal-cancel-btn'>그대로.</button>
                     </div>
 
                 </div>

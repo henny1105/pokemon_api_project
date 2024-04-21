@@ -1,7 +1,17 @@
-.navbar-button:hover{
-    color: white !important;
+.navbar-link{
+    margin-right: 10px;
 }
 
-.navbar-box{
-    border-top: 5px solid rgb(255, 225, 0);
+.navbar-link:hover {
+  transform: scale(1.1);
+  opacity: 1;
+  transition: all 0.25s ease-in-out;
+}
+.navbar-link:target{
+    text-decoration: underline;
+}
+
+
+.navbar-box {
+  border-top: 5px solid rgb(255, 225, 0);
 }
