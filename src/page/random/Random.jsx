@@ -9,6 +9,7 @@ import './Random.style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { myInfoActions } from '../../redux/reducers/Slice';
 import { useNavigate } from 'react-router-dom';
+import PokemonInfo from './components/PokemonInfo';
 
 const Random = () => {
 	const dispatch = useDispatch();
@@ -283,45 +284,7 @@ const Random = () => {
 									<img src={`/img/random/pokemon${randomImgIndex.toString().padStart(2, '0')}.png`} alt='포켓몬 이미지' className='dark_pokemon_img' />
 								</div>
 							)}
-							<div className='random_pokemon_cont'>
-								{selectedPokemon && (
-									<>
-										<div className='img_box'>
-											<img src={selectedPokemon.image} alt={selectedPokemon.korean_name} />
-										</div>
-										<div className='txt_box'>
-											<p className={`type ${selectedPokemon ? `${selectedPokemon.type}` : ''}`}>
-												<span>{selectedPokemon.type}</span>
-											</p>
-											<p className='id'>No. {selectedPokemon.id}</p>
-											<p className='name'>{selectedPokemon.korean_name}</p>
-											<p className='height'>키 : {selectedPokemon.height}m</p>
-											<p className='weight'>몸무게 : {selectedPokemon.weight}kg</p>
-											<ul className='spec'>
-												{['HP', 'ATK', 'DEF', 'SATK', 'SDEF', 'SPD'].map((statLabel, index) => (
-													<li key={statLabel}>
-														<span className='stats'>{statLabel}</span>
-														<span className='stats_num'>{selectedPokemon ? selectedPokemon[statKeys[statLabel].toLowerCase()] : ''}</span>
-														<div className='progress'>
-															<div
-																className={`progress-bar progress-bar-striped progress-bar-animated ${selectedPokemon ? selectedPokemon.type : ''}`}
-																role='progressbar'
-																aria-valuenow={selectedPokemon[statLabel.toLowerCase()]}
-																aria-valuemin='0'
-																aria-valuemax='255'
-																style={{ width: `${progressWidths[index]}%`, transition: 'width 0.5s ease-in-out' }}
-															></div>
-														</div>
-													</li>
-												))}
-											</ul>
-
-											<p className='desc'>{selectedPokemon.korean_flavor_text}</p>
-											{/* <p>{selectedPokemon.abilities}</p> */}
-										</div>
-									</>
-								)}
-							</div>
+							<PokemonInfo pokemon={selectedPokemon} statKeys={statKeys} progressWidths={progressWidths} />
 						</div>
 					</div>
 					<div className='bottom_box'>
