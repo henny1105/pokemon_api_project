@@ -203,7 +203,7 @@ const Random = () => {
 					if (ticketNum > 0) {
 						newTexts[9] = `오늘 뽑을 수 있는 기회는 ${ticketNum}번 남아있어!`;
 					} else {
-						newTexts[9] = '아쉽지만 티켓을 다 썼단다! 티켓을 얻어 다시 찾아다오! ';
+						newTexts[9] = '아쉽지만 티켓을 다 썼단다!';
 					}
 					return newTexts;
 				});
@@ -224,7 +224,7 @@ const Random = () => {
 		if (newIndex === 1 && ticketNum === 0) {
 			setTexts((prevTexts) => {
 				const newTexts = [...prevTexts];
-				newTexts[1] = '아쉽지만 티켓을 다 썼단다! 티켓을 얻어 다시 찾아다오! ';
+				newTexts[1] = '아쉽지만 티켓을 다 썼단다! ';
 				return newTexts;
 			});
 		} else {
